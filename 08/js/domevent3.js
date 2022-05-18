@@ -1,4 +1,9 @@
 var pic = document.querySelector('#pic');
+
+// pic 변수에 지정된 요소에 마우스 커서를 올려 놓으면
+// changePic() 함수를 실행하도록 함
+// (이벤트 유형, 함수, 캡쳐 여부)
+
 pic.addEventListener("mouseover", changePic, false);  // mouseover 이벤트 발생하면 changePic 함수 실행
 pic.addEventListener("mouseover", changeStyle, false);// mouseover 이벤트 발생하면 changeStyle 함수 실행
 pic.addEventListener("mouseout", originPic, false); // mouseout 이벤트 발생하면 originPic 함수 실행
@@ -9,6 +14,7 @@ pic.addEventListener("mouseout", originStyle, false); // mouseout 이벤트 발�
 // pic.onmouseover = changeStyle;
 // pic.onmouseout = originPic;
 // pic.onmouseout = originStyle;
+
 
 function changePic() {			
   pic.src = "images/boy.png";
