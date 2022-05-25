@@ -27,7 +27,7 @@ class Input extends PureComponent {
     this.ref = ref;
   }
   render() {
-    const { errorMessage, label, name, value, type, onFocus } = this.props;
+    const { errorMessage, label, name, value, type, onFocus, checked, placeholder } = this.props;
     return (
       <label>
         {label}
@@ -38,6 +38,8 @@ class Input extends PureComponent {
           onFocus={onFocus}
           value={value}
           type={type}
+          checked={checked}
+          placeholder={placeholder}
         />
         {errorMessage && <span className="error">{errorMessage}</span>}
       </label>

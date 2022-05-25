@@ -9,6 +9,7 @@ class NewCounter extends React.Component {
 
   static getDerivedStateFromProps(props, state) {
     const { count } = props;
+    const newCount = 1000;
     return {
       // 프로퍼티에서 전달된 count값을 보관한다
       count,
