@@ -30,6 +30,89 @@ function Square(props) {
     );
 }
 
+const history = [
+    // 첫 동작이 발생하기 전
+    {
+        squares: [
+            null, null, null,
+            null, null, null,
+            null, null, null,
+        ]
+    },
+    // 첫 동작이 발생한 이후
+    {
+        squares: [
+            null, null, null,
+            null, null, null,
+            null, null, null,
+        ]
+    },
+    // 두 번째 동작이 발생한 이후
+    {
+        squares: [
+            null, null, null,
+            null, null, null,
+            null, null, null,
+        ]
+    },
+    //3
+    {
+        squares: [
+            null, null, null,
+            null, null, null,
+            null, null, null,
+        ]
+    },
+    //4
+    {
+        squares: [
+            null, null, null,
+            null, null, null,
+            null, null, null,
+        ]
+    },
+    //5
+    {
+        squares: [
+            null, null, null,
+            null, null, null,
+            null, null, null,
+        ]
+    },
+    //6
+    {
+        squares: [
+            null, null, null,
+            null, null, null,
+            null, null, null,
+        ]
+    },
+    //7
+    {
+        squares: [
+            null, null, null,
+            null, null, null,
+            null, null, null,
+        ]
+    },
+    //8
+    {
+        squares: [
+            null, null, null,
+            null, null, null,
+            null, null, null,
+        ]
+    },
+    //9
+    {
+        squares: [
+            null, null, null,
+            null, null, null,
+            null, null, null,
+        ]
+    },
+]
+
 class Board extends React.Component {
     constructor(props) {
         super(props);
@@ -38,6 +121,8 @@ class Board extends React.Component {
             squares: Array(9).fill(null),
             //squares: initialSquares,
             xIsNext: true,
+            history: history,
+            n: 0,
         };
     }
 
@@ -46,11 +131,18 @@ class Board extends React.Component {
         if (calculateWinner(squares) || squares[i]) {
             return;
         }
+
         squares[i] = this.state.xIsNext ? 'X' : 'O';
+        history[this.state.n].squares = squares.slice();
+
         this.setState({
             squares: squares,
+            history: history,
             xIsNext: !this.state.xIsNext,
+            n: this.state.n + 1,
         });
+
+        console.log(this.state.history);
     }
 
     renderSquare(i) {
