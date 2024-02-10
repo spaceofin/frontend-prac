@@ -1,0 +1,21 @@
+.square {
+    background: #c21919;
+    border: 1px solid #999;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 34px;
+    /* float: left; */
+    /* margin-right: -1px; */
+    /* margin-top: -1px; */
+    /* padding: 0; */
+    /* text-align: center; */
+    /* width: 34px; */
+    /* height: 34px; */
+}
+
+.squares {
+    display: grid;
+    grid-template-rows: repeat(3, 50px);
+    grid-template-columns: repeat(3, 50px);
+    grid-gap: 0;
+}
