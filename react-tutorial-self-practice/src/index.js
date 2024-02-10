@@ -6,7 +6,7 @@ class Square extends React.Component {
     render() {
         const a = "hi";
         return (
-            <button className="square">
+            <button className="square" >
                 {a}
             </button>
         );
@@ -14,10 +14,14 @@ class Square extends React.Component {
 }
 
 class Board extends React.Component {
+    handleClick() {
+        console.log('hi~');
+    }
+
     render() {
         const squares = [];
         for (let i = 0; i < 9; i++) {
-            squares.push(<Square />)
+            squares.push(<Square key={i} />)
         }
         return (
             <div className="squares">
