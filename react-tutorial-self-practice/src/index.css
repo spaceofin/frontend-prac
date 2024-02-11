@@ -1,14 +1,14 @@
 .square {
-    background: #c21919;
-    border: 1px solid #999;
+    background: #f5e691;
+    border: 2px solid #2e2e2e;
     font-size: 24px;
     font-weight: bold;
     line-height: 34px;
-    /* float: left; */
-    /* margin-right: -1px; */
-    /* margin-top: -1px; */
-    /* padding: 0; */
-    /* text-align: center; */
+    float: left;
+    margin-right: -1px;
+    margin-top: -1px;
+    padding: 0;
+    text-align: center;
     /* width: 34px; */
     /* height: 34px; */
 }
