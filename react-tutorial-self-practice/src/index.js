@@ -24,6 +24,10 @@ class Board extends React.Component {
     handleClick(i) {
         //console.log(this.state.isX ? 'X' : 'O');
         const squares = this.state.squares.slice();
+        if (calculateWinner(squares)) {
+            return;
+        }
+
         squares[i] = (this.state.isX ? 'X' : 'O');
         this.setState({
             isX: !this.state.isX,
@@ -33,6 +37,7 @@ class Board extends React.Component {
 
     render() {
         const squares = this.state.squares.slice();
+
         for (let i = 0; i < 9; i++) {
             squares[i] =
                 <Square
@@ -42,12 +47,42 @@ class Board extends React.Component {
                     onClick={() => this.handleClick(i)}
                 />
         }
+
+        const winner = calculateWinner(this.state.squares)
+        let status = null;
+        if (winner) {
+            status = "The Winner is " + winner;
+        }
+
         return (
-            <div className="squares">
-                {squares}
-            </div>
+            <div className="game-screen">
+                <div className="squares">
+                    {squares}
+                </div>
+                {status ? (
+                    <div>
+                        The Game is over. <br />
+                        {status}
+                    </div>
+                ) : null}
+            </div >
         )
     }
+}
+
+function calculateWinner(squares) {
+    const lines = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8], // row
+        [0, 3, 6], [1, 4, 7], [2, 5, 8], // column
+        [0, 4, 8], [2, 4, 6], // diagonal
+    ];
+
+    for (const [a, b, c] of lines) {
+        if (squares[a] && squares[a] === squares[b] && squares[b] === squares[c]) {
+            return squares[a];
+        }
+    }
+    return null;
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
