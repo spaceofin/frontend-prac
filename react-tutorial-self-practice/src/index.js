@@ -47,6 +47,7 @@ class Game extends React.Component {
             return;
         }
         currentSquares[i] = (this.state.xIsNext ? 'X' : 'O');
+
         this.setState({
             history: history.concat({
                 squares: currentSquares,
@@ -60,6 +61,7 @@ class Game extends React.Component {
         this.setState({
             stepNumber: step,
             xIsNext: (step % 2) === 0,
+            history: this.state.history.slice(0, step + 1),
         });
     }
 
@@ -67,6 +69,15 @@ class Game extends React.Component {
         const history = this.state.history.slice();
         const currentSquares = history[this.state.stepNumber].squares;
         const winner = calculateWinner(currentSquares)
+
+        const stepsButton = history.map((step, index) => {
+            const buttonText = index ? 'Go to step ' + index : 'Go to Game Start';
+            return (
+                <li key={index}>
+                    <button onClick={() => this.jumpTo(index)}>{buttonText}</button>
+                </li>
+            );
+        });
 
         let status = null;
         let words = null;
@@ -77,19 +88,6 @@ class Game extends React.Component {
             status = "Next Player is " + (this.state.xIsNext ? 'X' : 'O');
         }
 
-        // console.log(history);
-        // console.log(currentSquares);
-
-        const stepsButton = history.map((step, i) => {
-            const buttonText = i ? 'Go to step ' + i : 'Go to Game Start';
-            return (
-                <li key={i}>
-                    <button onClick={() => this.jumpTo(i)}>{buttonText}</button>
-                </li>
-            );
-
-        });
-
         return (
             <div className="game-screen">
                 <div>
@@ -99,7 +97,7 @@ class Game extends React.Component {
                     />
                 </div>
                 <div className="game-info">
-                    <div>
+                    <div className="game-step-buttons">
                         {stepsButton}
                     </div>
                     <div>
