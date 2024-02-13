@@ -12,30 +12,13 @@ class Square extends React.Component {
     }
 }
 
-// class Board extends React.Component {
-//     render() {
-//         const squares = Array(9).fill(null);
-//         for (let i = 0; i < 9; i++) {
-//             squares[i] =
-//                 <Square
-//                     value={this.props.squares[i]}
-//                     onClick={() => this.props.onClick(i)}
-//                 />
-//         }
-//         return (
-//             <div className="squares">
-//                 {squares}
-//             </div>
-//         )
-//     }
-// }
-
 class Board extends React.Component {
     render() {
         return (
             <div className="squares">
                 {this.props.squares.map((value, i) => (
                     <Square
+                        key={i}
                         value={value}
                         onClick={() => this.props.onClick(i)}
                     />
@@ -49,44 +32,81 @@ class Game extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            squares: Array(9).fill(null),
-            isX: true,
+            history: [{
+                squares: Array(9).fill(null),
+            }],
+            stepNumber: 0,
+            xIsNext: true,
         };
     }
 
     handleClick(i) {
-        const squares = this.state.squares.slice();
-        if (calculateWinner(squares)) {
+        const history = this.state.history.slice(0, this.state.stepNumber + 1);
+        const currentSquares = history[this.state.stepNumber].squares.slice();
+        if (calculateWinner(currentSquares)) {
             return;
         }
-        squares[i] = (this.state.isX ? 'X' : 'O');
+        currentSquares[i] = (this.state.xIsNext ? 'X' : 'O');
         this.setState({
-            isX: !this.state.isX,
-            squares: squares,
+            history: history.concat({
+                squares: currentSquares,
+            }),
+            stepNumber: this.state.stepNumber + 1,
+            xIsNext: !this.state.xIsNext,
+        });
+    }
 
-        })
+    jumpTo(step) {
+        this.setState({
+            stepNumber: step,
+            xIsNext: (step % 2) === 0,
+        });
     }
 
     render() {
-        const winner = calculateWinner(this.state.squares)
+        const history = this.state.history.slice();
+        const currentSquares = history[this.state.stepNumber].squares;
+        const winner = calculateWinner(currentSquares)
+
         let status = null;
+        let words = null;
         if (winner) {
+            words = "The Game is over";
             status = "The Winner is " + winner;
+        } else {
+            status = "Next Player is " + (this.state.xIsNext ? 'X' : 'O');
         }
+
+        // console.log(history);
+        // console.log(currentSquares);
+
+        const stepsButton = history.map((step, i) => {
+            const buttonText = i ? 'Go to step ' + i : 'Go to Game Start';
+            return (
+                <li key={i}>
+                    <button onClick={() => this.jumpTo(i)}>{buttonText}</button>
+                </li>
+            );
+
+        });
 
         return (
             <div className="game-screen">
-                <Board
-                    squares={this.state.squares}
-                    onClick={(i) => this.handleClick(i)}
-                />
                 <div>
-                    {status ? (
-                        <div>
-                            The Game is over. <br />
-                            {status}
-                        </div>
-                    ) : null}
+                    <Board
+                        squares={currentSquares}
+                        onClick={(i) => this.handleClick(i)}
+                    />
+                </div>
+                <div className="game-info">
+                    <div>
+                        {stepsButton}
+                    </div>
+                    <div>
+                        {words}
+                        {words ? <br /> : null}
+                        {status}
+                    </div>
                 </div>
             </div>
         )
