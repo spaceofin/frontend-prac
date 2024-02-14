@@ -1,10 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 const firstName = "A";
 const lastName = "B";
 
-ReactDOM.render(
+const App = (
     <div>
         <h1>{firstName + " " + lastName}'s Favoriate Foods</h1>
         {/* <h1>{firstName} {lastName}'s Favoriate Foods</h1> */}
@@ -15,6 +15,8 @@ ReactDOM.render(
             <li>Noodles</li>
         </ul>
         <p>Your lucky number is {Math.floor(Math.random() * 10)}</p>
-    </div>,
-    document.getElementById("root")
+    </div>
 );
+
+const root = createRoot(document.getElementById("root"));
+root.render(App);
