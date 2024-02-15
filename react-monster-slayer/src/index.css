@@ -58,7 +58,7 @@ button {
     font-size: 20px;
     border-radius: 10px;
     border-width: 5px;
-    border-style: groove;
+    /* border-style: inset; */
 }
 
 .status {
@@ -72,6 +72,8 @@ button {
     background-clip: text;
     color: transparent;
     filter: drop-shadow(2px 2px 0px #b700ff);
-    /* text-shadow: 0px 0px 1px rgba(81, 255, 0, 0.5); */
-    /* -webkit-text-stroke: 1px rgb(188, 44, 255); */
+}
+
+.battle-logs {
+    font-size: 15px;
 }
