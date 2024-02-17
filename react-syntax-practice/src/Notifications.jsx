@@ -1,6 +1,8 @@
 import React from "react";
 import NotificationItem from "./NotificationItem";
 
+let timerID;
+
 class Notifications extends React.Component {
     constructor(props) {
         super(props);
@@ -28,17 +30,31 @@ class Notifications extends React.Component {
         const { notifications } = this.state;
         // const notifications = this.state.notifications.slice();
 
-        const timerID = setInterval(() => {
+        timerID = setInterval(() => {
             if (notifications.length < times.length) {
                 notifications.push(times[notifications.length]);
+                this.setState({
+                    notifications: notifications,
+                });
             } else {
                 notifications.push({ key: -1, message: "끝났습니다~!!" });
+                this.setState({
+                    notifications: [],
+                });
                 clearInterval(timerID);
             }
-            this.setState({
-                notifications: notifications,
-            });
+
         }, 2000);
+
+        console.log("___NotificationsDidMount___");
+    }
+
+    componentDidUpdate() {
+        console.log("___NotificationsDidUpdate___");
+    }
+
+    componentWillUnmount() {
+        console.log("___NotificationsWillUnmount___");
     }
 
     render() {
@@ -48,6 +64,7 @@ class Notifications extends React.Component {
                     return (
                         < NotificationItem
                             key={notification.key}
+                            number={notification.key}
                             message={notification.message}
                         />
                     );
