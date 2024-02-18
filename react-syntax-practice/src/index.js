@@ -30,22 +30,80 @@ import './index.css';
 //     }
 // }
 
-function CountNumber(props) {
-    const [i, setI] = useState(0);
+// function CountNumber(props) {
+//     const [i, setI] = useState(0);
+
+//     useEffect(() => {
+//         document.title = `You cliked ${i} times`;
+//     });
+
+//     return (
+//         <div>
+//             <button onClick={() => setI(i + 1)}>
+//                 클릭하세요
+//             </button>
+//             <div>클릭 수: {i}</div>
+//         </div>
+//     );
+// }
+
+const OnlineAPI = {
+    subscribeUserStatus: (id, callback) => {
+        const isOnline = Math.random() < 0.5;
+        callback({ id, isOnline });
+    },
+    unsubscribeUserStatus: (id) => {
+        console.log(`Unsubscribed from user ${id}'s status`)
+    }
+}
+
+function UserStatus(props) {
+    const [isOnline, setIsOnline] = useState(null);
+
+    function handleStatusChange(status) {
+        setIsOnline(status.isOnline);
+    }
 
     useEffect(() => {
-        document.title = `You cliked ${i} times`;
+        OnlineAPI.subscribeUserStatus(props.user.id, handleStatusChange);
+        return () => {
+            OnlineAPI.unsubscribeUserStatus(props.user.id);
+        };
     });
 
+    if (isOnline === null) {
+        return 'Loading...';
+    }
+    return isOnline ? 'Online' : 'Offline';
+}
+
+function App() {
+    const users = [
+        {
+            id: 1,
+            userName: 'AAA',
+        },
+        {
+            id: 2,
+            userName: 'BBB',
+        },
+        {
+            id: 3,
+            userName: 'CCC',
+        }
+    ]
     return (
         <div>
-            <button onClick={() => setI(i + 1)}>
-                클릭하세요
-            </button>
-            <div>클릭 수: {i}</div>
+            {users.map(user => (
+                <div key={user.id}>
+                    <h2>User ID: {user.id}</h2>
+                    <p>User Name: {user.userName}</p>
+                    <UserStatus user={user} />
+                </div>
+            ))}
         </div>
-    );
+    )
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<CountNumber />);
+root.render(App());
