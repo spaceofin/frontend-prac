@@ -2,26 +2,45 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
-let renderCountA = 0;
-let renderCountB = 0;
+const OnlineAPI = {
+    subscribeUserStatus: (id, callback) => {
 
+        // setInterval function runs every 2 seconds
+        const intervalId = setInterval(() => {
+            const isOnline = Math.random() < 0.5;
+            callback({ id, isOnline });
+        }, 2000);
+
+        // setInterval function stops after 10s of time
+        setTimeout(() => {
+            clearInterval(intervalId);
+        }, 10000);
+    },
+    unsubscribeUserStatus: (id) => {
+        console.log(`Unsubscribed from user ${id}'s status`);
+    }
+}
+
+// Whenever the isOnline variable is different from the previous state, the UserStatus component is rendered
 function UserStatus(props) {
     const [isOnline, setIsOnline] = useState(null);
+    // let prevIsOnline = null;
+
+    function handleStatusChange(status) {
+        // console.log(`id: ${props.user.id}, prevStatus: ${prevIsOnline}, curStatus: ${status.isOnline}`);
+        // prevIsOnline = status.isOnline
+        setIsOnline(status.isOnline);
+    }
+
+    // console.log(`userID ${props.user.id} component rendered`);
 
     useEffect(() => {
-        console.log(`A: ${++renderCountA}`);
-        console.log(`userID ${props.user.id} component rendered`);
+        console.log(`userID ${props.user.id} useEffect`);
+        OnlineAPI.subscribeUserStatus(props.user.id, handleStatusChange);
         return () => {
-            console.log(`___userID ${props.user.id} component unmounted___`);
-        }
-
-    })
-
-    useEffect(() => {
-        console.log(`B: ${++renderCountB}`);
-        setIsOnline(false);
-        console.log(`userID ${props.user.id}'s isOnline status: ${isOnline}`);
-    })
+            OnlineAPI.unsubscribeUserStatus(props.user.id);
+        };
+    }, [props.user.id]);
 
     if (isOnline === null) {
         return 'Loading...';
@@ -30,6 +49,8 @@ function UserStatus(props) {
 }
 
 function App() {
+    const [showUserStatus, setShowUserStatus] = useState(true);
+
     const users = [
         {
             id: 1,
@@ -44,18 +65,22 @@ function App() {
             userName: 'CCC',
         }
     ]
+
     return (
         <div>
             {users.map(user => (
                 <div key={user.id}>
                     <h2>User ID: {user.id}</h2>
                     <p>User Name: {user.userName}</p>
-                    <UserStatus user={user} />
+                    {showUserStatus && <UserStatus user={user} />}
                 </div>
             ))}
-        </div>
+            <br />
+            {/* button for unmounting the userStatus component. */}
+            <button onClick={() => setShowUserStatus(false)}>Hide User Status</button>
+        </div >
     )
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(App());
+root.render(<App />);
