@@ -2,74 +2,26 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
-// class CountNumber extends React.Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             i: 0
-//         }
-//     }
-
-//     componentDidMount() {
-//         document.title = `You clicked ${this.state.i} times`;
-//     }
-//     componentDidUpdate() {
-//         document.title = `You clicked ${this.state.i} times`;
-//     }
-//     render() {
-//         return (
-//             <div>
-//                 <button onClick={() => this.setState({
-//                     i: this.state.i + 1
-//                 })}>
-//                     클릭하세요
-//                 </button>
-//                 <div>클릭 수: {this.state.i}</div>
-//             </div >
-//         );
-//     }
-// }
-
-// function CountNumber(props) {
-//     const [i, setI] = useState(0);
-
-//     useEffect(() => {
-//         document.title = `You cliked ${i} times`;
-//     });
-
-//     return (
-//         <div>
-//             <button onClick={() => setI(i + 1)}>
-//                 클릭하세요
-//             </button>
-//             <div>클릭 수: {i}</div>
-//         </div>
-//     );
-// }
-
-const OnlineAPI = {
-    subscribeUserStatus: (id, callback) => {
-        const isOnline = Math.random() < 0.5;
-        callback({ id, isOnline });
-    },
-    unsubscribeUserStatus: (id) => {
-        console.log(`Unsubscribed from user ${id}'s status`)
-    }
-}
+let renderCountA = 0;
+let renderCountB = 0;
 
 function UserStatus(props) {
     const [isOnline, setIsOnline] = useState(null);
 
-    function handleStatusChange(status) {
-        setIsOnline(status.isOnline);
-    }
+    useEffect(() => {
+        console.log(`A: ${++renderCountA}`);
+        console.log(`userID ${props.user.id} component rendered`);
+        return () => {
+            console.log(`___userID ${props.user.id} component unmounted___`);
+        }
+
+    })
 
     useEffect(() => {
-        OnlineAPI.subscribeUserStatus(props.user.id, handleStatusChange);
-        return () => {
-            OnlineAPI.unsubscribeUserStatus(props.user.id);
-        };
-    });
+        console.log(`B: ${++renderCountB}`);
+        setIsOnline(false);
+        console.log(`userID ${props.user.id}'s isOnline status: ${isOnline}`);
+    })
 
     if (isOnline === null) {
         return 'Loading...';
