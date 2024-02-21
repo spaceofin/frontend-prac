@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
@@ -18,23 +18,28 @@ function NumberSum(props) {
         return numArr.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
     }, [numArr]);
 
+    // add inputValue to numArr if it is less than 10
+    const addNumToArr = useCallback((inputValue) => {
 
-    const addNumToArr = (inputValue) => {
-        if (inputValue === null) {
-            inputValue = prevValue;
-        }
         console.log(`inputValue: ${inputValue}`);
         setPrevValue(inputValue);
 
         if (inputValue >= 10) {
             return;
         }
-        const parsedValue = parseInt(inputValue);
-        if (!isNaN(parsedValue)) {
-            setNumArr([...numArr, parsedValue]);
-            // console.log(`inputValue: ${inputValue}`);
-            // console.log(`numArr: [ ${numArr.join(' ')} ${parsedValue} ]`);
+
+        setNumArr((arr) => [...arr, inputValue]);
+        // setNumArr([...numArr, parsedValue]);
+        // console.log(`inputValue: ${inputValue}`);
+        // console.log(`numArr: [ ${numArr.join(' ')} ${parsedValue} ]`);
+
+    }, []);
+
+    const handleButtonClick = (inputValue) => {
+        if (inputValue === null) {
+            inputValue = prevValue;
         }
+        addNumToArr(parseInt(inputValue));
     }
 
     let enteredValue = null;
@@ -45,7 +50,7 @@ function NumberSum(props) {
             <p>Sum of array : {arrSum}</p>
             <p>Previous input value : {prevValue}</p>
             <input onChange={(e) => { enteredValue = e.target.value; }} />
-            <button onClick={() => { addNumToArr(enteredValue) }}>Enter</button>
+            <button onClick={() => { handleButtonClick(enteredValue) }}>Enter</button>
         </div>
     )
 }
