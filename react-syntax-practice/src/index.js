@@ -22,7 +22,8 @@ const OnlineAPI = {
 }
 
 // Whenever the isOnline variable is different from the previous state, the UserStatus component is rendered
-function useUserStatus(userId) {
+function useUserStatus(userId, componentName) {
+    console.log(`${componentName} calls useUserStatus, Id: ${userId}`);
     const [isOnline, setIsOnline] = useState(null);
 
     function handleStatusChange(status) {
@@ -41,7 +42,7 @@ function useUserStatus(userId) {
 }
 
 function UserStatus(props) {
-    const isOnline = useUserStatus(props.user.id);
+    const isOnline = useUserStatus(props.user.id, 'UserStatus');
 
     if (isOnline === null) {
         return 'Loading...';
@@ -50,7 +51,7 @@ function UserStatus(props) {
 }
 
 function HighlightedUserName(props) {
-    const isOnline = useUserStatus(props.user.id);
+    const isOnline = useUserStatus(props.user.id, 'HighlightedUserName');
 
     return (
         <span style={{
