@@ -1,67 +1,99 @@
-import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
+const OnlineAPI = {
+    subscribeUserStatus: (id, callback) => {
 
-function NumberSum(props) {
-    const [numArr, setNumArr] = useState(props.numArr);
-    // const [prevValue, setPrevValue] = useState(null);
-    const prevValue = useRef()
+        // setInterval function runs every 2 seconds
+        const intervalId = setInterval(() => {
+            const isOnline = Math.random() < 0.5;
+            callback({ id, isOnline });
+        }, 2000);
 
-    // const [arrSum, setArrSum] = useState(null);
-    // useEffect(() => {
-    //     console.log("useEffect hook runs");
-    //     setArrSum(numArr.reduce((accumulator, currentValue) => accumulator + currentValue, 0));
-    // }, [numArr]);
+        // setInterval function stops after 10s of time
+        setTimeout(() => {
+            clearInterval(intervalId);
+        }, 10000);
+    },
+    unsubscribeUserStatus: (id) => {
+        console.log(`Unsubscribed from user ${id}'s status`);
+    }
+}
 
-    const arrSum = useMemo(() => {
-        console.log("useMemo hook runs");
-        return numArr.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-    }, [numArr]);
+// Whenever the isOnline variable is different from the previous state, the UserStatus component is rendered
+function useUserStatus(userId) {
+    const [isOnline, setIsOnline] = useState(null);
 
-    // add inputValue to numArr if it is less than 10
-    const addNumToArr = useCallback((inputValue) => {
-
-        console.log(`inputValue: ${inputValue}`);
-        // setPrevValue(inputValue);
-        prevValue.current = inputValue;
-
-        if (inputValue >= 10) {
-            return;
-        }
-
-        setNumArr((arr) => [...arr, inputValue]);
-        // setNumArr([...numArr, parsedValue]);
-        // console.log(`inputValue: ${inputValue}`);
-        // console.log(`numArr: [ ${numArr.join(' ')} ${parsedValue} ]`);
-
-    }, []);
-
-    const handleButtonClick = (inputValue) => {
-        if (inputValue === null) {
-            inputValue = prevValue.current;
-        }
-        addNumToArr(parseInt(inputValue));
+    function handleStatusChange(status) {
+        setIsOnline(status.isOnline);
     }
 
-    let enteredValue = null;
+    useEffect(() => {
+        console.log(`userID ${userId} useEffect`);
+        OnlineAPI.subscribeUserStatus(userId, handleStatusChange);
+        return () => {
+            OnlineAPI.unsubscribeUserStatus(userId);
+        };
+    }, [userId]);
+
+    return isOnline;
+}
+
+function UserStatus(props) {
+    const isOnline = useUserStatus(props.user.id);
+
+    if (isOnline === null) {
+        return 'Loading...';
+    }
+    return isOnline ? 'Online' : 'Offline';
+}
+
+function HighlightedUserName(props) {
+    const isOnline = useUserStatus(props.user.id);
 
     return (
-        <div>
-            <p>Number array : [ {numArr.map(num => num + ' ')} ] </p>
-            <p>Sum of array : {arrSum}</p>
-            <p>Previous input value : {prevValue.current}</p>
-            <input onChange={(e) => { enteredValue = e.target.value; }} />
-            <button onClick={() => { handleButtonClick(enteredValue) }}>Enter</button>
-        </div>
+        <span style={{
+            fontWeight: isOnline ? 'bold' : 'normal',
+            color: isOnline ? 'green' : 'black'
+        }}>
+            {props.user.userName}
+        </span>
     )
 }
 
-const App = () => {
-    const numArr = [1, 2, 3];
+function App() {
+    const [showUserStatus, setShowUserStatus] = useState(true);
+
+    const users = [
+        {
+            id: 1,
+            userName: 'AAA',
+        },
+        {
+            id: 2,
+            userName: 'BBB',
+        },
+        {
+            id: 3,
+            userName: 'CCC',
+        }
+    ]
 
     return (
-        <NumberSum numArr={numArr} />
+        <div>
+            {users.map(user => (
+                <div key={user.id}>
+                    <h2>User ID: {user.id}</h2>
+                    <p>User Name: <HighlightedUserName user={user} /></p>
+                    {showUserStatus && <UserStatus user={user} />}
+
+                </div>
+            ))}
+            <br />
+            {/* button for unmounting the userStatus component. */}
+            <button onClick={() => setShowUserStatus(false)}>Hide User Status</button>
+        </div >
     )
 }
 
