@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext, useContext } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
 const OnlineAPI = {
     subscribeUserStatus: (id, callback) => {
-
         // setInterval function runs every 2 seconds
         const intervalId = setInterval(() => {
             const isOnline = Math.random() < 0.5;
@@ -22,8 +21,8 @@ const OnlineAPI = {
 }
 
 // Whenever the isOnline variable is different from the previous state, the UserStatus component is rendered
-function useUserStatus(userId, componentName) {
-    console.log(`${componentName} calls useUserStatus, Id: ${userId}`);
+function useUserStatus(userId) {
+    console.log(`useUserStatus, Id: ${userId}`);
     const [isOnline, setIsOnline] = useState(null);
 
     function handleStatusChange(status) {
@@ -42,24 +41,42 @@ function useUserStatus(userId, componentName) {
 }
 
 function UserStatus(props) {
-    const isOnline = useUserStatus(props.user.id, 'UserStatus');
+    const isOnline = useContext(userIsOnlineContext);
 
     if (isOnline === null) {
         return 'Loading...';
     }
+
     return isOnline ? 'Online' : 'Offline';
 }
 
 function HighlightedUserName(props) {
-    const isOnline = useUserStatus(props.user.id, 'HighlightedUserName');
+    const userName = useContext(userNameContext);
+    const isOnline = useContext(userIsOnlineContext);
 
     return (
         <span style={{
             fontWeight: isOnline ? 'bold' : 'normal',
             color: isOnline ? 'green' : 'black'
         }}>
-            {props.user.userName}
+            {userName}
         </span>
+    )
+}
+
+const userNameContext = createContext(0);
+const userIsOnlineContext = createContext(null);
+
+function UserInfo(props) {
+
+    const isOnline = useUserStatus(props.user.id);
+    return (
+        <userNameContext.Provider value={props.user.userName}>
+            <userIsOnlineContext.Provider value={isOnline}>
+                <p>User Name: <HighlightedUserName /></p>
+                {props.showUserStatus && <UserStatus />}
+            </userIsOnlineContext.Provider>
+        </userNameContext.Provider>
     )
 }
 
@@ -82,20 +99,22 @@ function App() {
     ]
 
     return (
+
         <div>
             {users.map(user => (
-                <div key={user.id}>
+                < div key={user.id} >
                     <h2>User ID: {user.id}</h2>
-                    <p>User Name: <HighlightedUserName user={user} /></p>
-                    {showUserStatus && <UserStatus user={user} />}
-
+                    <UserInfo user={user} showUserStatus={showUserStatus} />
+                    {/* <p>User Name: <HighlightedUserName user={user} /></p>
+                    {showUserStatus && <UserStatus user={user} />} */}
                 </div>
             ))}
             <br />
             {/* button for unmounting the userStatus component. */}
             <button onClick={() => setShowUserStatus(false)}>Hide User Status</button>
+
         </div >
-    )
+    );
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
