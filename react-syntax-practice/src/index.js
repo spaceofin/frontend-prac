@@ -3,15 +3,33 @@ import ReactDOM from 'react-dom/client';
 
 function App() {
     const [isButtonOn, setIsButtonOn] = useState(true);
+    const [product, setProduct] = useState(1);
+    const [enteredValue, setEnteredValue] = useState(1);
 
     const handleClick = () => {
         setIsButtonOn(prevState => !prevState);
     }
 
+    const handleChange = (e) => {
+        const inputValue = parseInt(e.target.value);
+        if (isNaN(inputValue)) {
+            console.log("The entered value is not number.");
+            return;
+        }
+        setEnteredValue(inputValue);
+    }
+
     return (
-        <div>
+        < div >
             <button onClick={handleClick}>
                 {isButtonOn ? 'On' : 'Off'}
+            </button>
+            <br /><br />
+            <p>{`Product : ${product}`}</p>
+            <p>Enter the number want to multiply</p>
+            <input onChange={handleChange} />
+            <button onClick={(e) => setProduct(product * enteredValue)}>
+                enter
             </button>
         </div>
     )
