@@ -3,6 +3,7 @@ h1 {
     font-style: italic;
 }
 
+
 .time-box {
     display: flex;
     margin: 10px;
@@ -19,4 +20,21 @@ h1 {
     font-weight: bold;
     color: rgb(70, 70, 70);
     margin-left: 70px;
+}
+
+.container-time {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    width: 100%px;
+    font-size: 30px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding: 50px;
+}
+
+.h1-time {
+    color: rgb(255, 0, 64);
+    margin: 0;
+
 }
