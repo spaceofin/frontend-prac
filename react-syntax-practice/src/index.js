@@ -6,24 +6,24 @@ class ClassComponent extends React.Component {
     render() {
         return (
             <div>
-                <p>This is Class Component.</p>
+                <p>This is {this.props.componentType}.</p>
             </div>
         );
     }
 }
 
-const FunctionComponentA = () => {
+const FunctionComponentA = (props) => {
     return (
         <div>
-            <p>This is Function Component Type A.</p>
+            <p>This is {props.componentType} Type A.</p>
         </div>
     );
 }
 
-function FunctionComponentB() {
+function FunctionComponentB(props) {
     return (
         <div>
-            <p>This is Function Component Type B.</p>
+            <p>This is {props.componentType} Type B.</p>
         </div>
     );
 }
@@ -32,9 +32,9 @@ function FunctionComponentB() {
 const App = () => {
     return (
         <div>
-            <ClassComponent />
-            <FunctionComponentA />
-            <FunctionComponentB />
+            <ClassComponent componentType="Class Component" />
+            <FunctionComponentA componentType="Function Component" />
+            <FunctionComponentB componentType="Function Component" />
         </div>
     )
 }
