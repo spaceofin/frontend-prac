@@ -19,6 +19,12 @@ const offButtonStyle = {
     borderWidth: '10px',
 }
 
+const buttonOff = {
+    margin: '70px',
+    fontSize: '50px',
+    fontWeight: 'bold',
+}
+
 const OnButton = (props) => <button style={onButtonStyle} onClick={props.onClick}>On</button>;
 const OffButton = (props) => <button style={offButtonStyle} onClick={props.onClick}>Off</button>;
 
@@ -38,7 +44,9 @@ const App = () => {
     }
     return (
         <div>
-            {button}
+            {button}<br />
+            {isButtonOn && button}<br />
+            {isButtonOn ? button : <p style={buttonOff}>ButtonOff</p>}
         </div>
     )
 }
