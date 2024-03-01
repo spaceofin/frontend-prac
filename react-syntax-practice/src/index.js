@@ -22,14 +22,6 @@ const offButtonStyle = {
 const OnButton = (props) => <button style={onButtonStyle} onClick={props.onClick}>On</button>;
 const OffButton = (props) => <button style={offButtonStyle} onClick={props.onClick}>Off</button>;
 
-function VisibleButton(props) {
-    const isButtonOn = props.isButtonOn;
-    if (isButtonOn) {
-        return <OnButton onClick={props.onClick} />;
-    }
-    return <OffButton onClick={props.onClick} />;
-}
-
 
 const App = () => {
     const [isButtonOn, setIsButtonOn] = useState(false);
@@ -38,9 +30,15 @@ const App = () => {
         setIsButtonOn(!isButtonOn);
     }
 
+    let button;
+    if (isButtonOn) {
+        button = <OnButton onClick={handleClick} />;
+    } else {
+        button = <OffButton onClick={handleClick} />;
+    }
     return (
         <div>
-            <VisibleButton isButtonOn={isButtonOn} onClick={handleClick} />
+            {button}
         </div>
     )
 }
