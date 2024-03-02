@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
+import './index.css';
 
 const onButtonStyle = {
     padding: '30px 50px',
@@ -20,13 +21,31 @@ const offButtonStyle = {
 }
 
 const buttonOff = {
-    margin: '70px',
+    margin: '100px',
     fontSize: '50px',
     fontWeight: 'bold',
 }
 
+const buttonOffNotification = {
+    display: 'inline-block',
+    margin: '100px',
+    fontSize: '50px',
+    fontWeight: 'bold',
+    fontFamily: 'Segoe UI',
+    color: 'red',
+}
+
 const OnButton = (props) => <button style={onButtonStyle} onClick={props.onClick}>On</button>;
 const OffButton = (props) => <button style={offButtonStyle} onClick={props.onClick}>Off</button>;
+
+
+function ButtonOffNotification(props) {
+    if (!props.isButtonOn) {
+        return <span style={buttonOffNotification}>! Button is Off !</span>
+    } else {
+        return null;
+    }
+}
 
 
 const App = () => {
@@ -47,6 +66,7 @@ const App = () => {
             {button}<br />
             {isButtonOn && button}<br />
             {isButtonOn ? button : <p style={buttonOff}>ButtonOff</p>}
+            <ButtonOffNotification isButtonOn={isButtonOn} />
         </div>
     )
 }
