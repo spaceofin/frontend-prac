@@ -1,52 +1,51 @@
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 
-
-const books = [
-    {
-        id: 1,
-        title: 'How to Cook Cheese Dish',
-        pages: 128,
+const styles = {
+    wrapper: {
+        display: 'inline-block',
+        margin: '30px',
+        width: '350px',
+        padding: '15px 30px 15px 50px',
+        backgroundColor: ' #FFD700',
+        borderRadius: '10px',
     },
-    {
-        id: 2,
-        title: 'Finding the Lost Star',
-        pages: 136,
+    submitButton: {
+        marginLeft: '2px',
     },
-    {
-        id: 3,
-        title: 'The Big Whale of the Small Sea',
-        pages: 204,
+    nickname: {
+        fontFamily: 'Arial',
     }
-];
-
-const BookTable = ({ books }) => {
-    return (
-        <table className="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>TITLE</th>
-                    <th>PAGES</th>
-                </tr>
-            </thead>
-            <tbody>
-                {books.map((book) => (
-                    <tr key={book.id}>
-                        <td>{book.id}</td>
-                        <td>{book.title}</td>
-                        <td>{book.pages}</td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
-    );
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-    <div>
-        <BookTable books={books} />
-    </div>,
+const App = () => {
+    const [value, setValue] = useState('');
 
-);
+    const handleChange = (event) => {
+        setValue(event.target.value);
+    }
+
+    const handleSubmit = (event) => {
+        if (value) {
+            alert('Your Nickname is ' + value);
+        } else {
+            alert('Submit your Nickname');
+        }
+        event.preventDefault();
+    }
+
+    return (
+        <div style={styles.wrapper}>
+            <form onSubmit={handleSubmit}>
+                <label>
+                    <span style={styles.nickname}>Nickname: </span>
+                    <input type="text" value={value} onChange={handleChange} />
+                    <button style={styles.submitButton} type="submit">submit</button>
+                </label>
+            </form>
+        </div>
+    )
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
