@@ -22,7 +22,7 @@ const App = () => {
     const [value, setValue] = useState('');
 
     const handleChange = (event) => {
-        setValue(event.target.value);
+        setValue(event.target.value.trim());
     }
 
     const handleSubmit = (event) => {
@@ -31,6 +31,7 @@ const App = () => {
         } else {
             alert('Submit your Nickname');
         }
+        setValue('');
         event.preventDefault();
     }
 
