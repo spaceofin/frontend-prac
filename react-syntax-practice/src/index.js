@@ -25,7 +25,8 @@ const App = () => {
     const [value, setValue] = useState('');
 
     const handleChange = (event) => {
-        setValue(event.target.value.trim());
+        // setValue(event.target.value.trim());
+        setValue(event.target.value);
     }
 
     const handleSubmit = (event) => {
