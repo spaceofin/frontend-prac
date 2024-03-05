@@ -14,33 +14,40 @@ const styles = {
     },
     submitButton: {
         position: 'absolute',
-        marginLeft: '2px',
         bottom: '20px',
     },
-    nickname: {
-        fontFamily: 'Arial',
-    },
-    question: {
-        fontFamily: 'Arial',
-    },
     selectItems: {
-        backgroundColor: 'white',
+        position: 'absolute',
+        marginTop: '10px',
+        width: '70px',
+        fontSize: '15px',
     }
 }
 
 const App = () => {
-    const [needSandwich, setNeedSandwich] = useState(false);
+    const [lastTwoClicked, setLastTwoClicked] = useState(['A', 'B']);
     const [count, setCount] = useState(1);
 
+    const handleChange = (event) => {
+        const clickedValue = event.target.value;
+
+        console.log(`Number of selected items: ${count}`);
+        if (count === 1) {
+            setLastTwoClicked([clickedValue, null]);
+            setCount(count + 1);
+            console.log(`Last two cliked value: [${clickedValue}, null]`);
+        } else if (count === 2) {
+            setLastTwoClicked([lastTwoClicked[0], clickedValue]);
+            setCount(1);
+            console.log(`Last two cliked value: [${lastTwoClicked[0]}, ${clickedValue}]`);
+        }
+    };
+
     const handleSubmit = (event) => {
-        if (needSandwich) {
-            if (count == 1) {
-                alert('You need a sandwich.');
-            } else {
-                alert('You need ' + count + ' sandwiches.');
-            }
+        if (lastTwoClicked[1] === null) {
+            alert('Select two items.');
         } else {
-            alert('You don\'t need a sandwich.')
+            alert(`You selected ${lastTwoClicked[0]} and ${lastTwoClicked[1]}.`);
         }
         event.preventDefault();
     }
@@ -48,33 +55,12 @@ const App = () => {
     return (
         <div style={styles.wrapper}>
             <form onSubmit={handleSubmit}>
-                <label>
-                    <input
-                        type="checkbox"
-                        checked={needSandwich}
-                        onChange={(event) => { setNeedSandwich(event.target.checked) }}
-                    />
-                    Check if you need sandwiches.
-                </label>
-                <br />
-                <br />
-                {needSandwich &&
-                    <label>
-                        How many sandwiches do you need?
-                        <input
-                            type="number"
-                            value={count}
-                            onChange={(event) => {
-                                let inputValue = event.target.value;
-                                if (inputValue >= 1) {
-                                    setCount(inputValue);
-                                }
-                            }}
-                        />
-                    </label>
-                }
-                <br />
-                <br />
+                <select style={styles.selectItems} multiple={true} value={lastTwoClicked} onChange={handleChange}>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                </select>
                 <button style={styles.submitButton} type="submit">submit</button>
             </form >
         </div >
