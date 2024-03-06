@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import Select from 'react-select';
 
@@ -8,26 +8,18 @@ const options = [
     { value: 'vanilla', label: 'Vanilla' },
 ];
 
-class App extends React.Component {
-    state = {
-        selectedOption: null,
-    };
-    handleChange = (selectedOption) => {
-        this.setState({ selectedOption }, () =>
-            console.log(`Option selected:`, this.state.selectedOption)
-        );
-    };
-    render() {
-        const { selectedOption } = this.state;
+export default function App() {
+    const [selectedOption, setSelectedOption] = useState(null);
 
-        return (
+    return (
+        <div className="App">
             <Select
-                value={selectedOption}
-                onChange={this.handleChange}
+                defaultValue={selectedOption}
+                onChange={setSelectedOption}
                 options={options}
             />
-        );
-    }
+        </div>
+    );
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
