@@ -7,7 +7,7 @@ const styles = {
         display: 'inline-block',
         margin: '30px',
         width: '350px',
-        height: '50px',
+        height: '100px',
         padding: '30px 30px 30px 30px',
         backgroundColor: ' #FFD700',
         borderRadius: '10px',
@@ -33,6 +33,8 @@ const options = [
     { value: 'D', label: 'D' },
 ];
 
+
+
 function App() {
     const [selectedOption, setSelectedOption] = useState(null);
 
@@ -44,6 +46,8 @@ function App() {
                 onChange={setSelectedOption}
                 options={options}
             />
+            <br />
+            <input type="file" />
         </div>
     );
 }
