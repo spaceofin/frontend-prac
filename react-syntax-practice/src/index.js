@@ -7,7 +7,7 @@ const styles = {
         display: 'inline-block',
         margin: '30px',
         width: '350px',
-        height: '100px',
+        height: '150px',
         padding: '30px 30px 30px 30px',
         backgroundColor: ' #FFD700',
         borderRadius: '10px',
@@ -22,7 +22,14 @@ const styles = {
         marginTop: '10px',
         width: '70px',
         fontSize: '15px',
-    }
+    },
+    inputFileButton: {
+        padding: '7px 30px',
+        backgroundColor: '#0047DADD',
+        borderRadius: '5px',
+        color: 'white',
+        cursor: 'pointer',
+    },
 }
 
 
@@ -37,6 +44,17 @@ const options = [
 
 function App() {
     const [selectedOption, setSelectedOption] = useState(null);
+    const [fileName, setFileName] = useState('');
+
+
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            setFileName(file.name);
+        } else {
+            setFileName('');
+        }
+    };
 
     return (
         <div style={styles.wrapper}>
@@ -47,7 +65,12 @@ function App() {
                 options={options}
             />
             <br />
-            <input type="file" />
+            <label for="inputFile" style={styles.inputFileButton}>
+                Upload File
+            </label>
+            <input type="file" id="inputFile" onChange={handleFileChange} style={{ display: "none" }} />
+            <br /><br />
+            {fileName}
         </div>
     );
 }
