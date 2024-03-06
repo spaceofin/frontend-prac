@@ -30,6 +30,12 @@ const styles = {
         color: 'white',
         cursor: 'pointer',
     },
+    fileInfo: {
+        fontSize: '17px',
+        fontFamily: 'Arial',
+        margin: '5px',
+        color: 'blue',
+    }
 }
 
 
@@ -45,14 +51,17 @@ const options = [
 function App() {
     const [selectedOption, setSelectedOption] = useState(null);
     const [fileName, setFileName] = useState('');
+    const [fileSize, setFileSize] = useState(null);
 
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         if (file) {
             setFileName(file.name);
+            setFileSize(file.size);
         } else {
             setFileName('');
+            setFileSize(0);
         }
     };
 
@@ -70,7 +79,11 @@ function App() {
             </label>
             <input type="file" id="inputFile" onChange={handleFileChange} style={{ display: "none" }} />
             <br /><br />
-            {fileName}
+            <div style={styles.fileInfo}>
+                {fileName}
+                <br />
+                {fileSize && `${fileSize} bytes`}
+            </div>
         </div>
     );
 }
