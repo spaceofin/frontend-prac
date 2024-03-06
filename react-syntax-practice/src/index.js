@@ -8,7 +8,7 @@ const options = [
     { value: 'vanilla', label: 'Vanilla' },
 ];
 
-export default function App() {
+function App() {
     const [selectedOption, setSelectedOption] = useState(null);
 
     return (
