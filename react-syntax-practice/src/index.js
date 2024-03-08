@@ -1,43 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from "react";
 import ReactDOM from 'react-dom/client';
 
+function SignUp(props) {
+    const [id, setId] = useState("");
 
-const App = () => {
-    const [inputValue, setInputValue] = useState('hi');
-    const [isDisabled, setIsDisabled] = useState(true);
-    const [showButton, setShowButton] = useState(false);
-    const [showInputValue, setShowInputValue] = useState(false);
-
-    useEffect(() => {
-        setTimeout(function () {
-            setInputValue('');
-            setIsDisabled(false);
-            setShowButton(true);
-        }, 2000);
-    }, []);
-
-    const handleChange = (event) => {
-        setInputValue(event.target.value);
+    const handleChangeId = (event) => {
+        setId(event.target.value);
     };
 
-    const handleClick = () => {
-        setShowInputValue(true);
-    }
-
-    const handleFocus = () => {
-        setShowInputValue(false);
-    }
+    const handleSubmit = (event) => {
+        alert(`ID: ${id}`);
+        event.preventDefault();
+    };
 
     return (
+        <form onSubmit={handleSubmit}>
+            <label>
+                ID
+                <input type="text" value={id} onChange={handleChangeId} />
+            </label>
+            <button type="submit">summit</button>
+        </form>
+    );
+}
+
+function App() {
+    return (
         <div>
-            <input
-                value={inputValue}
-                onChange={handleChange}
-                onFocus={handleFocus}
-                disabled={isDisabled} />
-            {showButton && <button onClick={handleClick}>Enter</button>}
-            <br />
-            {showInputValue && inputValue}
+            <SignUp />
         </div>
     )
 }
