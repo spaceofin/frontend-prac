@@ -1,6 +1,32 @@
 import React, { useState } from "react";
 import ReactDOM from 'react-dom/client';
 
+const styles = {
+    idInput: {
+        marginLeft: '5px',
+        marginRight: '3px',
+    },
+    teamColor: {
+        margin: '5px',
+    },
+    red: {
+        backgroundColor: 'red',
+    },
+    yellow: {
+        backgroundColor: 'yellow',
+    },
+    green: {
+        backgroundColor: 'green',
+    },
+    blue: {
+        backgroundColor: 'blue',
+    },
+    summitButton: {
+        marginTop: '10px',
+        fontSize: '15px',
+    }
+}
+
 function SignUp(props) {
     const [id, setId] = useState("");
     const [teamColor, setTeamColor] = useState("RED");
@@ -22,20 +48,20 @@ function SignUp(props) {
         <form onSubmit={handleSubmit}>
             <label>
                 ID
-                <input type="text" value={id} onChange={handleChangeId} />
+                <input style={styles.idInput} type="text" value={id} onChange={handleChangeId} />
             </label>
             <br />
             <label>
                 TEAM COLOR
-                <select value={teamColor} onChange={handleChangeTeamColor}>
-                    <option value="RED">RED</option>
-                    <option value="YELLOW">YELLOW</option>
-                    <option value="GREEN">GREEN</option>
-                    <option value="BLUE">BLUE</option>
+                <select style={styles.teamColor} value={teamColor} onChange={handleChangeTeamColor}>
+                    <option style={styles.red} value="RED">RED</option>
+                    <option style={styles.yellow} value="YELLOW">YELLOW</option>
+                    <option style={styles.green} value="GREEN">GREEN</option>
+                    <option style={styles.blue} value="BLUE">BLUE</option>
                 </select>
             </label>
             <br />
-            <button type="submit">summit</button>
+            <button style={styles.summitButton} type="submit">summit</button>
         </form>
     );
 }
