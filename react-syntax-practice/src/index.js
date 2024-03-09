@@ -1,78 +1,76 @@
 import React, { useState } from "react";
 import ReactDOM from 'react-dom/client';
 
-const styles = {
-    idInput: {
-        marginLeft: '5px',
-        marginRight: '3px',
-    },
-    teamColor: {
-        margin: '5px',
-    },
-    red: {
-        backgroundColor: 'red',
-    },
-    yellow: {
-        backgroundColor: 'yellow',
-    },
-    green: {
-        backgroundColor: 'green',
-    },
-    blue: {
-        backgroundColor: 'blue',
-    },
-    summitButton: {
-        marginTop: '10px',
-        fontSize: '15px',
+function TimeConverter(props) {
+    let time;
+    if (props.city === 'Singapore') {
+        time = props.time - 1;
+    } else if (props.city === 'Hawaii') {
+        time = props.time + 5;
+    } else {
+        return;
     }
+    time += 24;
+    time %= 24;
+    return <p>The Time of {props.city} City is {time} O'clock.</p>;
 }
 
-function SignUp(props) {
-    const [id, setId] = useState("");
-    const [teamColor, setTeamColor] = useState("RED");
+function Calculator(props) {
+    const [city, setCity] = useState('Singapore');
+    const [time, setTime] = useState(0);
+    const [showResult, setShowResult] = useState(false);
 
-    const handleChangeId = (event) => {
-        setId(event.target.value);
-    };
+    const handleChange = (event) => {
+        setTime(event.target.value);
+    }
 
-    const handleSubmit = (event) => {
-        alert(`ID: ${id}\nTEAM COLOR: ${teamColor}`);
-        event.preventDefault();
-    };
+    const handleClick = (event) => {
+        if (time < 0 || time > 24) {
+            alert('Enter between 0 and 24 hours');
+            setTime();
+        }
+        setShowResult(true);
+    }
 
-    const handleChangeTeamColor = (event) => {
-        setTeamColor(event.target.value);
+    const handleSelect = (event) => {
+        setCity(event.target.value);
+        setShowResult(false);
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                ID
-                <input style={styles.idInput} type="text" value={id} onChange={handleChangeId} />
-            </label>
+        <fieldset>
+            <legend>Input Current Time of Seoul City(24 hours): </legend>
+            <input
+                type="number"
+                value={time}
+                onChange={handleChange} />
             <br />
-            <label>
-                TEAM COLOR
-                <select style={styles.teamColor} value={teamColor} onChange={handleChangeTeamColor}>
-                    <option style={styles.red} value="RED">RED</option>
-                    <option style={styles.yellow} value="YELLOW">YELLOW</option>
-                    <option style={styles.green} value="GREEN">GREEN</option>
-                    <option style={styles.blue} value="BLUE">BLUE</option>
-                </select>
-            </label>
+            <p>Choose City Want To Know Current Time</p>
+            <select onChange={handleSelect}>
+                <option value="Singapore">Singapore</option>
+                <option value="Hawaii">Hawaii</option>
+            </select>
+            <button onClick={handleClick}>Enter</button>
             <br />
-            <button style={styles.summitButton} type="submit">summit</button>
-        </form>
-    );
+            {showResult &&
+                <TimeConverter
+                    city={city}
+                    time={time}
+                />
+            }
+        </fieldset>
+    )
 }
 
-function App() {
+const App = () => {
     return (
         <div>
-            <SignUp />
+            <Calculator />
         </div>
-    )
+    );
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App />)
+
+
