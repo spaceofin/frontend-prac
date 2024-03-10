@@ -1,77 +1,64 @@
 import React, { useState } from "react";
 import ReactDOM from 'react-dom/client';
 
-function TimeConverter(props) {
-    let time;
-    if (props.city === 'Singapore') {
-        time = props.time - 1;
-    } else if (props.city === 'Hawaii') {
-        time = props.time + 5;
-    } else {
-        return;
-    }
-    time = (time + 24) % 24;
-    return <p>The Time of {props.city} City is {time} o'clock.</p>;
+function convertTime() {
+    return;
 }
 
-function Calculator(props) {
-    const [city, setCity] = useState('Singapore');
-    const [time, setTime] = useState(0);
-    const [showResult, setShowResult] = useState(false);
-
+function CityTime(props) {
     const handleChange = (event) => {
-        setTime(event.target.value);
-        setShowResult(false);
-    }
+        const time = parseInt(event.target.value);
 
-    const handleClick = (event) => {
         if (time < 0 || time >= 24) {
-            alert('Enter a time between 0 and 23 hours');
-            setTime();
-        } else {
-            setShowResult(true);
+            alert('Enter a time between 0 and 23');
         }
-    }
+    };
 
-    const handleSelect = (event) => {
-        setCity(event.target.value);
-        setShowResult(false);
-    }
+    const inputId = `${props.city.toLowerCase()}TimeInput`;
 
     return (
         <fieldset>
-            <legend>Input Current Time of Seoul City(24 hours): </legend>
-            <input
-                type="number"
-                value={time}
-                onChange={handleChange} />
-            <br />
-            <p>Choose City Want To Know Current Time</p>
-            <select onChange={handleSelect}>
-                <option value="Singapore">Singapore</option>
-                <option value="Hawaii">Hawaii</option>
-            </select>
-            <button onClick={handleClick}>Enter</button>
-            <br />
-            {showResult &&
-                <TimeConverter
-                    city={city}
-                    time={time}
-                />
-            }
+            <legend>
+                {props.city} Time
+            </legend>
+            <input id={inputId} type="number" value={props.time} onChange={handleChange} placeholder="Enter hour(0-23)" />
         </fieldset>
+    )
+}
+
+function TimeDifference(props) {
+    const [inputCity, setInputCity] = useState('');
+    const [time, setTime] = useState(0);
+
+    const seoulTime = convertTime(inputCity, time);
+    const singaporeTime = convertTime(inputCity, time);
+    const hawaiiTime = convertTime(inputCity, time);
+
+    return (
+        <div>
+            <CityTime
+                city="Seoul"
+                time={seoulTime}
+            />
+            <CityTime
+                city="Singapore"
+                time={singaporeTime}
+            />
+            <CityTime
+                city="Hawaii"
+                time={hawaiiTime}
+            />
+        </div>
     )
 }
 
 const App = () => {
     return (
         <div>
-            <Calculator />
+            <TimeDifference />
         </div>
     );
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App />)
-
-
