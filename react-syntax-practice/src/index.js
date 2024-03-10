@@ -10,9 +10,8 @@ function TimeConverter(props) {
     } else {
         return;
     }
-    time += 24;
-    time %= 24;
-    return <p>The Time of {props.city} City is {time} O'clock.</p>;
+    time = (time + 24) % 24;
+    return <p>The Time of {props.city} City is {time} o'clock.</p>;
 }
 
 function Calculator(props) {
@@ -22,14 +21,16 @@ function Calculator(props) {
 
     const handleChange = (event) => {
         setTime(event.target.value);
+        setShowResult(false);
     }
 
     const handleClick = (event) => {
-        if (time < 0 || time > 24) {
-            alert('Enter between 0 and 24 hours');
+        if (time < 0 || time >= 24) {
+            alert('Enter a time between 0 and 23 hours');
             setTime();
+        } else {
+            setShowResult(true);
         }
-        setShowResult(true);
     }
 
     const handleSelect = (event) => {
