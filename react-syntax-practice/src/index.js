@@ -11,6 +11,10 @@ function CityTime(props) {
 
         if (time < 0 || time >= 24) {
             alert('Enter a time between 0 and 23');
+        } else {
+            props.onTimeChange(time);
+            props.setInputCity(props.city);
+            console.log(`city: ${props.city}, time: ${time}`)
         }
     };
 
@@ -34,19 +38,32 @@ function TimeDifference(props) {
     const singaporeTime = convertTime(inputCity, time);
     const hawaiiTime = convertTime(inputCity, time);
 
+    const handleChange = (time) => {
+        setTime(time);
+    }
+
     return (
         <div>
             <CityTime
                 city="Seoul"
                 time={seoulTime}
+                setTime={setTime}
+                setInputCity={setInputCity}
+                onTimeChange={handleChange}
             />
             <CityTime
                 city="Singapore"
                 time={singaporeTime}
+                setTime={setTime}
+                setInputCity={setInputCity}
+                onTimeChange={handleChange}
             />
             <CityTime
                 city="Hawaii"
                 time={hawaiiTime}
+                setTime={setTime}
+                setInputCity={setInputCity}
+                onTimeChange={handleChange}
             />
         </div>
     )
