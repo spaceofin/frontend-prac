@@ -37,10 +37,16 @@ function convertTime(inputCity, time, toCityTime) {
 
 function CityTime(props) {
     const handleChange = (event) => {
+        if (event.target.value.trim() === '') {
+            props.onTimeChange(props.city, '');
+            return;
+        }
+
         const time = parseInt(event.target.value);
 
         if (time < 0 || time >= 24) {
             alert('Enter a time between 0 and 23');
+            props.onTimeChange(props.city, '');
         } else {
             props.onTimeChange(props.city, time);
             console.log(`city: ${props.city}, time: ${time}`)
@@ -70,6 +76,12 @@ function TimeDifference(props) {
     const handleChange = (city, time) => {
         setInputCity(city);
         setTime(time);
+        if (time === '') {
+            setTime('');
+        } else {
+            setTime(time);
+        }
+        console.log(`inputCity: ${city}, time: ${time}`);
     }
 
     return (
