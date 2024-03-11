@@ -1,8 +1,38 @@
 import React, { useState } from "react";
 import ReactDOM from 'react-dom/client';
 
-function convertTime() {
-    return;
+function toSeoulTime(inputCity, time) {
+    if (inputCity === 'Singapore' && time !== '') {
+        return (time + 24 + 1) % 24;
+    } else if (inputCity === 'Hawaii') {
+        return (time + 24 - 5) % 24;
+    } else {
+        return time;
+    }
+}
+
+function toSingaporeTime(inputCity, time) {
+    if (inputCity === 'Seoul' && time !== '') {
+        return (time + 24 - 1) % 24;
+    } else if (inputCity === 'Hawaii') {
+        return (time + 24 - 6) % 24;
+    } else {
+        return time;
+    }
+}
+
+function toHawaiiTime(inputCity, time) {
+    if (inputCity === 'Seoul' && time !== '') {
+        return (time + 24 + 5) % 24;
+    } else if (inputCity === 'Singapore') {
+        return (time + 24 + 6) % 24;
+    } else {
+        return time;
+    }
+}
+
+function convertTime(inputCity, time, toCityTime) {
+    return toCityTime(inputCity, time);
 }
 
 function CityTime(props) {
@@ -12,8 +42,7 @@ function CityTime(props) {
         if (time < 0 || time >= 24) {
             alert('Enter a time between 0 and 23');
         } else {
-            props.onTimeChange(time);
-            props.setInputCity(props.city);
+            props.onTimeChange(props.city, time);
             console.log(`city: ${props.city}, time: ${time}`)
         }
     };
@@ -32,13 +61,14 @@ function CityTime(props) {
 
 function TimeDifference(props) {
     const [inputCity, setInputCity] = useState('');
-    const [time, setTime] = useState(0);
+    const [time, setTime] = useState('');
 
-    const seoulTime = convertTime(inputCity, time);
-    const singaporeTime = convertTime(inputCity, time);
-    const hawaiiTime = convertTime(inputCity, time);
+    const seoulTime = convertTime(inputCity, time, toSeoulTime);
+    const singaporeTime = convertTime(inputCity, time, toSingaporeTime);
+    const hawaiiTime = convertTime(inputCity, time, toHawaiiTime);
 
-    const handleChange = (time) => {
+    const handleChange = (city, time) => {
+        setInputCity(city);
         setTime(time);
     }
 
@@ -47,22 +77,16 @@ function TimeDifference(props) {
             <CityTime
                 city="Seoul"
                 time={seoulTime}
-                setTime={setTime}
-                setInputCity={setInputCity}
                 onTimeChange={handleChange}
             />
             <CityTime
                 city="Singapore"
                 time={singaporeTime}
-                setTime={setTime}
-                setInputCity={setInputCity}
                 onTimeChange={handleChange}
             />
             <CityTime
                 city="Hawaii"
                 time={hawaiiTime}
-                setTime={setTime}
-                setInputCity={setInputCity}
                 onTimeChange={handleChange}
             />
         </div>
