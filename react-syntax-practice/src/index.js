@@ -1,48 +1,16 @@
 import React, { useState } from "react";
 import ReactDOM from 'react-dom/client';
 
-function toSeoulTime(inputCity, time) {
-    if (inputCity === 'Singapore' && time !== '') {
-        return (time + 24 + 1) % 24;
-    } else if (inputCity === 'Hawaii') {
-        return (time + 24 - 5) % 24;
-    } else {
-        return time;
-    }
-}
-
-function toSingaporeTime(inputCity, time) {
-    if (inputCity === 'Seoul' && time !== '') {
-        return (time + 24 - 1) % 24;
-    } else if (inputCity === 'Hawaii') {
-        return (time + 24 - 6) % 24;
-    } else {
-        return time;
-    }
-}
-
-function toHawaiiTime(inputCity, time) {
-    if (inputCity === 'Seoul' && time !== '') {
-        return (time + 24 + 5) % 24;
-    } else if (inputCity === 'Singapore') {
-        return (time + 24 + 6) % 24;
-    } else {
-        return time;
-    }
-}
-
-function convertTime(inputCity, time, toCityTime) {
-    return toCityTime(inputCity, time);
-}
-
 function CityTime(props) {
     const handleChange = (event) => {
-        if (event.target.value.trim() === '') {
+        const inputTime = event.target.value.trim();
+
+        if (inputTime === '') {
             props.onTimeChange(props.city, '');
             return;
         }
 
-        const time = parseInt(event.target.value);
+        const time = parseInt(inputTime);
 
         if (time < 0 || time >= 24) {
             alert('Enter a time between 0 and 23');
@@ -60,18 +28,33 @@ function CityTime(props) {
             <legend>
                 {props.city} Time
             </legend>
-            <input id={inputId} type="number" value={props.time} onChange={handleChange} placeholder="Enter hour(0-23)" />
+            <input id={inputId} type="number" value={isNaN(props.time) ? '' : props.time} onChange={handleChange} placeholder="Enter hour(0-23)" />
         </fieldset>
     )
+}
+
+function convertTime(inputCity, inputTime, targetCity) {
+    if (inputTime === '') {
+        return '';
+    }
+
+    const timeDifference = {
+        Seoul: 0,
+        Singapore: -1,
+        Hawaii: 5
+    };
+
+    const diff = timeDifference[targetCity] - timeDifference[inputCity];
+    return (inputTime + 24 + diff) % 24;
 }
 
 function TimeDifference(props) {
     const [inputCity, setInputCity] = useState('');
     const [time, setTime] = useState('');
 
-    const seoulTime = convertTime(inputCity, time, toSeoulTime);
-    const singaporeTime = convertTime(inputCity, time, toSingaporeTime);
-    const hawaiiTime = convertTime(inputCity, time, toHawaiiTime);
+    const seoulTime = convertTime(inputCity, time, "Seoul");
+    const singaporeTime = convertTime(inputCity, time, "Singapore");
+    const hawaiiTime = convertTime(inputCity, time, "Hawaii");
 
     const handleChange = (city, time) => {
         setInputCity(city);
@@ -80,7 +63,7 @@ function TimeDifference(props) {
         } else {
             setTime(time);
         }
-        console.log(`inputCity: ${city}, time: ${time}`);
+        console.log(`inputCity: ${city}, inputTime: ${time}`);
     }
 
     return (
