@@ -75,7 +75,6 @@ function TimeDifference(props) {
 
     const handleChange = (city, time) => {
         setInputCity(city);
-        setTime(time);
         if (time === '') {
             setTime('');
         } else {
