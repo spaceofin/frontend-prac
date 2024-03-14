@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ReactDOM from 'react-dom/client';
+import './index.css';
 
 function CityTime(props) {
     const handleChange = (event) => {
@@ -24,11 +25,12 @@ function CityTime(props) {
     const inputId = `${props.city.toLowerCase()}TimeInput`;
 
     return (
-        <fieldset>
+        <fieldset className="fieldset-city">
             <legend>
                 {props.city} Time
             </legend>
-            <input id={inputId} type="number" value={isNaN(props.time) ? '' : props.time} onChange={handleChange} placeholder="Enter hour(0-23)" />
+            <input className="input-time" id={inputId} type="number" value={isNaN(props.time) ? '' : props.time} onChange={handleChange} placeholder="Enter hour(0-23)" />
+            <span className="span-oclock">O'clock</span>
         </fieldset>
     )
 }
@@ -67,7 +69,7 @@ function TimeDifference(props) {
     }
 
     return (
-        <div>
+        <div className="div-citytime">
             <CityTime
                 city="Seoul"
                 time={seoulTime}
