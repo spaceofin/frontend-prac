@@ -24,10 +24,38 @@ function ColorPanel(props) {
     );
 }
 
+function Description(props) {
+    return (
+        <p>
+            This page is a color panel page displaying a few sample colors.
+        </p>
+    )
+}
+
+function SplitPane(props) {
+    return (
+        <div className="splitpane">
+            <div className="splitpane-left">
+                {props.left}
+            </div>
+            <div className="splitpane-right">
+                {props.right}
+            </div>
+        </div>
+    );
+}
+
 const App = () => {
     return (
         <div>
-            <ColorPanel />
+            <SplitPane
+                left={
+                    <ColorPanel />
+                }
+                right={
+                    <Description />
+                }
+            />
         </div>
     );
 }
