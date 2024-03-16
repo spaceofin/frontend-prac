@@ -1,29 +1,52 @@
-.colorbox-orange {
-    height: 100px;
+.color-panel {
+    display: flex;
+    flex-direction: column;
     width: 150px;
-    background-color: orange;
     font-size: 30px;
-    padding-left: 5px;
+}
+
+.color-panel>* {
+    margin: 0px 7px 10px 7px;
+    padding-left: 10px;
+}
+
+.colorbox-orange {
+    background-color: orange;
 }
 
 .colorbox-blue {
-    height: 100px;
-    width: 150px;
     background-color: blue;
-    font-size: 30px;
-    color: white;
-    padding-left: 5px;
+}
+
+.colorbox-lightgreen {
+    background-color: lightgreen;
 }
 
 .splitpane {
     display: flex;
-
 }
 
 .splitpane-right {
-    margin: 10px;
     margin-left: 20px;
     font-size: 18px;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     width: 200px;
+}
+
+.dialog {
+    margin-left: 7px;
+    margin-bottom: 15px;
+    width: 500px;
+}
+
+.dialog-title {
+    margin-left: 10px;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    padding-top: 10px;
+}
+
+.dialog-message {
+    margin-left: 10px;
+    padding-bottom: 10px;
 }

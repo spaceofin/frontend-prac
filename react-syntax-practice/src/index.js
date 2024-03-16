@@ -13,7 +13,7 @@ function ColorBox(props) {
 
 function ColorPanel(props) {
     return (
-        <div>
+        <div className="color-panel">
             <ColorBox color="orange">
                 <p>Orange</p>
             </ColorBox>
@@ -26,7 +26,7 @@ function ColorPanel(props) {
 
 function Description(props) {
     return (
-        <p>
+        <p style={{ margin: 0 }}>
             This page is a color panel page displaying a few sample colors.
         </p>
     )
@@ -45,9 +45,37 @@ function SplitPane(props) {
     );
 }
 
+
+
+function Dialog(props) {
+    return (
+        <div className="dialog">
+            <ColorBox color="lightgreen">
+                <h1 className="dialog-title">
+                    {props.title}
+                </h1>
+                <p className="dialog-message">
+                    {props.message}
+                </p>
+            </ColorBox>
+        </div>
+    );
+}
+
+function WelcomeDialog() {
+    return (
+        <Dialog
+            title="Welcome"
+            message="Thank you for visiting our space!" />
+    );
+}
+
+
+
 const App = () => {
     return (
         <div>
+            <WelcomeDialog />
             <SplitPane
                 left={
                     <ColorPanel />
