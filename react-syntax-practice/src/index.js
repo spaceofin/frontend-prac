@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
@@ -57,6 +57,7 @@ function Dialog(props) {
                 <p className="dialog-message">
                     {props.message}
                 </p>
+                {props.children}
             </ColorBox>
         </div>
     );
@@ -70,12 +71,38 @@ function WelcomeDialog() {
     );
 }
 
+function SignUpDialog(props) {
+    const [login, setLogin] = useState('');
 
+    const handleChange = (event) => {
+        setLogin(event.target.value);
+    }
+
+    const handleSignUp = () => {
+        alert(`Welcome aboard, ${login}!`);
+        setLogin('');
+    }
+
+    return (
+        <Dialog title="Join Membership"
+            message="How should we refer to you?">
+            <div className="signup-input">
+                <input
+                    value={login}
+                    onChange={handleChange} />
+                <button onClick={handleSignUp}>
+                    Sign Me Up!
+                </button>
+            </div>
+        </Dialog>
+    );
+}
 
 const App = () => {
     return (
         <div>
             <WelcomeDialog />
+            <SignUpDialog />
             <SplitPane
                 left={
                     <ColorPanel />
