@@ -46,20 +46,15 @@ function Button(props) {
 const ThemeContext = React.createContext('light');
 
 const App = () => {
+    const themes = ['dark', 'light', 'green', null];
+
     return (
         <div>
-            <ThemeContext.Provider value="dark">
-                <Toolbar />
-            </ThemeContext.Provider>
-            <ThemeContext.Provider value="light">
-                <Toolbar />
-            </ThemeContext.Provider>
-            <ThemeContext.Provider value="green">
-                <Toolbar />
-            </ThemeContext.Provider>
-            <ThemeContext.Provider>
-                <Toolbar />
-            </ThemeContext.Provider>
+            {themes.map((theme, index) => (
+                <ThemeContext.Provider key={index} value={theme}>
+                    <Toolbar />
+                </ThemeContext.Provider>
+            ))}
         </div>
     );
 }
