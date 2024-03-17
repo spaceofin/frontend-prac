@@ -1,117 +1,59 @@
-
-import React, { useState } from "react";
+import React from "react";
 import ReactDOM from 'react-dom/client';
-import './index.css';
 
-function ColorBox(props) {
+function Card(props) {
+    const { name, backgroundColor, children } = props;
+
     return (
-        <div className={'colorbox-' + props.color}>
-            {props.children}
+        <div
+            style={{
+                width: 250,
+                padding: 10,
+                paddingLeft: 30,
+                borderRadius: 10,
+                boxShadow: "2px 2px 2px black",
+                backgroundColor: backgroundColor || "white",
+            }}
+        >
+            {name && <h1>{name}</h1>}
+            {children && <div style={({ fontSize: 20, fontFamily: "sans-serif", })}>{children}</div>}
+        </div >
+    );
+}
+
+function ProfileCard(props) {
+    return (
+        <div
+            style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2,300px)",
+                gap: 20,
+                margin: 50,
+                marginTop: 70,
+            }}
+        >
+            <Card name="Mary" backgroundColor="lightblue">
+                <p>Project Manager</p>
+            </Card>
+            <Card name="Jake" backgroundColor="lightcoral">
+                <p>Engineer</p>
+            </Card>
+            <Card name="Ashley" backgroundColor="lightSteelBlue">
+                <p>Backend developer</p>
+            </Card>
+            <Card name="Christopher" backgroundColor="lightSalmon">
+                <p>Desinger</p>
+            </Card>
+            <Card name="Lauren" backgroundColor="lightGray">
+                <p>Frontend Developer</p>
+            </Card>
         </div>
-    );
-}
-
-function ColorPanel(props) {
-    return (
-        <div className="color-panel">
-            <ColorBox color="orange">
-                <p>Orange</p>
-            </ColorBox>
-            <ColorBox color="blue">
-                <p>Blue</p>
-            </ColorBox>
-        </div>
-    );
-}
-
-function Description(props) {
-    return (
-        <p style={{ margin: 0 }}>
-            This page is a color panel page displaying a few sample colors.
-        </p>
-    )
-}
-
-function SplitPane(props) {
-    return (
-        <div className="splitpane">
-            <div className="splitpane-left">
-                {props.left}
-            </div>
-            <div className="splitpane-right">
-                {props.right}
-            </div>
-        </div>
-    );
-}
-
-
-
-function Dialog(props) {
-    return (
-        <div className="dialog">
-            <ColorBox color="lightgreen">
-                <h1 className="dialog-title">
-                    {props.title}
-                </h1>
-                <p className="dialog-message">
-                    {props.message}
-                </p>
-                {props.children}
-            </ColorBox>
-        </div>
-    );
-}
-
-function WelcomeDialog() {
-    return (
-        <Dialog
-            title="Welcome"
-            message="Thank you for visiting our space!" />
-    );
-}
-
-function SignUpDialog(props) {
-    const [login, setLogin] = useState('');
-
-    const handleChange = (event) => {
-        setLogin(event.target.value);
-    }
-
-    const handleSignUp = () => {
-        alert(`Welcome aboard, ${login}!`);
-        setLogin('');
-    }
-
-    return (
-        <Dialog title="Join Membership"
-            message="How should we refer to you?">
-            <div className="signup-input">
-                <input
-                    value={login}
-                    onChange={handleChange} />
-                <button onClick={handleSignUp}>
-                    Sign Me Up!
-                </button>
-            </div>
-        </Dialog>
     );
 }
 
 const App = () => {
     return (
-        <div>
-            <WelcomeDialog />
-            <SignUpDialog />
-            <SplitPane
-                left={
-                    <ColorPanel />
-                }
-                right={
-                    <Description />
-                }
-            />
-        </div>
+        <ProfileCard />
     );
 }
 
