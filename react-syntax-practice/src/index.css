@@ -1,58 +1,46 @@
-.color-panel {
-    display: flex;
-    flex-direction: column;
-    width: 150px;
-    font-size: 30px;
+/* universal selector */
+* {
+    font-family: 'Courier New', Courier, monospace;
 }
 
-.color-panel>* {
-    margin: 0px 7px 10px 7px;
-    padding-left: 10px;
+/* element selector */
+h1 {
+    background-color: antiquewhite;
+    padding: 10px;
+    padding-left: 20px;
 }
 
-.colorbox-orange {
-    background-color: orange;
+/* id selector */
+#animal {
+    margin: 20px;
 }
 
-.colorbox-blue {
-    background-color: blue;
+/* class selector */
+.cat {
+    color: darksalmon;
 }
 
-.colorbox-lightgreen {
-    background-color: lightgreen;
+div.dog {
+    color: cadetblue;
 }
 
-.splitpane {
-    display: flex;
+.animal-name {
+    font-size: 25px;
+    font-weight: bold;
 }
 
-.splitpane-right {
+.animal-sound {
+    margin-left: 30px;
+    font-size: 20px;
+}
+
+/* group selector */
+h2,
+h3,
+h4 {
+    font-size: 16px;
+    font-weight: normal;
+    color: grey;
+    margin: 5px;
     margin-left: 20px;
-    font-size: 18px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    width: 200px;
-}
-
-.dialog {
-    margin-left: 7px;
-    margin-bottom: 15px;
-    width: 500px;
-}
-
-.dialog-title {
-    margin-left: 10px;
-    margin-top: 20px;
-    margin-bottom: 0px;
-    padding-top: 10px;
-}
-
-.dialog-message {
-    margin-left: 10px;
-    padding-bottom: 10px;
-}
-
-.signup-input {
-    padding-left: 7px;
-    padding-bottom: 20px;
-    padding-top: 0px;
 }
