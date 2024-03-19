@@ -1,99 +1,30 @@
-/* universal selector */
-* {
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 200px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    margin: 50px;
+    border-radius: 5px;
+}
+
+.span-title {
     font-family: 'Courier New', Courier, monospace;
-}
-
-/* element selector */
-h1 {
-    background-color: antiquewhite;
-    padding: 10px;
-    padding-left: 20px;
-}
-
-/* id selector */
-#animal {
-    margin: 20px;
-}
-
-/* class selector */
-.cat {
-    color: darksalmon;
-}
-
-div.dog {
-    color: cadetblue;
-}
-
-.animal-name {
-    font-size: 25px;
     font-weight: bold;
+    font-size: 30px;
 }
 
-.animal-sound {
-    margin-left: 30px;
-    font-size: 20px;
+.control-buttons {
+    font-size: 18px;
+    margin: 15px;
 }
 
-/* group selector */
-
-h2,
-h3,
-h4 {
-    font-size: 16px;
-    font-weight: normal;
-    color: grey;
-    margin: 5px;
-    margin-left: 20px;
-}
-
-button:hover {
-    color: blueviolet;
+.control-buttons button {
+    margin: 0px 10px;
+    width: 40px;
+    height: 30px;
+    text-align: center;
     font-weight: bold;
-}
-
-a:active {
-    color: red;
-    font-weight: bold;
-}
-
-input:focus {
-    color: #ff5500;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-option:checked {
-    background: #ef6a98;
-    color: white;
-}
-
-p:first-child {
-    background: #ffe063;
-}
-
-span:last-child {
-    background: #65c4ff;
-}
-
-#state-selectors {
-    margin-top: 10px;
-}
-
-#state-selectors>* {
-    margin: 5px 20px;
-}
-
-#child-selectors {
-    margin-top: 30px;
-    margin-left: 10px;
-}
-
-#child-selectors>* {
-    margin: 5px;
-}
-
-.horizontal-line {
-    border-bottom: 1px solid black;
-    margin: 30px 0px;
-    margin-bottom: 50px;
 }
