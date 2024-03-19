@@ -7,18 +7,18 @@ const App = () => {
         <div>
             <h1>Animal Sound</h1>
             <div id="animal">
-                <div class="cat">
-                    <span class="animal-name">Cat</span>
-                    <p class="animal-sound">"Meow~"</p>
+                <div className="cat">
+                    <span className="animal-name">Cat</span>
+                    <p className="animal-sound">"Meow~"</p>
                 </div>
-                <div class="dog">
-                    <span class="animal-name">Dog</span>
-                    <p class="animal-sound">"Woof!"
+                <div className="dog">
+                    <span className="animal-name">Dog</span>
+                    <p className="animal-sound">"Woof!"
                     </p>
                 </div>
             </div>
             <br />
-            <p class="dog"> == A different dog is passing by ==&gt;</p>
+            <p className="dog"> == A different dog is passing by ==&gt;</p>
             <br />
             <div id="memo">
                 <h2>Cows make the sound "Moo".</h2>
@@ -26,13 +26,13 @@ const App = () => {
                 <h4>Birds make sound "Tweet".</h4>
             </div>
             <br />
-            <div class="horizontal-line"></div>
+            <div className="horizontal-line"></div>
             <div id="state-selectors">
                 <button>Hover Me!</button>
                 <br />
                 <a href="./">Click Me!</a>
                 <br />
-                <input value="focus input"></input>
+                <input value="focus input" readOnly />
                 <br />
                 <select size='4'>
                     <option value="spring">Spring</option>
@@ -46,7 +46,7 @@ const App = () => {
                 <p>This is nothing.</p>
                 <span>This is last span child.</span>
             </div>
-        </div>
+        </div >
     );
 }
 
