@@ -13,7 +13,8 @@ const App = () => {
                 </div>
                 <div class="dog">
                     <span class="animal-name">Dog</span>
-                    <p class="animal-sound">"Woof!"</p>
+                    <p class="animal-sound">"Woof!"
+                    </p>
                 </div>
             </div>
             <br />
@@ -23,6 +24,27 @@ const App = () => {
                 <h2>Cows make the sound "Moo".</h2>
                 <h3>Sheep make sound "Baa".</h3>
                 <h4>Birds make sound "Tweet".</h4>
+            </div>
+            <br />
+            <div class="horizontal-line"></div>
+            <div id="state-selectors">
+                <button>Hover Me!</button>
+                <br />
+                <a href="./">Click Me!</a>
+                <br />
+                <input value="focus input"></input>
+                <br />
+                <select size='4'>
+                    <option value="spring">Spring</option>
+                    <option value="summer">Summer</option>
+                    <option value="autumn">Autumn</option>
+                    <option value="winter">Winter</option>
+                </select>
+            </div>
+            <div id="child-selectors">
+                <p>This is first p child.</p>
+                <p>This is nothing.</p>
+                <span>This is last span child.</span>
             </div>
         </div>
     );
