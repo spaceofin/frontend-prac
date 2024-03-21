@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
 import styled from '@emotion/styled';
+import { keyframes } from '@emotion/react';
 
 const Container = styled.div`
 	text-align: center;
@@ -18,23 +18,28 @@ const Header = styled.header`
 	color: white;
 `;
 
+const AppLogoSpin = keyframes`
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+`;
+
 const AppLogo = styled.img`
 	height: 40vmin;
 	pointer-events: none;
 
   @media (prefers-reduced-motion: no-preference) {
-      animation: App-logo-spin infinite 20s linear;
-  }
-
-  @keyframes App-logo-spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+      animation: ${AppLogoSpin} infinite 20s linear;
   }
 `;
+
+const AppLink = styled.a`
+	color: #61dafb;
+`;
+
 
 function App() {
   return (
@@ -47,14 +52,21 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <a
+        {/* <a
           className="App-link"
           href="https://reactjs.org"
           target="_blank"
           rel="noopener noreferrer"
         >
           Learn React
-        </a>
+        </a> */}
+        <AppLink
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </AppLink>
       </Header>
       {/* </header> */}
     </Container>
