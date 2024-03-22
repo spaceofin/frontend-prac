@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { Component } from 'react';
+// import { useState } from 'react';
 import styled from '@emotion/styled';
 import { Button } from 'components/Button';
 import { Label } from 'components/Label';
@@ -27,27 +28,77 @@ const Contents = styled.div`
   justify-content: center;
 `;
 
-function App() {
-  const [counter, setCounter] = useState(0);
+// function App() {
+//   const [counter, setCounter] = useState(0);
 
-  const inc = () => {
-    setCounter(counter + 1);
+//   const inc = () => {
+//     setCounter(counter + 1);
+//   }
+
+//   const dec = () => {
+//     setCounter(counter - 1);
+//   }
+
+//   return (
+//     <Container>
+//       <Title>Counter App</Title>
+//       <Contents>
+//         <Button label='-' onClick={dec} />
+//         <Label data={counter} />
+//         <Button label='+' onClick={inc} />
+//       </Contents>
+//     </Container>
+//   );
+// }
+
+
+interface State {
+  readonly counter: number;
+}
+
+type Props = Record<string, never>;
+
+export class App extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      counter: 0,
+    };
   }
 
-  const dec = () => {
-    setCounter(counter - 1);
-  }
+  private inc = () => {
+    const { counter } = this.state;
+    this.setState({
+      counter: counter + 1,
+    });
+    // this.setState((prevState) => ({
+    //   counter: prevState.counter + 1,
+    // }));
+  };
 
-  return (
-    <Container>
-      <Title>Counter App</Title>
-      <Contents>
-        <Button label='-' onClick={dec} />
-        <Label data={counter} />
-        <Button label='+' onClick={inc} />
-      </Contents>
-    </Container>
-  );
+  private dec = () => {
+    const { counter } = this.state;
+    this.setState({
+      counter: counter - 1,
+    });
+    // this.setState((prevState) => ({
+    //   counter: prevState.counter - 1,
+    // }));
+  };
+
+  render() {
+    const { counter } = this.state;
+    return (
+      <Container>
+        <Title>Counter App</Title>
+        <Contents>
+          <Button label='-' onClick={this.dec} />
+          <Label data={counter} />
+          <Button label='+' onClick={this.inc} />
+        </Contents>
+      </Container >
+    );
+  }
 }
 
 export default App;
