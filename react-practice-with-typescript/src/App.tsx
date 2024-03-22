@@ -52,21 +52,21 @@ const Button = styled.button`
 function App() {
   const [counter, setCounter] = useState(0);
 
-  const handleButtonClick = (operation: string) => {
-    if (operation === 'decrease') {
-      setCounter(counter - 1);
-    } else if (operation === 'increase') {
-      setCounter(counter + 1);
-    }
-  };
+  const inc = () => {
+    setCounter(counter + 1);
+  }
+
+  const dec = () => {
+    setCounter(counter - 1);
+  }
 
   return (
     <Container>
       <Title>Counter App</Title>
       <Contents>
-        <Button onClick={() => handleButtonClick('decrease')}>-</Button>
+        <Button onClick={dec}>-</Button>
         <Label>{counter}</Label>
-        <Button onClick={() => handleButtonClick('increase')}>+</Button>
+        <Button onClick={inc}>+</Button>
       </Contents>
     </Container>
   );
