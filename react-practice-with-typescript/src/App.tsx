@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
+import { Button } from 'components/Button';
+import { Label } from 'components/Label';
 
 const Container = styled.div`
   display: flex;
@@ -25,30 +27,6 @@ const Contents = styled.div`
   justify-content: center;
 `;
 
-const Label = styled.span`
-  font-size: 18px;
-  margin: 15px;
-`;
-
-const Button = styled.button`
-  margin: 0px 10px;
-  width: 40px;
-  height: 30px;
-  font-weight: bold;
-  border-radius: 5px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #0091EA;
-    opacity: 0.9;
-    border-radius: 5px;
-  }
-
-  &:active {
-    box-shadow: 2px 2px 2px #FF4081;
-  }
-`;
-
 function App() {
   const [counter, setCounter] = useState(0);
 
@@ -64,9 +42,9 @@ function App() {
     <Container>
       <Title>Counter App</Title>
       <Contents>
-        <Button onClick={dec}>-</Button>
-        <Label>{counter}</Label>
-        <Button onClick={inc}>+</Button>
+        <Button label='-' onClick={dec} />
+        <Label data={counter} />
+        <Button label='+' onClick={inc} />
       </Contents>
     </Container>
   );
