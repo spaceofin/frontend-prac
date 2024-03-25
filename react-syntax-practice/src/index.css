@@ -20,15 +20,26 @@
     margin: 20px;
 }
 
-.btn-addtodolist {
+.btn-add-item {
     align-self: flex-end;
     margin-left: 2px;
+}
+
+.btn-delete-item {
+    margin-left: 5px;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+
 }
 
 .cardzone {
     display: flex;
     flex-direction: column;
     margin-top: 25px;
+    width: 60%;
 }
 
 .cardzone>div {
