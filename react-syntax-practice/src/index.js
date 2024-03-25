@@ -15,12 +15,20 @@ const Card = (props) => {
 
 const Container = () => {
     const [inputValue, setInputValue] = useState('');
+    const [addListVisible, setAddListVisible] = useState(false);
+    const [buttonName, setButtonName] = useState('Add List');
     const [toDoList, setToDoList] = useState([]);
 
     const handleAddListClick = () => {
+        setButtonName(buttonName === 'Add List' ? 'Close' : 'Add List');
+        setAddListVisible(prevState => !prevState);
+    }
+
+    const handleAddClick = () => {
         const newItem = { id: uuidv4(), item: inputValue };
         setToDoList([...toDoList, newItem]);
         setInputValue('');
+        handleAddListClick();
     }
 
     const handleDelClick = (id) => {
@@ -33,19 +41,21 @@ const Container = () => {
     }
 
     return (
-        <div className="container">
-            <h1 className="title">To Do List</h1>
-            <div>
-                <input value={inputValue} onChange={handleChange} />
-                <button className="btn-add-item" onClick={handleAddListClick}>Add List</button>
-            </div>
-            <div className="cardzone">
+        <div className={addListVisible ? "add-list-container" : "container"}>
+            <button className="btn-add-list" onClick={handleAddListClick}>{buttonName}</button>
+            <h1 className="title">{addListVisible ? 'Add List' : 'To Do List'}</h1>
+            {addListVisible ? (
+                <div>
+                    <input value={inputValue} onChange={handleChange} />
+                    <button className="btn-add-item" onClick={handleAddClick}>Add</button>
+                </div>
+            ) : <div className="cardzone">
                 {toDoList.map((card, index) => (
                     <div key={index}><Card item={card.item} onClick={() => handleDelClick(card.id)} /></div>
                 ))}
-            </div>
-
+            </div>}
         </div>
+
     );
 }
 
