@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Title } from 'components/Title';
-import { Button } from 'components/Button';
+import { Item } from 'components/Item';
 
 
 const Container = styled.div`
@@ -17,7 +17,9 @@ const App = () => {
   return (
     <Container>
       <Title title="To Do List" />
-      <Button text="Del" />
+      <Item text="Study" />
+      <Item text="Laundry" />
+      <Item text="Exercise" />
     </Container>
   );
 }
