@@ -25,7 +25,7 @@ export const Item = ({ text, onDelete }: Props) => {
     return (
         <Container>
             <ToDo>{text}</ToDo>
-            <Button text="Del" onClick={onDelete} />
+            <Button color="#F75472" text="Del" onClick={onDelete} />
         </Container>
     );
 };

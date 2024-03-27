@@ -1,15 +1,19 @@
 import styled from '@emotion/styled';
 
-const Container = styled.button`
+interface ContainerProps {
+	readonly color: string;
+}
+
+const Container = styled.button<ContainerProps>`
 	border: 0;
 	color: #ffffff;
-	background-color: #F75472;
+	background-color: ${(props) => props.color};
 	cursor: pointer;
 	padding: 8px 16px;
 	border-radius: 4px;
 
 	&:hover {
-		background-color: #F75472;
+		background-color: ${(props) => props.color};
 		opacity: 0.85;
 	}
 
@@ -21,9 +25,10 @@ const Container = styled.button`
 
 interface Props {
 	readonly text: string;
+	readonly color?: string;
 	readonly onClick?: () => void;
 }
 
-export const Button = ({ text, onClick }: Props) => {
-	return <Container onClick={onClick}>{text}</Container>
+export const Button = ({ text, color = '#aaaaaa', onClick }: Props) => {
+	return <Container color={color} onClick={onClick}>{text}</Container>
 };
