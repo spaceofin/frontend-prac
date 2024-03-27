@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Title } from 'components/Title';
-import { Item } from 'components/Item';
+import { ItemList } from 'components/ItemList';
 
 
 const Container = styled.div`
@@ -17,9 +17,7 @@ const App = () => {
   return (
     <Container>
       <Title title="To Do List" />
-      <Item text="Study" />
-      <Item text="Laundry" />
-      <Item text="Exercise" />
+      <ItemList items={["Study", "Laundry", "Exercise"]} />
     </Container>
   );
 }

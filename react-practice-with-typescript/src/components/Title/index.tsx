@@ -7,7 +7,8 @@ const Container = styled.div`
 `;
 
 const H1 = styled.h1`
-	margin-top: 0;
+	margin: 0px 0px;
+    margin-bottom: 15px;
 `;
 
 interface Props {
