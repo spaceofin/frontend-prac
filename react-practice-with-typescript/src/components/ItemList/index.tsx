@@ -15,14 +15,13 @@ interface Props {
 export const ItemList = ({ items, onDelete }: Props) => {
     return (
         <Container>
-            {items.map((item, index) => (
+            {items.map((item) => (
                 < Item
-                    key={index}
+                    key={item}
                     text={item}
                     onDelete={onDelete ? (() => onDelete(item)) : undefined}
                 />
             ))}
         </Container>
-
     );
 };
