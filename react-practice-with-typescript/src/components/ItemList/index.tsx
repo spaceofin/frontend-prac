@@ -13,14 +13,14 @@ interface Item {
 }
 
 interface Props {
-    readonly items: ReadonlyArray<Item>;
+    readonly itemList: ReadonlyArray<Item>;
     readonly onDelete?: (id: string) => void;
 }
 
-export const ItemList = ({ items, onDelete }: Props) => {
+export const ItemList = ({ itemList, onDelete }: Props) => {
     return (
         <Container>
-            {items.map((item) => (
+            {itemList.map((item) => (
                 < Item
                     key={item.id}
                     text={item.text}

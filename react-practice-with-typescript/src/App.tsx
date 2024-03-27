@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
-import { Title } from 'components/Title';
-import { ItemList } from 'components/ItemList';
+import { DataPanel } from 'components/DataPanel';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -31,8 +30,7 @@ const App = () => {
 
   return (
     <Container>
-      <Title title="To Do List" />
-      <ItemList items={itemList} onDelete={onDelete} />
+      <DataPanel itemList={itemList} onDelete={onDelete} />
     </Container>
   );
 }
