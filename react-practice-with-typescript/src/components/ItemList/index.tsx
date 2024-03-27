@@ -7,9 +7,14 @@ const Container = styled.div`
     margin: 10px;
 `;
 
+interface Item {
+    id: string;
+    text: string;
+}
+
 interface Props {
-    readonly items: ReadonlyArray<string>;
-    readonly onDelete?: (item: string) => void;
+    readonly items: ReadonlyArray<Item>;
+    readonly onDelete?: (id: string) => void;
 }
 
 export const ItemList = ({ items, onDelete }: Props) => {
@@ -17,11 +22,12 @@ export const ItemList = ({ items, onDelete }: Props) => {
         <Container>
             {items.map((item) => (
                 < Item
-                    key={item}
-                    text={item}
-                    onDelete={onDelete ? (() => onDelete(item)) : undefined}
+                    key={item.id}
+                    text={item.text}
+                    onDelete={onDelete ? (() => onDelete(item.id)) : undefined}
                 />
             ))}
         </Container>
+
     );
 };

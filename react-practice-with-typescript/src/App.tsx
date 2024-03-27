@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { Title } from 'components/Title';
 import { ItemList } from 'components/ItemList';
 import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 
 const Container = styled.div`
@@ -16,12 +17,16 @@ const Container = styled.div`
 
 const App = () => {
   const [itemList, setItemList] = useState([
-    "Study", "Laundry", "Exercise",
+    { id: uuidv4(), text: "Study" },
+    { id: uuidv4(), text: "Laundry" },
+    { id: uuidv4(), text: "Exercise" }
   ]);
 
-  const onDelete = (targetItem: string) => {
-    setItemList(itemList.filter((item) => item !== targetItem));
-    console.log(targetItem);
+  const onDelete = (targetId: string) => {
+    setItemList(itemList.filter((item) => item.id !== targetId))
+
+    console.log(itemList);
+    console.log(targetId);
   }
 
   return (
