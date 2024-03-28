@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { DataPanel } from 'components/DataPanel';
 import { AddItem } from 'components/AddItem';
+import { ToggleButton } from 'components/ToggleButton';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -10,8 +11,8 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
-  width: max(80vw,800px);
-  height: 50vh;
+  width: max(80vw,900px);
+  height: max(50vh,500px);
   background-color: #FFDF8E;
 `;
 
@@ -22,7 +23,7 @@ const App = () => {
     { id: uuidv4(), text: "Exercise" }
   ]);
 
-  const [showAddItem, setShowItem] = useState(true);
+  const [addButtonOn, setAddButtonOn] = useState(false);
 
 
   const onDelete = (targetId: string) => {
@@ -36,16 +37,16 @@ const App = () => {
   const onAdd = (item: string) => {
     const newItem = { id: uuidv4(), text: item };
     setItemList([...itemList, newItem]);
-
-    setShowItem(false);
   };
 
   return (
     <Container>
       <DataPanel itemList={itemList} onDelete={onDelete} />
-      {/* <TextInput value={item} onChange={setItem} />
-      <Button color="#7EBA00" text="Add" /> */}
-      {showAddItem && <AddItem onAdd={onAdd} />}
+      {addButtonOn && <AddItem onAdd={onAdd} />}
+      <ToggleButton
+        on={addButtonOn}
+        onClick={() => setAddButtonOn(!addButtonOn)}
+      />
     </Container>
   );
 }

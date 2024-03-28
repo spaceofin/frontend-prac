@@ -42,28 +42,28 @@ const InputContainer = styled.div`
 `;
 
 interface Props {
-    readonly onAdd: (item: string) => void;
+	readonly onAdd: (item: string) => void;
 }
 
 export const AddItem = ({ onAdd }: Props) => {
-    const [item, setItem] = useState('');
+	const [item, setItem] = useState('');
 
-    const onAddItem = () => {
-        if (item === '') return;
-        onAdd(item);
-        setItem('');
-    };
+	const onAddItem = () => {
+		if (item === '') return;
+		onAdd(item);
+		setItem('');
+	};
 
-    return (
-        <Container>
-            <Background />
-            <Contents>
-                <Title text="Add To Do" />
-                <InputContainer>
-                    <TextInput value={item} onChange={setItem} />
-                    <Button text="Add" color="#304FFE" onClick={onAddItem} />
-                </InputContainer>
-            </Contents>
-        </Container>
-    );
+	return (
+		<Container>
+			<Background />
+			<Contents>
+				<Title text="Add To Do" />
+				<InputContainer>
+					<TextInput value={item} onChange={setItem} />
+					<Button text="Add" color="#304FFE" onClick={onAddItem} />
+				</InputContainer>
+			</Contents>
+		</Container>
+	);
 };
