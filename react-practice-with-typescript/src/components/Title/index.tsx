@@ -12,13 +12,13 @@ const H1 = styled.h1`
 `;
 
 interface Props {
-    readonly title: string;
+    readonly text: string;
 }
 
-export const Title = ({ title }: Props) => {
+export const Title = ({ text }: Props) => {
     return (
         <Container>
-            <H1>{title}</H1>
+            <H1>{text}</H1>
         </Container>
     );
 };

@@ -3,7 +3,7 @@ import { Button } from 'components/Button';
 
 const Container = styled.div`
 	display: flex;
-    width: 50vh;
+    width: 35vw;
     height: 30px;
 	align-items: center;
 	justify-content: space-between;

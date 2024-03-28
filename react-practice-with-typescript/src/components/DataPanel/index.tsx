@@ -7,7 +7,7 @@ const Container = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-    width: 50vh;
+    width: max(45vw, 500px);
 	background-color: #ffffff;
 	padding: 30px;
 	border-radius: 8px;
@@ -26,7 +26,7 @@ interface Props {
 export const DataPanel = ({ itemList, onDelete }: Props) => {
     return (
         <Container>
-            <Title title="To Do List" />
+            <Title text="To Do List" />
             <ItemList itemList={itemList} onDelete={onDelete} />
         </Container>
     );
