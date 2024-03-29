@@ -11,7 +11,6 @@ export const InputModal = (props: Props) => {
 
     const onAdd = (item: string) => {
         props.onAdd(item);
-        setAddButtonOn(false);
     };
 
     return (
