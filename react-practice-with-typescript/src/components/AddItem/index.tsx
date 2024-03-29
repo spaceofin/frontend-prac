@@ -45,12 +45,12 @@ interface Props {
 	readonly onAdd: (item: string) => void;
 }
 
-export const AddItem = ({ onAdd }: Props) => {
+export const AddItem = (props: Props) => {
 	const [item, setItem] = useState('');
 
-	const onAddItem = () => {
+	const onAdd = () => {
 		if (item === '') return;
-		onAdd(item);
+		props.onAdd(item);
 		setItem('');
 	};
 
@@ -61,7 +61,7 @@ export const AddItem = ({ onAdd }: Props) => {
 				<Title text="Add To Do" />
 				<InputContainer>
 					<TextInput value={item} onChange={setItem} />
-					<Button text="Add" color="#304FFE" onClick={onAddItem} />
+					<Button text="Add" color="#304FFE" onClick={onAdd} />
 				</InputContainer>
 			</Contents>
 		</Container>
