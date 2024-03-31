@@ -16,15 +16,6 @@ interface Props {
     children: JSX.Element | JSX.Element[];
 }
 
-// const ItemListContext = createContext<Context>({
-//     itemList: [],
-//     /* eslint-disable @typescript-eslint/no-empty-function */
-//     onAdd: (): void => { },
-//     onDelete: (): void => { },
-//     /* eslint-enable @typescript-eslint/no-empty-function */
-// });
-
-
 const ItemListContext = createContext<Context>({
     itemList: [],
     onAdd: (): void => { /* empty */ },

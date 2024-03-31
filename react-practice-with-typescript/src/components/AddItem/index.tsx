@@ -42,20 +42,9 @@ const InputContainer = styled.div`
 	justify-content: center;
 `;
 
-// interface Props {
-// 	readonly onAdd: (item: string) => void;
-// }
-
-// export const AddItem = (props: Props) => {
 export const AddItem = () => {
 	const { onAdd } = useContext(ItemListContext);
 	const [item, setItem] = useState('');
-
-	// const onAdd = () => {
-	// 	if (item === '') return;
-	// 	props.onAdd(item);
-	// 	setItem('');
-	// };
 
 	const onAddItem = () => {
 		if (item === '') return;
@@ -70,7 +59,6 @@ export const AddItem = () => {
 				<Title text="Add To Do" />
 				<InputContainer>
 					<TextInput value={item} onChange={setItem} />
-					{/* <Button text="Add" color="#304FFE" onClick={onAdd} /> */}
 					<Button text="Add" color="#304FFE" onClick={onAddItem} />
 				</InputContainer>
 			</Contents>
