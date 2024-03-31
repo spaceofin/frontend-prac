@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 import { Item } from 'components/Item';
+import { useContext } from 'react';
+import { ItemListContext } from 'contexts/ItemList';
 
 const Container = styled.div`
 	display: flex;
@@ -9,17 +11,20 @@ const Container = styled.div`
     overflow: auto;
 `;
 
-interface Item {
-    id: string;
-    text: string;
-}
+// interface Item {
+//     id: string;
+//     text: string;
+// }
 
-interface Props {
-    readonly itemList: ReadonlyArray<Item>;
-    readonly onDelete?: (id: string) => void;
-}
+// interface Props {
+//     readonly itemList: ReadonlyArray<Item>;
+//     readonly onDelete?: (id: string) => void;
+// }
 
-export const ItemList = ({ itemList, onDelete }: Props) => {
+// export const ItemList = ({ itemList, onDelete }: Props) => {
+export const ItemList = () => {
+    const { itemList, onDelete } = useContext(ItemListContext);
+
     return (
         <Container>
             {itemList.map((item) => (

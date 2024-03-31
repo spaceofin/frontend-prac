@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import styled from '@emotion/styled';
 import { TextInput } from 'components/TextInput';
 import { Button } from 'components/Button';
 import { Title } from 'components/Title';
+import { ItemListContext } from 'contexts/ItemList';
 
 const Container = styled.div`
     display: flex;
@@ -41,16 +42,24 @@ const InputContainer = styled.div`
 	justify-content: center;
 `;
 
-interface Props {
-	readonly onAdd: (item: string) => void;
-}
+// interface Props {
+// 	readonly onAdd: (item: string) => void;
+// }
 
-export const AddItem = (props: Props) => {
+// export const AddItem = (props: Props) => {
+export const AddItem = () => {
+	const { onAdd } = useContext(ItemListContext);
 	const [item, setItem] = useState('');
 
-	const onAdd = () => {
+	// const onAdd = () => {
+	// 	if (item === '') return;
+	// 	props.onAdd(item);
+	// 	setItem('');
+	// };
+
+	const onAddItem = () => {
 		if (item === '') return;
-		props.onAdd(item);
+		onAdd(item);
 		setItem('');
 	};
 
@@ -61,7 +70,8 @@ export const AddItem = (props: Props) => {
 				<Title text="Add To Do" />
 				<InputContainer>
 					<TextInput value={item} onChange={setItem} />
-					<Button text="Add" color="#304FFE" onClick={onAdd} />
+					{/* <Button text="Add" color="#304FFE" onClick={onAdd} /> */}
+					<Button text="Add" color="#304FFE" onClick={onAddItem} />
 				</InputContainer>
 			</Contents>
 		</Container>

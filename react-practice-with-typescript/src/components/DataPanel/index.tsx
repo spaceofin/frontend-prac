@@ -14,21 +14,23 @@ const Container = styled.div`
 	border-radius: 8px;
 `;
 
-interface Item {
-    id: string;
-    text: string;
-}
+// interface Item {
+//     id: string;
+//     text: string;
+// }
 
-interface Props {
-    readonly itemList: ReadonlyArray<Item>;
-    readonly onDelete?: (id: string) => void;
-}
+// interface Props {
+//     readonly itemList: ReadonlyArray<Item>;
+//     readonly onDelete?: (id: string) => void;
+// }
 
-export const DataPanel = ({ itemList, onDelete }: Props) => {
+// export const DataPanel = ({ itemList, onDelete }: Props) => {
+export const DataPanel = () => {
     return (
         <Container>
             <Title text="To Do List" />
-            <ItemList itemList={itemList} onDelete={onDelete} />
+            {/* <ItemList itemList={itemList} onDelete={onDelete} /> */}
+            <ItemList />
         </Container>
     );
 };
