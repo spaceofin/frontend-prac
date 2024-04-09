@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import { ToggleButton } from 'components/ToggleButton';
+import { useNavigate } from 'react-router-dom';
 import { Title } from 'components/Title';
 import { ItemList } from 'components/ItemList';
 
@@ -15,10 +17,12 @@ const Container = styled.div`
 `;
 
 export const DataPanel = () => {
+    const navigate = useNavigate();
     return (
         <Container>
             <Title text="To Do List" />
             <ItemList />
+            <ToggleButton on={false} onClick={() => navigate('/add')} />
         </Container>
     );
 };

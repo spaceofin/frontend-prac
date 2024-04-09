@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Routes, Route } from 'react-router-dom';
-import { DataPanel } from 'components/DataPanel';
+import { DataPanel } from 'pages/DataPanel';
 import { InputModal } from 'components/InputModal';
 import { ItemListContextProvider } from 'contexts/ItemList';
 
@@ -27,10 +27,7 @@ function App() {
           <Route
             path="/"
             element={
-              <>
-                <DataPanel />
-                <InputModal />
-              </>
+              <DataPanel />
             }
           />
           <Route
