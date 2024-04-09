@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Routes, Route } from 'react-router-dom';
 import { DataPanel } from 'components/DataPanel';
 import { InputModal } from 'components/InputModal';
 import { ItemListContextProvider } from 'contexts/ItemList';
@@ -13,12 +14,36 @@ const Container = styled.div`
   background-color: #FFDF8E;
 `;
 
-const App = () => {
+const NotFound = styled.div`
+	text-align: center;
+  font-size: 30px;
+`;
+
+function App() {
   return (
     <Container>
       <ItemListContextProvider>
-        <DataPanel />
-        <InputModal />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <DataPanel />
+                <InputModal />
+              </>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <NotFound>
+                404
+                <br />
+                NOT FOUND
+              </NotFound>
+            }
+          />
+        </Routes>
       </ItemListContextProvider>
     </Container>
   );
