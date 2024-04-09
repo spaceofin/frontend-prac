@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { AddItem } from 'components/AddItem';
+import { AddItem } from 'pages/AddItem';
 import { ToggleButton } from 'components/ToggleButton';
 
 export const InputModal = () => {

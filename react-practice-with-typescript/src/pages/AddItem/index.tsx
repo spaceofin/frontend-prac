@@ -1,9 +1,11 @@
-import { useState, useContext } from 'react';
 import styled from '@emotion/styled';
+import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { TextInput } from 'components/TextInput';
 import { Button } from 'components/Button';
 import { Title } from 'components/Title';
 import { ItemListContext } from 'contexts/ItemList';
+import { ToggleButton } from 'components/ToggleButton';
 
 const Container = styled.div`
     display: flex;
@@ -22,7 +24,7 @@ const Background = styled.div`
 	left: 0;
 	bottom: 0;
 	right: 0;
-	background-color: rgb(137 163 163 / 85%);
+	
 `;
 
 const Contents = styled.div`
@@ -45,11 +47,13 @@ const InputContainer = styled.div`
 export const AddItem = () => {
 	const { onAdd } = useContext(ItemListContext);
 	const [item, setItem] = useState('');
+	const navigate = useNavigate();
 
 	const onAddItem = () => {
 		if (item === '') return;
 		onAdd(item);
 		setItem('');
+		navigate('/');
 	};
 
 	return (
@@ -62,6 +66,7 @@ export const AddItem = () => {
 					<Button text="Add" color="#304FFE" onClick={onAddItem} />
 				</InputContainer>
 			</Contents>
+			<ToggleButton on={true} onClick={() => navigate('/')} />
 		</Container>
 	);
 };

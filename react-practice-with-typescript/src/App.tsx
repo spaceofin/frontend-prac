@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Routes, Route } from 'react-router-dom';
 import { DataPanel } from 'pages/DataPanel';
-import { InputModal } from 'components/InputModal';
+import { AddItem } from 'pages/AddItem';
 import { ItemListContextProvider } from 'contexts/ItemList';
 
 const Container = styled.div`
@@ -26,9 +26,11 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={
-              <DataPanel />
-            }
+            element={<DataPanel />}
+          />
+          <Route
+            path="/add"
+            element={<AddItem />}
           />
           <Route
             path="*"
