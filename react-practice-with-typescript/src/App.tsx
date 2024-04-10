@@ -6,12 +6,13 @@ import { ItemListContextProvider } from 'contexts/ItemList';
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
   width: max(80vw,900px);
   height: max(50vh,500px);
-  background-color: #FFDF8E;
+  background-color: #ffdf8e;
 `;
 
 const NotFound = styled.div`
@@ -44,7 +45,7 @@ function App() {
           />
         </Routes>
       </ItemListContextProvider>
-    </Container>
+    </Container >
   );
 }
 

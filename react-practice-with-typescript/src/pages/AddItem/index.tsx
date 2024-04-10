@@ -7,26 +7,6 @@ import { Title } from 'components/Title';
 import { ItemListContext } from 'contexts/ItemList';
 import { ToggleButton } from 'components/ToggleButton';
 
-const Container = styled.div`
-    display: flex;
-	align-items: center;
-	justify-content: center;
-    position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-`;
-
-const Background = styled.div`
-	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-	
-`;
-
 const Contents = styled.div`
 	display: flex;
 	align-items: center;
@@ -35,7 +15,7 @@ const Contents = styled.div`
 	background-color: #ffffff;
 	padding: 30px 50px;
 	border-radius: 10px;
-	z-index: 1;
+	// z-index: 1;
 `;
 
 const InputContainer = styled.div`
@@ -57,8 +37,7 @@ export const AddItem = () => {
 	};
 
 	return (
-		<Container>
-			<Background />
+		<>
 			<Contents>
 				<Title text="Add To Do" />
 				<InputContainer>
@@ -67,6 +46,6 @@ export const AddItem = () => {
 				</InputContainer>
 			</Contents>
 			<ToggleButton on={true} onClick={() => navigate('/')} />
-		</Container>
+		</>
 	);
 };
