@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { DataPanel } from 'pages/DataPanel';
 import { AddItem } from 'pages/AddItem';
 import { ItemListContextProvider } from 'contexts/ItemList';
+import { Header } from 'components/Header';
 
 const Container = styled.div`
   display: flex;
@@ -24,6 +25,7 @@ function App() {
   return (
     <Container>
       <ItemListContextProvider>
+        <Header />
         <Routes>
           <Route
             path="/"

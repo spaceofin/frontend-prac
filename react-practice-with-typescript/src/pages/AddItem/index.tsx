@@ -15,7 +15,6 @@ const Contents = styled.div`
 	background-color: #ffffff;
 	padding: 30px 50px;
 	border-radius: 10px;
-	// z-index: 1;
 `;
 
 const InputContainer = styled.div`
