@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Post } from 'components/Post';
 import { Header } from 'components/Header';
 
 const Container = styled.div`
@@ -15,6 +16,7 @@ function App() {
   return (
     <Container>
       <Header />
+      <Post />
     </Container>
   );
 }
