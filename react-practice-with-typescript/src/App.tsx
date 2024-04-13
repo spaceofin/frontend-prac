@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { Post } from "components/Post";
 import { Header } from "components/Header";
+import mockPosts from "data/posts.json";
 
 const Container = styled.div`
   height: 100vh;
@@ -19,26 +20,7 @@ interface Post {
 }
 
 function App() {
-  const posts: ReadonlyArray<Post> = [
-    {
-      id: 1,
-      userId: 1,
-      title: "Title1",
-      body: "Body1",
-    },
-    {
-      id: 2,
-      userId: 1,
-      title: "Title2",
-      body: "Body2",
-    },
-    {
-      id: 3,
-      userId: 2,
-      title: "Title3",
-      body: "Body3",
-    },
-  ];
+  const posts: ReadonlyArray<Post> = mockPosts;
 
   return (
     <Container>
