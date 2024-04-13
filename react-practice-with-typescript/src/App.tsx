@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { Post } from "components/Post";
 import { Header } from "components/Header";
+import { Button } from "components/Button";
 import mockPosts from "data/posts.json";
 
 const Container = styled.div`
@@ -10,6 +11,13 @@ const Container = styled.div`
   align-items: center;
   background-color: #1b89ba;
   overflow: scroll;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 80vw;
+  margin-bottom: 20px;
 `;
 
 interface Post {
@@ -25,6 +33,9 @@ function App() {
   return (
     <Container>
       <Header />
+      <ButtonContainer>
+        <Button text="CREATE" color="#08BDA0" />
+      </ButtonContainer>
       {posts.map((post) => (
         <Post key={post.id} title={post.title} body={post.body} />
       ))}
