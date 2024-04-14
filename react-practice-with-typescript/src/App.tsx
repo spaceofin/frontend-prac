@@ -30,8 +30,21 @@ interface Post {
 }
 
 function App() {
-  const posts: ReadonlyArray<Post> = mockPosts;
+  // const posts: ReadonlyArray<Post> = mockPosts;
+  const [posts, setPosts] = useState<ReadonlyArray<Post>>(mockPosts);
   const [showForm, setShowForm] = useState(false);
+
+  const onCreate = (title: string, body: string) => {
+    const newPost = {
+      id: posts.length + 1,
+      userId: 0,
+      title: title,
+      body: body,
+    };
+    console.log(newPost);
+    setPosts((prevPosts) => [...prevPosts, newPost]);
+    setShowForm(false);
+  };
 
   return (
     <Container>
@@ -43,7 +56,9 @@ function App() {
           onClick={() => setShowForm(true)}
         />
       </ButtonContainer>
-      {showForm && <Form onClose={() => setShowForm(false)} />}
+      {showForm && (
+        <Form onCreate={onCreate} onClose={() => setShowForm(false)} />
+      )}
       {posts.map((post) => (
         <Post key={post.id} title={post.title} body={post.body} />
       ))}

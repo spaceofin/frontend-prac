@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { Button } from "components/Button";
+import { useState } from "react";
 
 const Container = styled.div`
   position: absolute;
@@ -62,10 +63,14 @@ const Actions = styled.div`
 `;
 
 interface Props {
+  readonly onCreate: (title: string, body: string) => void;
   readonly onClose: () => void;
 }
 
-export const Form = ({ onClose }: Props) => {
+export const Form = ({ onCreate, onClose }: Props) => {
+  const [titleValue, setTitleValue] = useState("");
+  const [bodyValue, setBodyValue] = useState("");
+
   return (
     <Container>
       <Background />
@@ -73,14 +78,24 @@ export const Form = ({ onClose }: Props) => {
         <Title>Create a Post</Title>
         <InputGroup>
           <Label>Title: </Label>
-          <Input />
+          <Input
+            value={titleValue}
+            onChange={(e) => setTitleValue(e.target.value)}
+          />
         </InputGroup>
         <InputGroup>
           <Label>Body: </Label>
-          <Input />
+          <Input
+            value={bodyValue}
+            onChange={(e) => setBodyValue(e.target.value)}
+          />
         </InputGroup>
         <Actions>
-          <Button text="Create" color="#08BDA0" onClick={onClose} />
+          <Button
+            text="Create"
+            color="#08BDA0"
+            onClick={() => onCreate(titleValue, bodyValue)}
+          />
           <Button text="Close" onClick={onClose} />
         </Actions>
       </Contents>
