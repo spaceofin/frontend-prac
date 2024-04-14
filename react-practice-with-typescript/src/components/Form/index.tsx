@@ -80,7 +80,7 @@ export const Form = ({ onClose }: Props) => {
           <Input />
         </InputGroup>
         <Actions>
-          <Button text="Create" color="#51C213" onClick={onClose} />
+          <Button text="Create" color="#08BDA0" onClick={onClose} />
           <Button text="Close" onClick={onClose} />
         </Actions>
       </Contents>
