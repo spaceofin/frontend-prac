@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { Post } from "components/Post";
 import { Header } from "components/Header";
 import { Button } from "components/Button";
+import { Form } from "components/Form";
 import mockPosts from "data/posts.json";
 
 const Container = styled.div`
@@ -36,6 +37,11 @@ function App() {
       <ButtonContainer>
         <Button text="CREATE" color="#08BDA0" />
       </ButtonContainer>
+      <Form
+        onClose={() => {
+          /**/
+        }}
+      />
       {posts.map((post) => (
         <Post key={post.id} title={post.title} body={post.body} />
       ))}
