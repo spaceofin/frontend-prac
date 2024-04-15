@@ -3,8 +3,8 @@ import { Post } from "components/Post";
 import { Header } from "components/Header";
 import { Button } from "components/Button";
 import { Form } from "components/Form";
-import { useState } from "react";
-import mockPosts from "data/posts.json";
+import { useState, useEffect } from "react";
+// import mockPosts from "data/posts.json";
 
 const Container = styled.div`
   height: 100vh;
@@ -31,8 +31,17 @@ interface Post {
 
 function App() {
   // const posts: ReadonlyArray<Post> = mockPosts;
-  const [posts, setPosts] = useState<ReadonlyArray<Post>>(mockPosts);
+  const [posts, setPosts] = useState<ReadonlyArray<Post>>([]);
   const [showForm, setShowForm] = useState(false);
+
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/posts')
+      .then((response) => response.json())
+      .then((json) => setPosts(json))
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   const onCreate = (title: string, body: string) => {
     const newPost = {
