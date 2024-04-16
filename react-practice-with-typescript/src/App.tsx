@@ -4,7 +4,6 @@ import { Header } from "components/Header";
 import { Button } from "components/Button";
 import { Form } from "components/Form";
 import { useState, useEffect } from "react";
-// import mockPosts from "data/posts.json";
 
 const Container = styled.div`
   height: 100vh;
@@ -30,7 +29,6 @@ interface Post {
 }
 
 function App() {
-  // const posts: ReadonlyArray<Post> = mockPosts;
   const [posts, setPosts] = useState<ReadonlyArray<Post>>([]);
   const [showForm, setShowForm] = useState(false);
 
@@ -43,18 +41,6 @@ function App() {
       });
   }, []);
 
-  const onCreate = (title: string, body: string) => {
-    const newPost = {
-      id: posts.length + 1,
-      userId: 0,
-      title: title,
-      body: body,
-    };
-    console.log(newPost);
-    setPosts((prevPosts) => [...prevPosts, newPost]);
-    setShowForm(false);
-  };
-
   return (
     <Container>
       <Header />
@@ -66,7 +52,7 @@ function App() {
         />
       </ButtonContainer>
       {showForm && (
-        <Form onCreate={onCreate} onClose={() => setShowForm(false)} />
+        <Form onClose={() => setShowForm(false)} />
       )}
       {posts.map((post) => (
         <Post key={post.id} title={post.title} body={post.body} />

@@ -63,13 +63,36 @@ const Actions = styled.div`
 `;
 
 interface Props {
-  readonly onCreate: (title: string, body: string) => void;
   readonly onClose: () => void;
 }
 
-export const Form = ({ onCreate, onClose }: Props) => {
+export const Form = ({ onClose }: Props) => {
   const [titleValue, setTitleValue] = useState("");
   const [bodyValue, setBodyValue] = useState("");
+
+  const registerPost = () => {
+    if (titleValue === '' || bodyValue === '') return;
+
+    fetch('https://jsonplaceholder.typicode.com/posts', {
+      method: 'POST',
+      body: JSON.stringify({
+        userId: 0,
+        titleValue,
+        bodyValue,
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json, 'has been registered');
+        if (typeof onClose === 'function') onClose();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   return (
     <Container>
@@ -94,7 +117,7 @@ export const Form = ({ onCreate, onClose }: Props) => {
           <Button
             text="Create"
             color="#08BDA0"
-            onClick={() => onCreate(titleValue, bodyValue)}
+            onClick={registerPost}
           />
           <Button text="Close" onClick={onClose} />
         </Actions>
