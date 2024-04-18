@@ -16,5 +16,5 @@ export default meta;
 type Title = StoryObj<typeof Title>;
 
 export const Default: Title = {
-  render: () => <Title />,
+  render: () => <Title title="Counter App" />,
 };
