@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useState } from 'react';
 
 import { Button } from 'components/atoms/Button';
 import { Count } from 'components/atoms/Count';
@@ -10,11 +11,13 @@ const Container = styled.div`
 `;
 
 export const Counter = () => {
+  const [count, setCount] = useState(0);
+
   return (
     <Container>
-      <Button label="-" />
-      <Count value={0} />
-      <Button label="+" />
+      <Button label="-" onClick={() => setCount(count - 1)} />
+      <Count value={count} />
+      <Button label="+" onClick={() => setCount(count + 1)} />
     </Container>
   );
 };
