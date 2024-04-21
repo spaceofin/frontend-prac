@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
 
 import { ToDoItem } from '.';
 
@@ -14,6 +13,5 @@ type ToDoItem = StoryObj<typeof ToDoItem>;
 export const Default: ToDoItem = {
     args: {
         label: 'Study',
-        onDelete: fn(),
     },
 };
