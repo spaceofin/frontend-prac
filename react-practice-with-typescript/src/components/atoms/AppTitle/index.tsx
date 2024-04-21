@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
-import { BrowserRouter } from 'react-router-dom';
 
 const Container = styled(Link)`
   color: #ffffff;
@@ -10,9 +9,5 @@ const Container = styled(Link)`
 `;
 
 export const AppTitle = () => {
-  return (
-    <BrowserRouter>
-      <Container to="/">To Do List</Container>
-    </BrowserRouter>
-  );
+  return <Container to="/">To Do List</Container>;
 };
