@@ -18,7 +18,9 @@ const Container = styled.button<ContainerProps>`
 
   &:active {
     // box-shadow: inset 5px 5px 10px rgba(0,0,0,0.2);
-    box-shadow: inset 0px -3px 2px rgba(0,0,0,0.2), inset -3px 0px 2px rgba(0,0,0,0.2)
+    box-shadow:
+      inset 0px -3px 2px rgba(0, 0, 0, 0.2),
+      inset -3px 0px 2px rgba(0, 0, 0, 0.2);
   }
 `;
 
@@ -29,5 +31,9 @@ interface Props {
 }
 
 export const Button = ({ label, color = '#ff5722', onClick }: Props) => {
-  return <Container color={color} onClick={onClick}>{label}</Container>;
+  return (
+    <Container color={color} onClick={onClick}>
+      {label}
+    </Container>
+  );
 };

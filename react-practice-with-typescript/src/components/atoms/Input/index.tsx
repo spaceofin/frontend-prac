@@ -11,5 +11,10 @@ interface Props {
 }
 
 export const Input = ({ value, onChange }: Props) => {
-  return <TextInput value={value} onChange={(event) => onChange(event.target.value)} />;
+  return (
+    <TextInput
+      value={value}
+      onChange={(event) => onChange(event.target.value)}
+    />
+  );
 };

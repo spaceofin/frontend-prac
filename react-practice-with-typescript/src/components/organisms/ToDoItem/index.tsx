@@ -10,13 +10,15 @@ const Container = styled.div`
 `;
 
 interface Props {
-    readonly label: string;
-    readonly onDelete?: () => void;
+  readonly label: string;
+  readonly onDelete?: () => void;
 }
 
 export const ToDoItem = ({ label, onDelete }: Props) => {
-    return (<Container>
-        <Label label={label} />
-        <Button label="Delete" onClick={onDelete} />
-    </Container>);
+  return (
+    <Container>
+      <Label label={label} />
+      <Button label="Delete" onClick={onDelete} />
+    </Container>
+  );
 };
