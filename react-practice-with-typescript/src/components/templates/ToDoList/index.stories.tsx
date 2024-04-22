@@ -11,5 +11,13 @@ export default meta;
 type ToDoList = StoryObj<typeof ToDoList>;
 
 export const Default: ToDoList = {
-  args: {},
+  args: {
+    toDoList: [],
+  },
+};
+
+export const WithToDoList: ToDoList = {
+  args: {
+    toDoList: ['Study', 'Laundry'],
+  },
 };
