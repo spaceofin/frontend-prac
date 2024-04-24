@@ -28,7 +28,9 @@ const ToDoListContextProvider = ({ children }: Props) => {
 
   const onAdd = (toDo: string) => {
     setToDoList([...toDoList, toDo]);
+    console.log('onAdd function in ToDoListContextProvider is called');
   };
+
 
   return (
     <ToDoListContext.Provider

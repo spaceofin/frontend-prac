@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import { ToDoListContext } from 'contexts/ToDoList';
 
 import { Input } from 'components/atoms/Input';
 import { Button } from 'components/atoms/Button';
@@ -14,18 +16,22 @@ const Container = styled.div`
 
 export const InputToDo = () => {
   const [toDo, setToDo] = useState('');
+  const { onAdd } = useContext(ToDoListContext);
   const navigate = useNavigate();
 
-  const onAdd = () => {
+  const onAddToDo = () => {
+    if (toDo === '') return;
+
+    console.log('Add button clicked')
+    onAdd(toDo);
     setToDo('');
     navigate('/');
   };
 
   return (
     <Container>
-      {/* <Input value="" onChange={(text) => console.log(text)} /> */}
       <Input value={toDo} onChange={setToDo} />
-      <Button label="Add" color="#f72b2b" onClick={onAdd} />
+      <Button label="Add" color="#f72b2b" onClick={onAddToDo} />
     </Container>
   );
 };
