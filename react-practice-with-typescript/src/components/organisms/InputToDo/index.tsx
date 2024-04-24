@@ -22,7 +22,6 @@ export const InputToDo = () => {
   const onAddToDo = () => {
     if (toDo === '') return;
 
-    console.log('Add button clicked')
     onAdd(toDo);
     setToDo('');
     navigate('/');
