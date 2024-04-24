@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ToDoListContextProvider } from 'contexts/ToDoList';
+// import { ToDoListContextProvider } from 'contexts/ToDoList';
 
 import { ToDoListPage } from '.';
 
@@ -21,9 +21,9 @@ type ToDoListPage = StoryObj<typeof ToDoListPage>
 
 export const Default: ToDoListPage = {
   args: {},
-  render: () => (
-    <ToDoListContextProvider>
-      <ToDoListPage />
-    </ToDoListContextProvider>
-  ),
+  // render: () => (
+  //   <ToDoListContextProvider>
+  //     <ToDoListPage />
+  //   </ToDoListContextProvider>
+  // ),
 };
