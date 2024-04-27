@@ -3,12 +3,12 @@ import styled from '@emotion/styled';
 import { Label } from 'components/atoms/Label';
 import { InputText } from 'components/atoms/InputText';
 
-
 const Container = styled.div`
   font-size: 1.2rem;
 `;
 
 const InputGroup = styled.div`
+  margin-bottom: 8px;
 `;
 
 interface Props {
@@ -18,7 +18,6 @@ interface Props {
 }
 
 export const Input = ({ label, value, onChange }: Props) => {
-
   return (
     <Container>
       <InputGroup>
@@ -26,5 +25,5 @@ export const Input = ({ label, value, onChange }: Props) => {
         <InputText value={value} onChange={onChange} />
       </InputGroup>
     </Container>
-  )
-}
+  );
+};
