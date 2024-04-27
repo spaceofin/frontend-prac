@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { fn } from '@storybook/test';
 
 import { RegisterBlogDialog } from '.';
 
@@ -12,7 +13,6 @@ type Story = StoryObj<typeof RegisterBlogDialog>;
 
 export const Default: Story = {
   args: {
-    title: 'Blog Title',
-    body: 'Blog Body',
+    onClose: fn(),
   },
 };

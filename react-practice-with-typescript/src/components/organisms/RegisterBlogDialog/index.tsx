@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useState } from 'react';
 
 import { DialogTitle } from 'components/atoms/DialogTitle';
 import { Input } from 'components/molecules/Input';
@@ -43,17 +44,24 @@ const Actions = styled.div`
   margin-top: 12px;
 `;
 
-export const RegisterBlogDialog = () => {
+interface Props {
+  readonly onClose: () => void;
+}
+
+export const RegisterBlogDialog = ({ onClose }: Props) => {
+  const [title, setTitle] = useState('');
+  const [body, setBody] = useState('');
+
   return (
     <Container>
       <Background />
       <Contents>
         <DialogTitle title="New Post" />
-        <Input label="Title:" value="" onChange={(text) => console.log(text)} />
-        <Input label="Body:" value="" onChange={(text) => console.log(text)} />
+        <Input label="Title:" value={title} onChange={setTitle} />
+        <Input label="Body:" value={body} onChange={setBody} />
         <Actions>
           <Button label="Create" />
-          <Button label="Close" color="#304FFE" />
+          <Button label="Close" color="#304FFE" onClick={onClose} />
         </Actions>
       </Contents>
     </Container>
