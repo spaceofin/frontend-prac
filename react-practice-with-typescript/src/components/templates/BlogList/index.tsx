@@ -21,13 +21,17 @@ const ButtonContainer = styled.div`
   bottom: 40px;
 `;
 
-export const BlogList = () => {
-  const posts = [
-    { id: 1, title: 'blog title 1', body: 'blog body 1' },
-    { id: 2, title: 'blog title 2', body: 'blog body 2' },
-    { id: 3, title: 'blog title 3', body: 'blog body 3' },
-  ];
+export interface Post {
+  readonly id: number;
+  readonly title: string;
+  readonly body: string;
+}
 
+interface Props {
+  readonly posts?: ReadonlyArray<Post>;
+}
+
+export const BlogList = ({ posts = [] }: Props) => {
   return (
     <Container>
       <Header />
