@@ -52,6 +52,30 @@ export const RegisterBlogDialog = ({ onClose }: Props) => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
+  const registerPost = () => {
+    if (title === '' || body === '') return;
+
+    fetch('https://jsonplaceholder.typicode.com/posts', {
+      method: 'POST',
+      body: JSON.stringify({
+        userId: 1,
+        title,
+        body,
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json);
+        if (typeof onClose === 'function') onClose();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   return (
     <Container>
       <Background />
@@ -60,7 +84,7 @@ export const RegisterBlogDialog = ({ onClose }: Props) => {
         <Input label="Title:" value={title} onChange={setTitle} />
         <Input label="Body:" value={body} onChange={setBody} />
         <Actions>
-          <Button label="Create" />
+          <Button label="Create" onClick={registerPost} />
           <Button label="Close" color="#304FFE" onClick={onClose} />
         </Actions>
       </Contents>
