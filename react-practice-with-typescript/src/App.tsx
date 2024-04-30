@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import * as Chance from "./data/chance";
+
 const Container = styled.div`
   display: flex;
   flex-direction: row;
@@ -32,9 +34,9 @@ const UserProfile = () => {
     <Container>
       <ImageWrapper />
       <ProfileContainer>
-        <LineText>NAME</LineText>
-        <LineText>JOB</LineText>
-        <LineText>DATE</LineText>
+        <LineText>{Chance.randomName()}</LineText>
+        <LineText>{Chance.randomProfession()}</LineText>
+        <LineText>{Chance.randomDate()}</LineText>
       </ProfileContainer>
     </Container>
   );
