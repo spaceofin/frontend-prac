@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import * as Chance from "./data/chance";
+import * as Data from "data";
 
 const Container = styled.div`
   display: flex;
@@ -10,9 +10,9 @@ const Container = styled.div`
   width: 500px;
 `;
 
-const ImageWrapper = styled.div`
-  width: 200px;
-  height: 200px;
+const ImageWrapper = styled.img`
+  // width: 200px;
+  // height: 200px;
   background-color: lightGrey;
 `;
 
@@ -26,17 +26,17 @@ const ProfileContainer = styled.div`
 
 const LineText = styled.span`
   font-size: 20px;
-  background-color: orange;
+  // background-color: orange;
 `;
 
 const UserProfile = () => {
   return (
     <Container>
-      <ImageWrapper />
+      <ImageWrapper src={Data.picsumUrl()} />
       <ProfileContainer>
-        <LineText>{Chance.randomName()}</LineText>
-        <LineText>{Chance.randomProfession()}</LineText>
-        <LineText>{Chance.randomDate()}</LineText>
+        <LineText>{Data.randomName()}</LineText>
+        <LineText>{Data.randomProfession()}</LineText>
+        <LineText>{Data.randomDate()}</LineText>
       </ProfileContainer>
     </Container>
   );
