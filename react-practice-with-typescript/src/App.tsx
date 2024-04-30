@@ -7,13 +7,14 @@ const Container = styled.div`
   flex-direction: row;
   justify-content: space-between;
   margin: 20px;
+  padding: 15px;
   width: 500px;
+  background-color: #CCED71;
+  border-radius: 10px;
 `;
 
 const ImageWrapper = styled.img`
-  // width: 200px;
-  // height: 200px;
-  background-color: lightGrey;
+  border-radius: 10px;
 `;
 
 const ProfileContainer = styled.div`
@@ -21,12 +22,11 @@ const ProfileContainer = styled.div`
   flex: 1;
   flex-direction: column;
   padding: 20px;
-  background-color: Grey;
 `;
 
 const LineText = styled.span`
+  font-family: cursive;
   font-size: 20px;
-  // background-color: orange;
 `;
 
 const UserProfile = () => {
@@ -36,7 +36,7 @@ const UserProfile = () => {
       <ProfileContainer>
         <LineText>{Data.randomName()}</LineText>
         <LineText>{Data.randomProfession()}</LineText>
-        <LineText>{Data.randomDate()}</LineText>
+        <LineText>{Data.randomDayMonthYear()}</LineText>
       </ProfileContainer>
     </Container>
   );
