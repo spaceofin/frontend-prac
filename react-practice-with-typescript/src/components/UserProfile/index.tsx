@@ -6,6 +6,7 @@ const Container = styled.div`
   flex-direction: row;
   justify-content: space-between;
   margin: 20px;
+  margin-top: 10px;
   padding: 15px;
   width: 500px;
   background-color: #cced71;

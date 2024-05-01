@@ -2,15 +2,26 @@ import styled from "styled-components";
 import type { FC } from "react";
 
 const Container = styled.div`
-  margin: 30px;
+  width: 500px;
+  margin: 20px;
+  margin-bottom: 5px;
+  padding: 15px;
+  background: linear-gradient(to right, #18e9ff, #19ffb4, #17ff7d);
+  border-radius: 10px;
 `;
 
 const DateWrapper = styled.div`
-  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 25px;
 `;
 
 const TimeWrapper = styled.div`
-  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 20px;
 `;
 
 export type ClockProps = {
