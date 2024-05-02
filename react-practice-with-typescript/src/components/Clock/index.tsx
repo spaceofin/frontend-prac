@@ -25,14 +25,14 @@ const TimeWrapper = styled.div`
 `;
 
 export type ClockProps = {
-  today: Date;
+  date: Date;
 };
 
-export const Clock: FC<ClockProps> = ({ today }) => {
+export const Clock: FC<ClockProps> = ({ date }) => {
   return (
     <Container>
-      <DateWrapper>{today.toLocaleDateString()}</DateWrapper>
-      <TimeWrapper>{today.toLocaleTimeString()}</TimeWrapper>
+      <DateWrapper>{date.toLocaleDateString()}</DateWrapper>
+      <TimeWrapper>{date.toLocaleTimeString()}</TimeWrapper>
     </Container>
   );
 };
