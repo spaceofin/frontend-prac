@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useClock } from "hooks";
 
 import { Clock } from "components/Clock";
 
@@ -8,21 +8,11 @@ const Container = styled.div`
 `;
 
 export default function App() {
-  const [date, setDate] = useState(new Date());
-
-  useEffect(() => {
-    console.log("useEffect called.");
-    const id = setInterval(() => {
-      const now = new Date();
-      setDate(now);
-      console.log(now.toLocaleTimeString());
-    }, 1000);
-    return () => clearInterval(id);
-  }, []);
+  const now = useClock();
 
   return (
     <Container>
-      <Clock date={date} />
+      <Clock date={now} />
     </Container>
   );
 }
