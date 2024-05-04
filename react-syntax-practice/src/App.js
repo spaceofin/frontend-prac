@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { Home, About, Events, Header } from "./components";
+
 const Container = styled.div`
   display: flex;
   height: 100vh;
@@ -11,7 +13,11 @@ const Container = styled.div`
 `;
 
 const App = () => {
-  return <Container>Hello, React JS!</Container>;
+  return (
+    <Container>
+      <Header />
+    </Container>
+  );
 };
 
 export default App;
