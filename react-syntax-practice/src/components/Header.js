@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -10,16 +11,16 @@ const Container = styled.div`
   font-size: 20px;
 `;
 
-const Link = styled.a`
+const StyledLink = styled(Link)`
   margin: 20px;
 `;
 
 export const Header = () => {
   return (
     <Container>
-      <Link href="/">Home</Link>
-      <Link href="/about">About</Link>
-      <Link href="/events">Events</Link>
+      <StyledLink to="/">Home</StyledLink>
+      <StyledLink to="/about">About</StyledLink>
+      <StyledLink to="/events">Events</StyledLink>
     </Container>
   );
 };

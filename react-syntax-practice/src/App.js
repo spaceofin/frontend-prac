@@ -14,6 +14,7 @@ const Container = styled.div`
 `;
 
 const App = () => {
+  console.log("App component called");
   return (
     <Container>
       <Header />
