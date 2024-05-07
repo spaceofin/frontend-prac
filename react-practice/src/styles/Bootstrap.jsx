@@ -3,7 +3,12 @@ export const Bootstrap = () => {
     <div class="container-fluid gradient-background px-3 py-2">
       <div class="row flex-lg-row-reverse align-items-center g-5 pb-5 pl-5">
         <div class="col-10 col-sm-5 col-lg-6 cat-img ">
-          <img src="./assets/img/cat.png" alt="sitting cat" height="400px" />
+          <img
+            // src={`${process.env.PUBLIC_URL}/assets/images/cat.png`}
+            src="assets/images/cat.png"
+            alt="sitting cat"
+            height="400px"
+          />
         </div>
         <div class="col-lg-6">
           <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">
