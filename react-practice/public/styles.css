@@ -1,98 +1,91 @@
 .gradient-background {
-    background: linear-gradient(300deg, hsl(84, 100%, 71%), #f5af5f, #f868db);
-    background-size: 180% 180%;
-    animation: gradient-animation 10s ease infinite;
+  background: linear-gradient(300deg, hsl(84, 100%, 71%), #f5af5f, #f868db);
+  background-size: 180% 180%;
+  animation: gradient-animation 10s ease infinite;
 }
 
 @keyframes gradient-animation {
-    0% {
-        background-position: 0% 50%;
-    }
+  0% {
+    background-position: 0% 50%;
+  }
 
-    50% {
-        background-position: 100% 50%;
-    }
+  50% {
+    background-position: 100% 50%;
+  }
 
-    100% {
-        background-position: 0% 50%;
-    }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
-
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 4000px;
-    margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4000px;
+  margin: 0;
 }
 
 .btn-download {
-    background-color: rgba(255, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    height: 40px;
-    width: 160px;
-    border: none;
-    color: white;
-    padding-left: 20px;
-
+  background-color: rgba(255, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  height: 40px;
+  width: 160px;
+  border: none;
+  color: white;
+  padding-left: 20px;
 }
 
 .btn-download:hover {
-    background-color: white;
-    color: navy;
+  background-color: white;
+  color: navy;
 }
 
-
 .row {
-    display: flex;
-    justify-content: space-between;
-    margin: 0 50px;
-
+  display: flex;
+  justify-content: space-between;
+  margin: 0 50px;
 }
 
 .text-download {
-    font-size: 17px;
-    margin-left: 3px;
+  font-size: 17px;
+  margin-left: 3px;
 }
 
-
 .text-body-emphasis {
-    display: flex;
-    align-items: center;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 70px;
+  display: flex;
+  align-items: center;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 70px;
 }
 
 .cat-img {
-    display: flex;
-    justify-content: flex-end;
-    width: 300px;
+  display: flex;
+  justify-content: flex-end;
+  width: 300px;
 }
 
 .icon-square {
-    width: 3rem;
-    height: 3rem;
-    border-radius: 0.75rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.75rem;
 }
 
 .profile-img {
-    height: 100px;
-    border-radius: 50%;
+  height: 100px;
+  border-radius: 50%;
 }
 
-
-
 .btn-danger {
-    display: flex;
-    align-items: center;
-    margin-left: 50px;
-    padding-right: 20px;
-    background-color: rgba(255, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  margin-left: 50px;
+  padding-right: 20px;
+  background-color: rgba(255, 0, 0, 0.5);
 }
 
 .bi-google-play {
-    margin-left: 3px;
-    margin-right: 5px;
+  margin-left: 3px;
+  margin-right: 5px;
 }

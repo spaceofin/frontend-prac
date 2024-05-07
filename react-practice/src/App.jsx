@@ -1,7 +1,13 @@
-import { Bootstrap } from "./styles/Bootstrap";
+import { Hero } from "./components/Hero";
+import { Header } from "./components/Header";
 
 const App = () => {
-  return <Bootstrap />;
+  return (
+    <div>
+      <Header />
+      <Hero />
+    </div>
+  );
 };
 
 export default App;

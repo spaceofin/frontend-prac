@@ -1,4 +1,4 @@
-export const Bootstrap = () => {
+export const Hero = () => {
   return (
     <div className="container-fluid gradient-background px-3 py-2">
       <div className="row flex-lg-row-reverse align-items-center g-5 pb-5 pl-5">
