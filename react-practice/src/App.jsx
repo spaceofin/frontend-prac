@@ -1,6 +1,6 @@
-import { Hero } from "./components/Hero";
-import { Header } from "./components/Header";
-import { Icon } from "./components/Icon";
+import { Hero } from "./components";
+import { Header } from "./components";
+import { Icon } from "./components";
 
 const App = () => {
   return (
