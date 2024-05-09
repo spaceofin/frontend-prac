@@ -5,7 +5,8 @@ const Container = styled.div`
   display: flex;
   // flex-direction: rows;
   justify-content: space-between;
-  margin: 15px 20px;
+  padding: 15px 20px;
+  background-color: ${(props) => props.theme.mainColor};
 `;
 
 const IconsContainer = styled.div`
@@ -19,7 +20,7 @@ export const IconLine = () => {
     <Container>
       {Array.from({ length: 15 }, (_, i) => (
         <IconsContainer key={i}>
-          <Icon name="add" color="darkgrey" />
+          <Icon name="add" color="#ffffff" />
           <Icon name="favorite" color="#f54166" />
         </IconsContainer>
       ))}
