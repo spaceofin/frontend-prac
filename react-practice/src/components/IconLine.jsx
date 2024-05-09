@@ -19,8 +19,8 @@ export const IconLine = () => {
     <Container>
       {Array.from({ length: 15 }, (_, i) => (
         <IconsContainer key={i}>
-          <Icon name="add" style={{ fontSize: "50px", color: "darkgrey" }} />
-          <Icon name="favorite" style={{ fontSize: "50px", color: "pink" }} />
+          <Icon name="add" color="darkgrey" />
+          <Icon name="favorite" color="#f54166" />
         </IconsContainer>
       ))}
     </Container>
