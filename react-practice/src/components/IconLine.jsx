@@ -6,7 +6,7 @@ const Container = styled.div`
   // flex-direction: rows;
   justify-content: space-between;
   padding: 15px 20px;
-  background-color: ${(props) => props.theme.mainColor};
+  background-color: ${(props) => props.theme.bgColor};
 `;
 
 const IconsContainer = styled.div`

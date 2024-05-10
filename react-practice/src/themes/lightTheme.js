@@ -1,3 +1,5 @@
 export const lightTheme = {
-  mainColor: "pink",
+  mainColor: "#f54166",
+  accentColor: "e41D3f",
+  bgColor: "pink",
 };
