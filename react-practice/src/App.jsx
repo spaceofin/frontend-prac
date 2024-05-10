@@ -1,6 +1,7 @@
 import { Hero } from "./components";
 import { Header } from "./components";
 import { IconLine } from "./components";
+import { CatLine } from "./components";
 
 const App = () => {
   return (
@@ -8,6 +9,7 @@ const App = () => {
       <Header />
       <Hero />
       <IconLine />
+      <CatLine />
     </div>
   );
 };
