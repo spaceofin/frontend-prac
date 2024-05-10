@@ -11,7 +11,7 @@ export const Hero = () => {
           />
         </div>
         <div className="col-lg-6">
-          <h1 className="display-5 fw-bold text-body-emphasis lh-1 mb-3">
+          <h1 className="display-5 text-body-emphasis lh-1 mb-3 tf-1">
             Meet Your Cat Nearby
           </h1>
           <div className="d-grid gap-2 d-md-flex justify-content-md-start">

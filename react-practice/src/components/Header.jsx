@@ -10,7 +10,7 @@ export const Header = () => {
         </svg>
 
         <span className="material-icons">explore</span>
-        <span className="fs-3">MYCN</span>
+        <span className="fs-3 tf-1">MYCN</span>
       </a>
 
       <ul className="nav nav-pills">

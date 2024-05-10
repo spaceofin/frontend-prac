@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import url("https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap");
 
 .material-icons {
   font-family: "Material Icons";
@@ -101,9 +102,8 @@
   margin-right: 5px;
 }
 
-.fs-3 {
-  font-weight: bold;
-  font-family: "Times New Roman", Times, serif;
+.tf-1 {
+  font-family: "Poetsen One", sans-serif;
 }
 
 .nav-link {
