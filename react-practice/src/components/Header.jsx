@@ -1,10 +1,9 @@
 export const Header = () => {
   return (
-    <header className="d-flex flex-wrap justify-content-center py-3 pt-3 pb-3 ps-3 pe-5 fs-5 bg-light">
+    <header className="d-flex flex-wrap justify-content-between py-3 pt-3 pb-3 ps-3 pe-5 fs-5 bg-light">
       <a
         href="/"
-        className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
-      >
+        className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
         <svg className="bi me-2" width="40" height="32">
           <use href="#bootstrap"></use>
         </svg>
@@ -19,8 +18,7 @@ export const Header = () => {
             href="/"
             className="nav-link active"
             aria-current="page"
-            style={{ backgroundColor: "#E41D3F" }}
-          >
+            style={{ backgroundColor: "#E41D3F" }}>
             About
           </a>
         </li>

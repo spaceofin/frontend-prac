@@ -3,6 +3,12 @@ import { ReactComponent as Cat1 } from "../assets/images/cat1.svg";
 import { ReactComponent as Cat2 } from "../assets/images/cat2.svg";
 import { ReactComponent as Cat3 } from "../assets/images/cat3.svg";
 
+const Container = styled.div`
+  display: flex;
+  width: 100vw;
+  overflow: hidden;
+`;
+
 const roll = keyframes`
   0% {
     transform: translateX(0) rotate(0deg);
@@ -19,23 +25,23 @@ const roll = keyframes`
 `;
 
 const StyledCat1 = styled(Cat1)`
-  animation: ${roll} 20s linear infinite;
+  animation: ${roll} 10s linear infinite alternate;
 `;
 
 const StyledCat2 = styled(Cat2)`
-  animation: ${roll} 20s linear infinite;
+  animation: ${roll} 10s linear infinite alternate;
 `;
 
 const StyledCat3 = styled(Cat3)`
-  animation: ${roll} 20s linear infinite;
+  animation: ${roll} 10s linear infinite alternate;
 `;
 
 export const CatLine = () => {
   return (
-    <div>
+    <Container>
       <StyledCat1 />
       <StyledCat2 />
       <StyledCat3 />
-    </div>
+    </Container>
   );
 };
