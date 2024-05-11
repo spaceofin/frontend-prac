@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -11,8 +11,14 @@ const Container = styled.div`
   font-size: 20px;
 `;
 
-const StyledLink = styled(Link)`
+const StyledLink = styled(NavLink)`
   margin: 20px;
+
+  &.active {
+    background-color: darkgrey;
+    border-radius: 5px;
+    padding: 3px 5px;
+  }
 `;
 
 export const Header = () => {
