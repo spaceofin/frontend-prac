@@ -38,6 +38,7 @@ export const About = () => {
         <StyledLink to="/about/3">About-3</StyledLink>
       </LinksContainer>
       <EmptyBox />
+      <EmptyBox />
       <Outlet />
     </Container>
   );

@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 import { Routes, Route } from "react-router-dom";
 import { Home, About, Events, Header } from "./components";
+import { AboutSub1, AboutSub2, AboutSub3 } from "./components/AboutSubPages";
 
 const Container = styled.div`
   display: flex;
@@ -21,18 +22,9 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />}>
-          <Route
-            path="/about/1"
-            element={<div>This is About subpage 1.</div>}
-          />
-          <Route
-            path="/about/2"
-            element={<div>This is About subpage 2.</div>}
-          />
-          <Route
-            path="/about/3"
-            element={<div>This is About subpage 3.</div>}
-          />
+          <Route path="/about/1" element={<AboutSub1 />} />
+          <Route path="/about/2" element={<AboutSub2 />} />
+          <Route path="/about/3" element={<AboutSub3 />} />
         </Route>
         <Route path="/events" element={<Events />} />
       </Routes>
