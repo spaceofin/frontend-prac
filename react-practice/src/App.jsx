@@ -1,15 +1,9 @@
-import { Hero } from "./components";
-import { Header } from "./components";
-import { IconLine } from "./components";
-import { CatLine } from "./components";
+import { Home } from "./components/Home";
 
 const App = () => {
   return (
     <div>
-      <Header />
-      <Hero />
-      <IconLine />
-      <CatLine />
+      <Home />
     </div>
   );
 };
