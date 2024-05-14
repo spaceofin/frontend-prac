@@ -27,9 +27,9 @@ export const Header = () => {
           </NavLink>
         </li>
         <li className="nav-item">
-          <a href="/" className="nav-link">
-            Doc
-          </a>
+          <NavLink to="/cats" href="/" className="nav-link">
+            Cats
+          </NavLink>
         </li>
         <li className="nav-item">
           <a href="/" className="nav-link">
