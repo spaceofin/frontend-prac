@@ -1,5 +1,19 @@
+import styled from "styled-components";
 import { Header } from "./Header";
 import { useState, useEffect } from "react";
+
+const Image = styled.img`
+  width: 500px;
+  height: 500px;
+`;
+
+const ImagesContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 500px));
+  // grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  padding: 20px;
+`;
 
 export const Cats = () => {
   const url = process.env.REACT_APP_CAT_API_URL;
@@ -27,18 +41,18 @@ export const Cats = () => {
         console.log(error);
       });
     console.log("useEffect");
-  }, []);
+  }, [url, apiKey]);
 
   console.log(imgUrls);
 
   return (
     <div>
       <Header />
-      <div>
+      <ImagesContainer>
         {imgUrls.map((imgUrl, index) => (
-          <img key={index} src={imgUrl} alt={`Cat ${index + 1}`} />
+          <Image key={index} src={imgUrl} alt={`Cat ${index + 1}`} />
         ))}
-      </div>
+      </ImagesContainer>
     </div>
   );
 };
