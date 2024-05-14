@@ -17,17 +17,12 @@ export const Header = () => {
 
       <ul className="nav nav-pills">
         <li className="nav-item">
-          <NavLink
-            to="/about"
-            className="nav-link active"
-            aria-current="page"
-            style={{ backgroundColor: "#E41D3F" }}
-          >
+          <NavLink to="/about" className="nav-link">
             About
           </NavLink>
         </li>
         <li className="nav-item">
-          <NavLink to="/cats" href="/" className="nav-link">
+          <NavLink to="/cats" className="nav-link">
             Cats
           </NavLink>
         </li>
