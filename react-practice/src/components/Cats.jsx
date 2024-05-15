@@ -2,17 +2,28 @@ import styled from "styled-components";
 import { Header } from "./Header";
 import { useState, useEffect } from "react";
 
-const Image = styled.img`
-  width: 500px;
-  height: 500px;
-`;
-
 const ImagesContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(500px, 500px));
   // grid-template-columns: repeat(3, 1fr);
-  grid-gap: 10px;
+  grid-gap: 5px;
   padding: 20px;
+`;
+
+const ImageWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  height: 500px;
+  border-radius: 20px;
+  background-color: rgba(228, 29, 63, ${(props) => props.$randomOpacity});
+
+  img {
+    width: 95%;
+    height: 95%;
+    border-radius: 20px;
+  }
 `;
 
 export const Cats = () => {
@@ -52,7 +63,9 @@ export const Cats = () => {
       <Header />
       <ImagesContainer>
         {imgUrls.map((imgUrl, index) => (
-          <Image key={index} src={imgUrl} alt={`Cat ${index + 1}`} />
+          <ImageWrapper key={index} $randomOpacity={Math.random() * 0.7 + 0.1}>
+            <img key={index} src={imgUrl} alt={`Cat ${index + 1}`} />
+          </ImageWrapper>
         ))}
       </ImagesContainer>
     </div>
