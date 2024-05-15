@@ -31,11 +31,13 @@ export const Cats = () => {
         return response.json();
       })
       .then((data) => {
-        data = data.filter((img) => img?.url != null);
-        // console.log(data);
+        const filteredData = data
+          .filter((img) => img?.url != null)
+          .map((img) => img.url)
+          .filter((url) => url.endsWith(".jpg"));
+        // console.log(filteredData);
 
-        setImgUrls(data.map((img) => img.url));
-        // console.log(imgUrls);
+        setImgUrls(filteredData.slice(0, 12));
       })
       .catch(function (error) {
         console.log(error);
