@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import axios from "axios";
 import { Header } from "./Header";
 import { useState, useEffect } from "react";
 
@@ -32,31 +33,26 @@ export const Cats = () => {
 
   const [imgUrls, setImgUrls] = useState([]);
 
+  const getImages = async () => {
+    try {
+      const data = await axios.get(url, { headers: { "x-api-key": apiKey } });
+
+      // console.log(
+      //   urls.data.map((img) => img.url).filter((url) => url.endsWith(".jpg"))
+      // );
+      const filteredData = data.data
+        .map((img) => img.url)
+        .filter((url) => url.endsWith(".jpg"));
+
+      setImgUrls(filteredData.slice(0, 12));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    fetch(url, {
-      headers: {
-        "x-api-key": apiKey,
-      },
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        const filteredData = data
-          .filter((img) => img?.url != null)
-          .map((img) => img.url)
-          .filter((url) => url.endsWith(".jpg"));
-        // console.log(filteredData);
-
-        setImgUrls(filteredData.slice(0, 12));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    console.log("useEffect");
-  }, [url, apiKey]);
-
-  console.log(imgUrls);
+    getImages();
+  }, []);
 
   return (
     <div>
