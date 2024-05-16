@@ -33,26 +33,25 @@ export const Cats = () => {
 
   const [imgUrls, setImgUrls] = useState([]);
 
-  const getImages = async () => {
-    try {
-      const data = await axios.get(url, { headers: { "x-api-key": apiKey } });
-
-      // console.log(
-      //   urls.data.map((img) => img.url).filter((url) => url.endsWith(".jpg"))
-      // );
-      const filteredData = data.data
-        .map((img) => img.url)
-        .filter((url) => url.endsWith(".jpg"));
-
-      setImgUrls(filteredData.slice(0, 12));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
+    const getImages = async () => {
+      try {
+        const data = await axios.get(url, { headers: { "x-api-key": apiKey } });
+
+        // console.log(
+        //   urls.data.map((img) => img.url).filter((url) => url.endsWith(".jpg"))
+        // );
+        const filteredData = data.data
+          .map((img) => img.url)
+          .filter((url) => url.endsWith(".jpg"));
+
+        setImgUrls(filteredData.slice(0, 12));
+      } catch (error) {
+        console.log(error);
+      }
+    };
     getImages();
-  }, []);
+  }, [url, apiKey]);
 
   return (
     <div>
