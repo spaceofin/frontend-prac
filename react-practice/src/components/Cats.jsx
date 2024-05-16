@@ -27,11 +27,21 @@ const ImageWrapper = styled.div`
   }
 `;
 
+const Text = styled.p`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 50px;
+  font-size: 30px;
+  font-style: italic;
+`;
+
 export const Cats = () => {
   const url = process.env.REACT_APP_CAT_API_URL;
   const apiKey = process.env.REACT_APP_CAT_API_KEY;
 
   const [imgUrls, setImgUrls] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getImages = async () => {
@@ -46,6 +56,7 @@ export const Cats = () => {
           .filter((url) => url.endsWith(".jpg"));
 
         setImgUrls(filteredData.slice(0, 12));
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
@@ -56,13 +67,18 @@ export const Cats = () => {
   return (
     <div>
       <Header />
-      <ImagesContainer>
-        {imgUrls.map((imgUrl, index) => (
-          <ImageWrapper key={index} $randomOpacity={Math.random() * 0.7 + 0.1}>
-            <img key={index} src={imgUrl} alt={`Cat ${index + 1}`} />
-          </ImageWrapper>
-        ))}
-      </ImagesContainer>
+      {isLoading && <Text>... The Cats Are Coming ...</Text>}
+      {!isLoading && (
+        <ImagesContainer>
+          {imgUrls.map((imgUrl, index) => (
+            <ImageWrapper
+              key={index}
+              $randomOpacity={Math.random() * 0.7 + 0.1}>
+              <img key={index} src={imgUrl} alt={`Cat ${index + 1}`} />
+            </ImageWrapper>
+          ))}
+        </ImagesContainer>
+      )}
     </div>
   );
 };
