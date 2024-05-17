@@ -51,11 +51,13 @@ export const Cats = () => {
         // console.log(
         //   urls.data.map((img) => img.url).filter((url) => url.endsWith(".jpg"))
         // );
+        console.log(data);
+
         const filteredData = data.data
           .map((img) => img.url)
           .filter((url) => url.endsWith(".jpg"));
 
-        setImgUrls(filteredData.slice(0, 12));
+        setImgUrls(filteredData.slice(0, 15));
         setIsLoading(false);
       } catch (error) {
         console.log(error);
@@ -73,7 +75,8 @@ export const Cats = () => {
           {imgUrls.map((imgUrl, index) => (
             <ImageWrapper
               key={index}
-              $randomOpacity={Math.random() * 0.7 + 0.1}>
+              $randomOpacity={Math.random() * 0.7 + 0.1}
+            >
               <img key={index} src={imgUrl} alt={`Cat ${index + 1}`} />
             </ImageWrapper>
           ))}

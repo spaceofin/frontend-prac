@@ -27,9 +27,9 @@ export const Header = () => {
           </NavLink>
         </li>
         <li className="nav-item">
-          <a href="/" className="nav-link">
-            Map
-          </a>
+          <NavLink to="/breeds" className="nav-link">
+            Breeds
+          </NavLink>
         </li>
         <li className="nav-item">
           <a href="/" className="nav-link">
