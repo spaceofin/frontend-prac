@@ -12,6 +12,19 @@ const Text = styled.p`
   font-style: italic;
 `;
 
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const BreedSelect = styled.select`
+  width: 250px;
+  text-align: center;
+  font-size: 25px;
+  margin: 15px;
+  padding: 5px;
+`;
+
 export const Breeds = () => {
   const breedsUrl = process.env.REACT_APP_CAT_BREEDS_API_URL;
 
@@ -34,12 +47,31 @@ export const Breeds = () => {
     getImages();
   }, [breedsUrl]);
 
+  const [selectedBreed, setSelectedBreed] = useState("");
+  const handleChange = (event) => {
+    setSelectedBreed(event.target.value);
+  };
+
   return (
     <div>
       <Header />
-      {isLoading && <Text>... Loading ...</Text>}
-      {!isLoading &&
-        breeds.map((breed, index) => <Text key={index}>{breed} </Text>)}
+      <Container>
+        {isLoading && <Text>... Loading ...</Text>}
+        {!isLoading && (
+          <BreedSelect
+            id="breed-select"
+            value={selectedBreed}
+            onChange={handleChange}
+          >
+            <option value="">Choose Cat Breed</option>
+            {breeds.map((breed, index) => (
+              <option key={index} value={breed}>
+                {breed}
+              </option>
+            ))}
+          </BreedSelect>
+        )}
+      </Container>
     </div>
   );
 };
