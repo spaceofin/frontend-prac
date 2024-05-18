@@ -72,7 +72,7 @@ export const Breeds = () => {
           </BreedSelect>
         )}
       </Container>
-      <SelectedBreed breed={selectedBreed} />
+      {selectedBreed && <SelectedBreed breed={selectedBreed} />}
     </div>
   );
 };
