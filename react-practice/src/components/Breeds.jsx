@@ -2,6 +2,7 @@ import styled from "styled-components";
 import axios from "axios";
 import { Header } from "./Header";
 import { useState, useEffect } from "react";
+import { SelectedBreed } from "./SelectedBreed";
 
 const Text = styled.p`
   display: flex;
@@ -28,8 +29,9 @@ const BreedSelect = styled.select`
 export const Breeds = () => {
   const breedsUrl = process.env.REACT_APP_CAT_BREEDS_API_URL;
 
-  const [breeds, setBreeds] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [breeds, setBreeds] = useState([]);
+  const [selectedBreed, setSelectedBreed] = useState("");
 
   useEffect(() => {
     const getImages = async () => {
@@ -47,7 +49,6 @@ export const Breeds = () => {
     getImages();
   }, [breedsUrl]);
 
-  const [selectedBreed, setSelectedBreed] = useState("");
   const handleChange = (event) => {
     setSelectedBreed(event.target.value);
   };
@@ -61,8 +62,7 @@ export const Breeds = () => {
           <BreedSelect
             id="breed-select"
             value={selectedBreed}
-            onChange={handleChange}
-          >
+            onChange={handleChange}>
             <option value="">Choose Cat Breed</option>
             {breeds.map((breed, index) => (
               <option key={index} value={breed}>
@@ -72,6 +72,7 @@ export const Breeds = () => {
           </BreedSelect>
         )}
       </Container>
+      <SelectedBreed breed={selectedBreed} />
     </div>
   );
 };
