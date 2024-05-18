@@ -1,5 +1,27 @@
+import styled from "styled-components";
 import axios from "axios";
 import { useState, useEffect } from "react";
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const ImageWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  height: 500px;
+  border-radius: 20px;
+  background-color: rgba(34, 177, 76, ${(props) => props.$randomOpacity});
+
+  img {
+    width: 95%;
+    height: 95%;
+    border-radius: 20px;
+  }
+`;
 
 export const SelectedBreed = ({ breed }) => {
   const breedImageBaseUrl = process.env.REACT_APP_CAT_BREEDS_IMAGE_API_URL;
@@ -25,8 +47,10 @@ export const SelectedBreed = ({ breed }) => {
   }, [breedImageBaseUrl, breed]);
 
   return (
-    <div>
-      <img src={breedImageUrl} alt={`${breed} cat`} />
-    </div>
+    <Container>
+      <ImageWrapper $randomOpacity={Math.random() * 0.7 + 0.1}>
+        <img src={breedImageUrl} alt={`${breed} cat`} />
+      </ImageWrapper>
+    </Container>
   );
 };
