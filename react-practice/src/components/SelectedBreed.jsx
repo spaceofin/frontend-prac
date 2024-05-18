@@ -23,9 +23,20 @@ const ImageWrapper = styled.div`
   }
 `;
 
+const Text = styled.p`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 50px;
+  font-size: 30px;
+  font-style: italic;
+`;
+
 export const SelectedBreed = ({ breed }) => {
   const breedImageBaseUrl = process.env.REACT_APP_CAT_BREEDS_IMAGE_API_URL;
+
   const [breedImageUrl, setBreedImageUrl] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getImages = async () => {
@@ -39,6 +50,8 @@ export const SelectedBreed = ({ breed }) => {
         // console.log(response.data[0].url);
         // console.log(breedImageBaseUrl + breed);
         console.log(imageUrl);
+
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
@@ -48,9 +61,12 @@ export const SelectedBreed = ({ breed }) => {
 
   return (
     <Container>
-      <ImageWrapper $randomOpacity={Math.random() * 0.7 + 0.1}>
-        <img src={breedImageUrl} alt={`${breed} cat`} />
-      </ImageWrapper>
+      {isLoading && <Text>... Loading ...</Text>}
+      {!isLoading && (
+        <ImageWrapper $randomOpacity={Math.random() * 0.7 + 0.1}>
+          <img src={breedImageUrl} alt={`${breed} cat`} />
+        </ImageWrapper>
+      )}
     </Container>
   );
 };
