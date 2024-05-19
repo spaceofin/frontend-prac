@@ -35,21 +35,21 @@ const Text = styled.p`
 export const SelectedBreed = ({ breed }) => {
   const breedImageBaseUrl = process.env.REACT_APP_CAT_BREEDS_IMAGE_API_URL;
 
-  const [breedImageUrl, setBreedImageUrl] = useState("");
+  const [breedImageUrls, setBreedImageUrls] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getImages = async () => {
       try {
         const response = await axios.get(breedImageBaseUrl + breed);
-        const imageUrl = response.data[0].url;
+        const imageUrls = response.data.map((cat) => cat.url);
 
-        setBreedImageUrl(imageUrl);
+        setBreedImageUrls(imageUrls);
 
-        // console.log(response.data);
+        console.log(response.data);
         // console.log(response.data[0].url);
         // console.log(breedImageBaseUrl + breed);
-        console.log(imageUrl);
+        console.log(imageUrls);
 
         setIsLoading(false);
       } catch (error) {
@@ -62,11 +62,12 @@ export const SelectedBreed = ({ breed }) => {
   return (
     <Container>
       {isLoading && <Text>... Loading ...</Text>}
-      {!isLoading && (
-        <ImageWrapper $randomOpacity={Math.random() * 0.7 + 0.1}>
-          <img src={breedImageUrl} alt={`${breed} cat`} />
-        </ImageWrapper>
-      )}
+      {!isLoading &&
+        breedImageUrls.map((breedImageUrl, index) => (
+          <ImageWrapper key={index} $randomOpacity={Math.random() * 0.7 + 0.1}>
+            <img src={breedImageUrl} alt={`${breed} cat`} />
+          </ImageWrapper>
+        ))}
     </Container>
   );
 };
