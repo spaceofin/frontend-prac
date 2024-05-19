@@ -23,6 +23,14 @@ const ImageWrapper = styled.div`
   }
 `;
 
+const ImagesContainer = styled.div`
+  display: grid;
+  // grid-template-columns: repeat(auto-fit, minmax(500px, 500px));
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 5px;
+  padding: 20px;
+`;
+
 const Text = styled.p`
   display: flex;
   justify-content: center;
@@ -43,7 +51,7 @@ export const SelectedBreed = ({ breed }) => {
       try {
         const response = await axios.get(breedImageBaseUrl + breed);
         const imageUrls = response.data.map((cat) => cat.url);
-
+        // const uniqueImageUrls = [...new Set(imageUrls)];
         setBreedImageUrls(imageUrls);
 
         console.log(response.data);
@@ -62,12 +70,17 @@ export const SelectedBreed = ({ breed }) => {
   return (
     <Container>
       {isLoading && <Text>... Loading ...</Text>}
-      {!isLoading &&
-        breedImageUrls.map((breedImageUrl, index) => (
-          <ImageWrapper key={index} $randomOpacity={Math.random() * 0.7 + 0.1}>
-            <img src={breedImageUrl} alt={`${breed} cat`} />
-          </ImageWrapper>
-        ))}
+      {!isLoading && (
+        <ImagesContainer>
+          {breedImageUrls.map((breedImageUrl, index) => (
+            <ImageWrapper
+              key={index}
+              $randomOpacity={Math.random() * 0.7 + 0.1}>
+              <img src={breedImageUrl} alt={`${breed} cat`} />
+            </ImageWrapper>
+          ))}
+        </ImagesContainer>
+      )}
     </Container>
   );
 };
