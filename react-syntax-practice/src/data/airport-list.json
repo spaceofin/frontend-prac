@@ -1,0 +1,12 @@
+[
+  { "id": 1, "name": "Haivaro Airport", "code": "HIT" },
+  { "id": 2, "name": "Walvis Bay Airport", "code": "WVB" },
+  { "id": 3, "name": "Pomala Airport", "code": "PUM" },
+  { "id": 4, "name": "Murmansk Airport", "code": "MMK" },
+  { "id": 5, "name": "Warrnambool Airport", "code": "WMB" },
+  { "id": 6, "name": "Makoua Airport", "code": "MKJ" },
+  { "id": 7, "name": "Vila Rica Airport", "code": "VLP" },
+  { "id": 8, "name": "Zapatoca Airport", "code": "AZT" },
+  { "id": 9, "name": "Motswari Airport", "code": "MWR" },
+  { "id": 10, "name": "Cold Bay Airport", "code": "CDB" }
+]
