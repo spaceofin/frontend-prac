@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-  background-color: ${(props) => props.bgColor};
+  background-color: ${(props) => props.$bgcolor};
   color: black;
   height: 20vh;
   width: 70vw;
@@ -11,7 +11,7 @@ const Container = styled.div`
 
 export const AboutSub1 = () => {
   return (
-    <Container bgColor="#d2eda6">
+    <Container $bgcolor="#d2eda6">
       Welcome, <br />
       This is About subpage 1.
     </Container>
@@ -20,7 +20,7 @@ export const AboutSub1 = () => {
 
 export const AboutSub2 = () => {
   return (
-    <Container bgColor="#aeed69">
+    <Container $bgcolor="#aeed69">
       Welcome, <br />
       This is About subpage 2.
     </Container>
@@ -29,7 +29,7 @@ export const AboutSub2 = () => {
 
 export const AboutSub3 = () => {
   return (
-    <Container bgColor="#9CED3B">
+    <Container $bgcolor="#9CED3B">
       Welcome, <br />
       This is About subpage 3.
     </Container>
