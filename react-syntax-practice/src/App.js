@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { Routes, Route } from "react-router-dom";
-import { Home, About, Events, Header } from "./components";
+import { Home, About, Events, Header, Airports } from "./components";
 import { AboutSub1, AboutSub2, AboutSub3 } from "./components/AboutSubPages";
 
 const Container = styled.div`
@@ -27,6 +27,7 @@ const App = () => {
           <Route path="/about/3" element={<AboutSub3 />} />
         </Route>
         <Route path="/events" element={<Events />} />
+        <Route path="/airports" element={<Airports />} />
       </Routes>
     </Container>
   );
