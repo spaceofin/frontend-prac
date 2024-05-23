@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { EventCard } from "./EventCard";
 
 const Container = styled.div`
   display: flex;
@@ -12,5 +13,10 @@ const Container = styled.div`
 
 export const Events = () => {
   console.log("Events component");
-  return <Container>This is Events page.</Container>;
+  return (
+    <Container>
+      {/* This is Events page. */}
+      <EventCard title="Event 1" />
+    </Container>
+  );
 };
