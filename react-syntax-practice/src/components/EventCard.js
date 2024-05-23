@@ -13,7 +13,7 @@ const Container = styled.div`
   font-size: 30px;
   color: white;
 
-  border: 5px solid #5f217a;
+  border: 5px solid #49185e;
   box-shadow: 10px 7px rgba(73, 25, 94, 1);
 `;
 
