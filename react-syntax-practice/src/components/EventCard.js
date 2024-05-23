@@ -10,6 +10,8 @@ const Container = styled.div`
   border-radius: 20px;
   margin: 10px 30px;
   font-size: 30px;
+  border: 5px solid #5f217a;
+  box-shadow: 10px 7px rgba(73, 25, 94, 1);
 `;
 
 export const EventCard = ({ title }) => {
