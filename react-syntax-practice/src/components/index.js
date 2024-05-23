@@ -3,3 +3,4 @@ export * from "./About";
 export * from "./Events";
 export * from "./Header";
 export * from "./Airports";
+export * from "./EventDetail";

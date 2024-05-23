@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -10,10 +11,20 @@ const Container = styled.div`
   border-radius: 20px;
   margin: 10px 30px;
   font-size: 30px;
+  color: white;
+
   border: 5px solid #5f217a;
   box-shadow: 10px 7px rgba(73, 25, 94, 1);
 `;
 
+const StyledLink = styled(NavLink)`
+  text-decoration: none;
+`;
+
 export const EventCard = ({ title }) => {
-  return <Container>{title}</Container>;
+  return (
+    <StyledLink to="/event-detail">
+      <Container>{title}</Container>
+    </StyledLink>
+  );
 };
