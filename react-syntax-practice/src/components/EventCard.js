@@ -23,7 +23,7 @@ const StyledLink = styled(NavLink)`
 
 export const EventCard = ({ title }) => {
   return (
-    <StyledLink to="/event-detail">
+    <StyledLink to="/event-detail" state={{ title }}>
       <Container>{title}</Container>
     </StyledLink>
   );

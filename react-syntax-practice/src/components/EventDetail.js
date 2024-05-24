@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -11,5 +12,8 @@ const Container = styled.div`
 `;
 
 export const EventDetail = () => {
-  return <Container>This is Event Detail Page.</Container>;
+  const location = useLocation();
+  console.log(location);
+
+  return <Container>This is {location.state.title} Detail Page.</Container>;
 };
