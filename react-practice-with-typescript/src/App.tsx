@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useClock } from "hooks";
 
 import { Clock } from "components/Clock";
+import { Counter } from "components/Counter";
 
 const Container = styled.div`
   margin: 5px;
@@ -13,6 +14,7 @@ export default function App() {
   return (
     <Container>
       <Clock date={now} />
+      <Counter />
     </Container>
   );
 }
