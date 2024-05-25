@@ -3,6 +3,7 @@ import { useReducer } from "react";
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 500px;
@@ -12,6 +13,19 @@ const Container = styled.div`
   padding: 15px;
   background-color: #f7d85e;
   border-radius: 10px;
+  border: 5px solid #e8bb42;
+  font-size: 25px;
+  font-weight: bold;
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+`;
+
+const StyledButton = styled.button`
+  margin: 10px 2px;
+  padding: 5px 10px;
+  font-size: 20px;
 `;
 
 type State = {
@@ -40,10 +54,18 @@ export const Counter = () => {
 
   return (
     <Container>
-      Count: {state.count}
-      <button onClick={() => dispatch({ type: "increment" })}>+</button>
-      <button onClick={() => dispatch({ type: "decrement" })}>-</button>
-      <button onClick={() => dispatch({ type: "reset" })}>Reset</button>
+      COUNT: {state.count}
+      <ButtonGroup>
+        <StyledButton onClick={() => dispatch({ type: "increment" })}>
+          +
+        </StyledButton>
+        <StyledButton onClick={() => dispatch({ type: "reset" })}>
+          Reset
+        </StyledButton>
+        <StyledButton onClick={() => dispatch({ type: "decrement" })}>
+          -
+        </StyledButton>
+      </ButtonGroup>
     </Container>
   );
 };
