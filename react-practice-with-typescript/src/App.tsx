@@ -4,6 +4,7 @@ import { useClock } from "hooks";
 import { Clock } from "components/Clock";
 import { Counter } from "components/Counter";
 import { MousePosition } from "components/MousePosition";
+import { Squares } from "components/Squares";
 
 const Container = styled.div`
   margin: 5px;
@@ -17,6 +18,7 @@ export default function App() {
       <Clock date={now} />
       <Counter />
       <MousePosition />
+      <Squares />
     </Container>
   );
 }
