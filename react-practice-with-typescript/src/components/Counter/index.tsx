@@ -52,6 +52,8 @@ const reducer: Reducer = (state: State, action: Action) => {
 export const Counter = () => {
   const [state, dispatch] = useReducer<Reducer>(reducer, initialState);
 
+  console.log("Counter component called.");
+
   return (
     <Container>
       COUNT: {state.count}

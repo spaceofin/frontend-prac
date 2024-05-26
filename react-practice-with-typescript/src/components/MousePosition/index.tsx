@@ -17,5 +17,6 @@ const Container = styled.div`
 `;
 
 export const MousePosition = () => {
+  console.log("MousePosition component called.");
   return <Container>MousePosition</Container>;
 };
