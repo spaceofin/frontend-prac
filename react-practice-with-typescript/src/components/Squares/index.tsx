@@ -22,6 +22,22 @@ const StyledButton = styled.button`
   margin: 20px;
 `;
 
+const SquaresContainer = styled.div`
+  display: flex;
+  width: inherit;
+  margin: 10px;
+`;
+
+const Square = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 120px);
+  width: 100px;
+  height: 100px;
+  background-color: ${(props) => props.color};
+  margin: 10px;
+  border-radius: 20px;
+`;
+
 type SquareType = { id: number; color: string };
 
 const SQUARES_ACTION = {
@@ -64,6 +80,11 @@ export const Squares = () => {
     <Container>
       Squares
       <StyledButton onClick={() => addSquare()}>dispatch</StyledButton>
+      <SquaresContainer>
+        {state.map((square) => (
+          <Square key={square.id} color={square.color} />
+        ))}
+      </SquaresContainer>
     </Container>
   );
 };
