@@ -6,15 +6,15 @@ import { Counter } from "components/Counter";
 import { MousePosition } from "components/MousePosition";
 import { Squares } from "components/Squares";
 
-import React, { memo } from "react";
+import { memo } from "react";
 
 const Container = styled.div`
   margin: 5px;
 `;
 
-const MemoizedSquares = React.memo(Squares);
-const MemoizedCounter = React.memo(Counter);
-const MemoizedMousePosition = React.memo(MousePosition);
+const MemoizedSquares = memo(Squares);
+const MemoizedCounter = memo(Counter);
+const MemoizedMousePosition = memo(MousePosition);
 
 export default function App() {
   const now = useClock();
