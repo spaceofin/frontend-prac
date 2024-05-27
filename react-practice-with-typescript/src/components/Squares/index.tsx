@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useReducer } from "react";
+import { useState, useReducer, ChangeEvent } from "react";
 
 const Container = styled.div`
   display: flex;
@@ -18,8 +18,8 @@ const Container = styled.div`
 
 const StyledButton = styled.button`
   width: 70px;
-  height: 50px;
-  margin: 20px;
+  height: 40px;
+  margin: 0 10px;
 `;
 
 const SquaresContainer = styled.div`
@@ -36,6 +36,24 @@ const Square = styled.div`
   background-color: ${(props) => props.color};
   margin: 10px;
   border-radius: 20px;
+`;
+
+const InputContainer = styled.div`
+  display: flex;
+  justify-contents: center;
+  align-items: center;
+  height: 70px;
+  margin: 10px;
+  font-weight: 400;
+`;
+
+const StyledInput = styled.input`
+  width: 150px;
+  height: 40px;
+  font-size: 20px;
+  border-radius: 5px;
+  border: 2px solid lightgrey;
+  margin-left: 5px;
 `;
 
 type SquareType = { id: number; color: string };
@@ -72,14 +90,31 @@ const initialSquares: Array<SquareType> = [
 
 export const Squares = () => {
   const [state, dispatch] = useReducer(SquaresReducer, initialSquares);
-  const addSquare = () => {
-    dispatch(SquaresActionCreator.addSquare(3, "orange"));
+  const [inputValue, setInputValue] = useState("");
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
   };
+
+  const addSquare = (color: string) => {
+    color = color || "lightgrey";
+    console.log("color: ", color);
+
+    dispatch(SquaresActionCreator.addSquare(state.length + 1, color));
+    console.log(state.length);
+  };
+
   console.log("state", state);
   return (
     <Container>
       Squares
-      <StyledButton onClick={() => addSquare()}>dispatch</StyledButton>
+      <InputContainer>
+        color:
+        <StyledInput type="text" value={inputValue} onChange={handleChange} />
+        <StyledButton onClick={() => addSquare(inputValue)}>
+          CREATE
+        </StyledButton>
+      </InputContainer>
       <SquaresContainer>
         {state.map((square) => (
           <Square key={square.id} color={square.color} />
