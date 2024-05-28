@@ -23,14 +23,13 @@ const StyledButton = styled.button`
 `;
 
 const SquaresContainer = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 120px);
   width: inherit;
   margin: 10px;
 `;
 
 const Square = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 120px);
   width: 100px;
   height: 100px;
   background-color: ${(props) => props.color};
@@ -97,6 +96,11 @@ export const Squares = () => {
   };
 
   const addSquare = (color: string) => {
+    if (state.length === 12) {
+      alert("The Square Board is full!");
+      return;
+    }
+
     color = color || "lightgrey";
     console.log("color: ", color);
 
