@@ -19,7 +19,10 @@ const Container = styled.div`
 const StyledButton = styled.button`
   width: 70px;
   height: 40px;
-  margin: 0 10px;
+  margin-left: 5px;
+  background-color: ${(props) => props.color};
+  border-radius: 5px;
+  border: 0px;
 `;
 
 const SquaresContainer = styled.div`
@@ -59,6 +62,7 @@ type SquareType = { id: number; color: string };
 
 const SQUARES_ACTION = {
   ADD: "addSquare" as const,
+  DELETE: "deleteSqaure" as const,
 };
 
 const SquaresActionCreator = {
@@ -66,9 +70,15 @@ const SquaresActionCreator = {
     type: SQUARES_ACTION.ADD,
     payload: { id: id, color: color },
   }),
+  deleteSquare: () => ({
+    type: SQUARES_ACTION.DELETE,
+    payload: {},
+  }),
 };
 
-type SquaresActionType = ReturnType<typeof SquaresActionCreator.addSquare>;
+type SquaresActionType =
+  | ReturnType<typeof SquaresActionCreator.addSquare>
+  | ReturnType<typeof SquaresActionCreator.deleteSquare>;
 
 const SquaresReducer = (
   state: Array<SquareType>,
@@ -77,6 +87,8 @@ const SquaresReducer = (
   switch (action.type) {
     case SQUARES_ACTION.ADD:
       return [...state, { id: action.payload.id, color: action.payload.color }];
+    case SQUARES_ACTION.DELETE:
+      return [...state.slice(0, -1)];
     default:
       return state;
   }
@@ -108,6 +120,15 @@ export const Squares = () => {
     console.log(state.length);
   };
 
+  const deleteSquare = (id: number = state.length) => {
+    if (id === 0) {
+      alert("The Square Board is empty!");
+      return;
+    }
+    console.log(`delete target square id: ${id}`);
+    dispatch(SquaresActionCreator.deleteSquare());
+  };
+
   console.log("state", state);
   return (
     <Container>
@@ -115,8 +136,11 @@ export const Squares = () => {
       <InputContainer>
         color:
         <StyledInput type="text" value={inputValue} onChange={handleChange} />
-        <StyledButton onClick={() => addSquare(inputValue)}>
+        <StyledButton color="#C6DBBB" onClick={() => addSquare(inputValue)}>
           CREATE
+        </StyledButton>
+        <StyledButton color="#DBB8AA" onClick={() => deleteSquare()}>
+          DELETE
         </StyledButton>
       </InputContainer>
       <SquaresContainer>
