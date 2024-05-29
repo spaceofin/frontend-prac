@@ -49,16 +49,15 @@ const InputContainer = styled.div`
   font-weight: 400;
 `;
 
-const StyledInput = styled.input`
+const StyledSelect = styled.select`
   width: 150px;
   height: 40px;
-  font-size: 20px;
   border-radius: 5px;
-  border: 2px solid lightgrey;
-  margin-left: 5px;
+  border: 2px solid gray;
+  background-color: white;
+  font-size: 20px;
+  padding-left: 15px;
 `;
-
-const StyledSelect = styled.select``;
 
 type SquareType = { id: number; color: string };
 
@@ -103,7 +102,7 @@ const initialSquares: Array<SquareType> = [
 
 export const Squares = () => {
   const [state, dispatch] = useReducer(SquaresReducer, initialSquares);
-  const [selectedOption, setSelectedOption] = useState<string>("");
+  const [selectedOption, setSelectedOption] = useState<string>("gray");
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedOption(e.target.value);
@@ -149,7 +148,6 @@ export const Squares = () => {
     <Container>
       Squares
       <InputContainer>
-        color:
         <StyledSelect
           id="colorSelect"
           value={selectedOption}
