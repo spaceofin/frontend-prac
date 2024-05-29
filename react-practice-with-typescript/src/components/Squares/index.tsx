@@ -58,6 +58,8 @@ const StyledInput = styled.input`
   margin-left: 5px;
 `;
 
+const StyledSelect = styled.select``;
+
 type SquareType = { id: number; color: string };
 
 const SQUARES_ACTION = {
@@ -101,10 +103,10 @@ const initialSquares: Array<SquareType> = [
 
 export const Squares = () => {
   const [state, dispatch] = useReducer(SquaresReducer, initialSquares);
-  const [inputValue, setInputValue] = useState("");
+  const [selectedOption, setSelectedOption] = useState<string>("");
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setSelectedOption(e.target.value);
   };
 
   const addSquare = (color: string) => {
@@ -130,13 +132,36 @@ export const Squares = () => {
   };
 
   console.log("state", state);
+
+  const colorOptions = [
+    { value: "black", label: "Black" },
+    { value: "blue", label: "Blue" },
+    { value: "green", label: "Green" },
+    { value: "gray", label: "Gray" },
+    { value: "orange", label: "Orange" },
+    { value: "pink", label: "Pink" },
+    { value: "purple", label: "Purple" },
+    { value: "red", label: "Red" },
+    { value: "gold", label: "Yellow" },
+  ];
+
   return (
     <Container>
       Squares
       <InputContainer>
         color:
-        <StyledInput type="text" value={inputValue} onChange={handleChange} />
-        <StyledButton color="#C6DBBB" onClick={() => addSquare(inputValue)}>
+        <StyledSelect
+          id="colorSelect"
+          value={selectedOption}
+          onChange={handleChange}
+        >
+          {colorOptions.map((option, index) => (
+            <option key={index} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </StyledSelect>
+        <StyledButton color="#C6DBBB" onClick={() => addSquare(selectedOption)}>
           CREATE
         </StyledButton>
         <StyledButton color="#DBB8AA" onClick={() => deleteSquare()}>
