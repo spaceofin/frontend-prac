@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Photo } from "./components/Photo";
 import styled from "styled-components";
 
@@ -20,11 +21,30 @@ const PhotosContainer = styled.div`
 
 const App = () => {
   const photosCount = 12;
+  const [clickedPhotos, setClickedPhotos] = useState(
+    Array.from({ length: photosCount }, () => false)
+  );
+
+  console.log(clickedPhotos);
+
+  const handleClick = (index) => {
+    setClickedPhotos((prevState) => {
+      const newClickedPhotos = [...prevState];
+      newClickedPhotos[index] = !prevState[index];
+      return newClickedPhotos;
+    });
+  };
+
   return (
     <Container>
       <PhotosContainer>
         {Array.from({ length: photosCount }, (_, index) => (
-          <Photo key={index} index={index + 1} />
+          <Photo
+            key={index}
+            index={index}
+            clicked={clickedPhotos[index]}
+            handleClick={handleClick}
+          />
         ))}
       </PhotosContainer>
     </Container>

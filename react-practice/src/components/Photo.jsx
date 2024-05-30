@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useState } from "react";
 import { ReactComponent as CheckCircle } from "../assets/icons/check-circle.svg";
 
 const Container = styled.div`
@@ -24,20 +23,15 @@ const StyledCheckCircle = styled(CheckCircle)`
   `}
 `;
 
-export const Photo = ({ index }) => {
+export const Photo = ({ index, clicked, handleClick }) => {
   const url = `https://picsum.photos/seed/${index}200/200`;
-  const [clicked, setClicked] = useState(false);
-
-  const handleClick = () => {
-    setClicked(!clicked);
-  };
 
   return (
     <Container>
       <StyledCheckCircle
-        onClick={handleClick}
+        onClick={() => handleClick(index)}
         fill={clicked ? "red" : undefined}
-        clicked={clicked}
+        clicked={clicked ? 1 : 0}
       />
       <StyledImg src={url} alt="random image" />
     </Container>
