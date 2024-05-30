@@ -25,8 +25,7 @@ const StyledCheckCircle = styled(CheckCircle)`
 `;
 
 export const Photo = ({ index }) => {
-  const baseUrl = "https://picsum.photos/200/200";
-  const queryString = `?random=${index}`;
+  const url = `https://picsum.photos/seed/${index}200/200`;
   const [clicked, setClicked] = useState(false);
 
   const handleClick = () => {
@@ -40,8 +39,7 @@ export const Photo = ({ index }) => {
         fill={clicked ? "red" : undefined}
         clicked={clicked}
       />
-      <StyledImg src={baseUrl + queryString} alt="random image" />
-      <p>{clicked ? "Clicked!" : "Not Clicked!"}</p>
+      <StyledImg src={url} alt="random image" />
     </Container>
   );
 };
