@@ -10,6 +10,8 @@ const Container = styled.div`
 const PhotosContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 210px);
+  min-width: 630px;
+  min-height: 840px;
   padding: 20px;
   border: 5px solid #ffbf15;
   background-color: #fff192;
@@ -17,14 +19,13 @@ const PhotosContainer = styled.div`
 `;
 
 const App = () => {
+  const photosCount = 12;
   return (
     <Container>
       <PhotosContainer>
-        <Photo />
-        <Photo />
-        <Photo />
-        <Photo />
-        <Photo />
+        {Array.from({ length: photosCount }, (_, index) => (
+          <Photo key={index} index={index + 1} />
+        ))}
       </PhotosContainer>
     </Container>
   );
