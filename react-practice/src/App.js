@@ -26,7 +26,10 @@ const PhotosContainer = styled.div`
 `;
 
 const PhotosCartContainer = styled(PhotosContainer)`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(1, 210px);
+  align-content: start;
+  grid-gap: 0;
   min-width: 220px;
   min-height: 840px;
   border: 5px solid #22b14c;
@@ -94,10 +97,15 @@ const App = () => {
               index={index}
               clicked={clickedPhotos[index]}
               handleClick={handlePhotoClick}
+              needCheckCircle={true}
             />
           ))}
         </PhotosContainer>
-        <PhotosCartContainer></PhotosCartContainer>
+        <PhotosCartContainer>
+          {cartPhotos.map((photoNumber, index) => (
+            <Photo key={index} index={photoNumber} needCheckCircle={false} />
+          ))}
+        </PhotosCartContainer>
       </ContentsWrapper>
     </Container>
   );
