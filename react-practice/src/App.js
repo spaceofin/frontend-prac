@@ -60,8 +60,10 @@ const App = () => {
   const [clickedPhotos, setClickedPhotos] = useState(
     Array.from({ length: photosCount }, () => false)
   );
+  const [cartPhotos, setCartPhotos] = useState([]);
 
   console.log(clickedPhotos);
+  console.log(cartPhotos);
 
   const handlePhotoClick = (index) => {
     setClickedPhotos((prevState) => {
@@ -71,10 +73,18 @@ const App = () => {
     });
   };
 
+  const handleButtonClick = () => {
+    setCartPhotos(
+      clickedPhotos
+        .map((value, index) => (value ? index : null))
+        .filter((i) => i !== null)
+    );
+  };
+
   return (
     <Container>
       <ButtonWrapper>
-        <Button>Add To Cart</Button>
+        <Button onClick={handleButtonClick}>Add To Cart</Button>
       </ButtonWrapper>
       <ContentsWrapper>
         <PhotosContainer>
