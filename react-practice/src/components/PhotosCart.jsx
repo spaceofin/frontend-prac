@@ -1,9 +1,14 @@
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
 import { Photo } from "./Photo";
 
 const Container = styled.div`
+  display: flex;
+`;
+
+const PhotosCartContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(1, 210px);
+  grid-template-columns: repeat(3, 210px);
   align-content: start;
   grid-gap: 0;
   min-width: 220px;
@@ -15,13 +20,18 @@ const Container = styled.div`
   padding: 20px;
 `;
 
-export const PhotosCart = ({ cartPhotos }) => {
+export const PhotosCart = () => {
+  const location = useLocation();
+  console.log(location.state.cartPhotos);
+  const cartPhotos = location.state.cartPhotos;
   return (
     <Container>
-      {cartPhotos.length > 0 &&
-        cartPhotos.map((photoNumber, index) => (
-          <Photo key={index} index={photoNumber} needCheckCircle={false} />
-        ))}
+      <PhotosCartContainer>
+        {cartPhotos.length > 0 &&
+          cartPhotos.map((photoNumber, index) => (
+            <Photo key={index} index={photoNumber} needCheckCircle={false} />
+          ))}
+      </PhotosCartContainer>
     </Container>
   );
 };
