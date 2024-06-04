@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 import { Photo } from "./Photo";
+import { useState } from "react";
 
 const Container = styled.div`
   display: flex;
@@ -40,14 +41,27 @@ const PhotosCartContainer = styled.div`
 export const PhotosCart = () => {
   const location = useLocation();
   console.log(location.state.cartPhotos);
-  const cartPhotos = location.state.cartPhotos;
+
+  const initialCartPhotos = location.state?.cartPhotos || [];
+
+  const [cartPhotos, setCartPhotos] = useState(initialCartPhotos);
+
+  const handleCancelClick = (photoNumber) => {
+    setCartPhotos(cartPhotos.filter((number) => number !== photoNumber));
+  };
+
   return (
     <Container>
       <Title>CART</Title>
       <PhotosCartContainer>
         {cartPhotos.length > 0 &&
           cartPhotos.map((photoNumber, index) => (
-            <Photo key={index} index={photoNumber} needCancel={true} />
+            <Photo
+              key={index}
+              index={photoNumber}
+              needCancel={true}
+              handleCancelClick={handleCancelClick}
+            />
           ))}
       </PhotosCartContainer>
     </Container>

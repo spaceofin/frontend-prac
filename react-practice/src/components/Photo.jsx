@@ -35,6 +35,7 @@ export const Photo = ({
   index,
   clicked,
   handleClick,
+  handleCancelClick,
   needCheckCircle = null,
   needCancel = null,
 }) => {
@@ -49,7 +50,9 @@ export const Photo = ({
           clicked={clicked ? 1 : 0}
         />
       ) : null}
-      {needCancel ? <StyledCancel /> : null}
+      {needCancel ? (
+        <StyledCancel onClick={() => handleCancelClick(index)} />
+      ) : null}
       <StyledImg src={url} alt="random image" />
     </Container>
   );
