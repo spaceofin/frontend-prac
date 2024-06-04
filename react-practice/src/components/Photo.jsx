@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { ReactComponent as CheckCircle } from "../assets/icons/check-circle.svg";
+import { ReactComponent as Cancel } from "../assets/icons/cancel.svg";
 
 const Container = styled.div`
   position: relative;
@@ -23,7 +24,20 @@ const StyledCheckCircle = styled(CheckCircle)`
   `}
 `;
 
-export const Photo = ({ index, clicked, handleClick, needCheckCircle }) => {
+const StyledCancel = styled(Cancel)`
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  cursor: pointer;
+`;
+
+export const Photo = ({
+  index,
+  clicked,
+  handleClick,
+  needCheckCircle = null,
+  needCancel = null,
+}) => {
   const url = `https://picsum.photos/seed/${index}200/200`;
 
   return (
@@ -35,6 +49,7 @@ export const Photo = ({ index, clicked, handleClick, needCheckCircle }) => {
           clicked={clicked ? 1 : 0}
         />
       ) : null}
+      {needCancel ? <StyledCancel /> : null}
       <StyledImg src={url} alt="random image" />
     </Container>
   );

@@ -47,7 +47,7 @@ export const PhotosCart = () => {
       <PhotosCartContainer>
         {cartPhotos.length > 0 &&
           cartPhotos.map((photoNumber, index) => (
-            <Photo key={index} index={photoNumber} needCheckCircle={false} />
+            <Photo key={index} index={photoNumber} needCancel={true} />
           ))}
       </PhotosCartContainer>
     </Container>
