@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Photo } from "components/Photo";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
@@ -80,7 +79,7 @@ export const Gallery = () => {
     if (cartPhotos.length > 0) {
       navigate("/photos-cart", { state: { cartPhotos } });
     }
-  }, [cartPhotos]);
+  }, [cartPhotos, navigate]);
 
   return (
     <Container>
