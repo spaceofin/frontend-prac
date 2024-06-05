@@ -1,12 +1,13 @@
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Photo } from "./Photo";
 import { useState } from "react";
 
 const Container = styled.div`
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   margin: 20px;
+  width: auto;
 `;
 
 const Title = styled.div`
@@ -34,8 +35,30 @@ const PhotosCartContainer = styled.div`
   border: 5px solid #22b14c;
   background-color: #bae09e;
   border-radius: 10px;
-  margin-left: 10px;
+  margin: 0px 10px;
   padding: 20px;
+`;
+
+const TopBar = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: inherit;
+  margin: 0px 20px;
+`;
+
+const Button = styled.button`
+  width: 150px;
+  height: 40px;
+  border: 0px;
+  border-radius: 5px;
+  background-color: lightgrey;
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow: 3px 3px 0px rgba(128, 128, 128, 1);
+
+  &:active {
+    box-shadow: inset 3px 3px 0px rgba(0, 0, 0, 0.5);
+  }
 `;
 
 export const PhotosCart = () => {
@@ -50,9 +73,17 @@ export const PhotosCart = () => {
     setCartPhotos(cartPhotos.filter((number) => number !== photoNumber));
   };
 
+  const navigate = useNavigate();
+  const handleBackClick = () => {
+    navigate(-1);
+  };
+
   return (
     <Container>
-      <Title>CART</Title>
+      <TopBar>
+        <Title>CART</Title>
+        <Button onClick={handleBackClick}>BACK</Button>
+      </TopBar>
       <PhotosCartContainer>
         {cartPhotos.length > 0 &&
           cartPhotos.map((photoNumber, index) => (
