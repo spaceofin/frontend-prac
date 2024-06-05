@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Photo } from "./Photo";
-import { useState } from "react";
+import { useCartPhotos } from "./CartPhotosContext";
 
 const Container = styled.div`
   display: inline-flex;
@@ -13,6 +13,7 @@ const Container = styled.div`
 const Title = styled.div`
   display: flex;
   justify-content: center;
+
   align-items: center;
   margin-left: 30px;
   width: 140px;
@@ -62,12 +63,8 @@ const Button = styled.button`
 `;
 
 export const PhotosCart = () => {
-  const location = useLocation();
-  console.log(location.state.cartPhotos);
-
-  const initialCartPhotos = location.state?.cartPhotos || [];
-
-  const [cartPhotos, setCartPhotos] = useState(initialCartPhotos);
+  const { cartPhotos, setCartPhotos } = useCartPhotos();
+  console.log("cartphotos:", cartPhotos);
 
   const handleCancelClick = (photoNumber) => {
     setCartPhotos(cartPhotos.filter((number) => number !== photoNumber));

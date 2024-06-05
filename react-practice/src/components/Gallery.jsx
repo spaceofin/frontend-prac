@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Photo } from "components/Photo";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useCartPhotos } from "./CartPhotosContext";
 
 const Container = styled.div`
   display: flex;
@@ -53,8 +54,11 @@ export const Gallery = () => {
   const [clickedPhotos, setClickedPhotos] = useState(
     Array.from({ length: photosCount }, () => false)
   );
-  const [cartPhotos, setCartPhotos] = useState([]);
+  const { cartPhotos, setCartPhotos } = useCartPhotos();
+
   const navigate = useNavigate();
+
+  console.log("cartphotos-gallery:", cartPhotos);
 
   console.log(clickedPhotos);
   console.log(cartPhotos);
@@ -77,7 +81,7 @@ export const Gallery = () => {
 
   useEffect(() => {
     if (cartPhotos.length > 0) {
-      navigate("/photos-cart", { state: { cartPhotos } });
+      navigate("/photos-cart");
     }
   }, [cartPhotos, navigate]);
 
