@@ -58,10 +58,8 @@ export const Gallery = () => {
 
   const navigate = useNavigate();
 
-  console.log("cartphotos-gallery:", cartPhotos);
-
-  console.log(clickedPhotos);
-  console.log(cartPhotos);
+  console.log("clickedPhotos", clickedPhotos);
+  console.log("cartPhotos", cartPhotos);
 
   const handlePhotoClick = (index) => {
     setClickedPhotos((prevState) => {
@@ -77,13 +75,16 @@ export const Gallery = () => {
         .map((value, index) => (value ? index : null))
         .filter((i) => i !== null)
     );
+    navigate("/photos-cart");
   };
 
   useEffect(() => {
-    if (cartPhotos.length > 0) {
-      navigate("/photos-cart");
-    }
-  }, [cartPhotos, navigate]);
+    setClickedPhotos((prevState) =>
+      prevState.map((value, index) =>
+        cartPhotos.includes(index) ? true : value
+      )
+    );
+  }, [cartPhotos]);
 
   return (
     <Container>
