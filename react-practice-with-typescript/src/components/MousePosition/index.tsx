@@ -1,7 +1,9 @@
 import styled from "styled-components";
+import { useState, useEffect } from "react";
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 500px;
@@ -17,6 +19,26 @@ const Container = styled.div`
 `;
 
 export const MousePosition = () => {
-  console.log("MousePosition component called.");
-  return <Container>MousePosition</Container>;
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  const handleMousePosition = (event: React.MouseEvent) => {
+    setPosition({ x: event.clientX, y: event.clientY });
+  };
+
+  useEffect(() => {
+    window.addEventListener("mousemove", handleMousePosition as any);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMousePosition as any);
+    };
+  }, []);
+
+  return (
+    <Container>
+      <div>MousePosition</div>
+      <div>
+        {position.x}, {position.y}
+      </div>
+    </Container>
+  );
 };
