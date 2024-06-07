@@ -18,8 +18,22 @@ const Container = styled.div`
   font-weight: bold;
 `;
 
+const GuideText = styled.div`
+  font-size: 24px;
+  font-weight: 500;
+`;
+
 export const MousePosition = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [clickedPosition, setClickedPosition] = useState({
+    x: 0,
+    y: 0,
+  });
+
+  const handleClick = (event: React.MouseEvent) => {
+    console.log("Clicked at:", event.clientX, event.clientY);
+    setClickedPosition({ x: event.clientX, y: event.clientY });
+  };
 
   const handleMousePosition = (event: React.MouseEvent) => {
     setPosition({ x: event.clientX, y: event.clientY });
@@ -33,12 +47,18 @@ export const MousePosition = () => {
     };
   }, []);
 
+  useEffect(() => {
+    console.log(clickedPosition);
+  }, [clickedPosition]);
+
   return (
-    <Container>
+    <Container onClick={handleClick}>
+      <GuideText>To save the position, Click inside the pink zone!</GuideText>
       <div>MousePosition</div>
-      <div>
-        {position.x}, {position.y}
-      </div>
+      <output>
+        {clickedPosition.x !== 0 ? clickedPosition.x : position.x},{" "}
+        {clickedPosition.y !== 0 ? clickedPosition.y : position.y}
+      </output>
     </Container>
   );
 };
