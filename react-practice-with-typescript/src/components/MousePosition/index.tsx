@@ -41,9 +41,15 @@ export const MousePosition = () => {
 
   useEffect(() => {
     window.addEventListener("mousemove", handleMousePosition as any);
-
     return () => {
       window.removeEventListener("mousemove", handleMousePosition as any);
+    };
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("click", handleClick as any);
+    return () => {
+      window.removeEventListener("click", handleClick as any);
     };
   }, []);
 
@@ -52,8 +58,8 @@ export const MousePosition = () => {
   }, [clickedPosition]);
 
   return (
-    <Container onClick={handleClick}>
-      <GuideText>To save the position, Click inside the pink zone!</GuideText>
+    <Container>
+      <GuideText>To save the position, Click!</GuideText>
       <div>MousePosition</div>
       <output>
         {clickedPosition.x !== 0 ? clickedPosition.x : position.x},{" "}
