@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 500px;
   height: 200px;
@@ -23,16 +23,31 @@ const GuideText = styled.div`
   font-weight: 500;
 `;
 
+const PositionText = styled.div`
+  font-size: 20px;
+  font-weight: 500;
+`;
+
+interface Position {
+  x: number;
+  y: number;
+}
+
 export const MousePosition = () => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [clickedPosition, setClickedPosition] = useState({
-    x: 0,
-    y: 0,
-  });
+  const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
+  const [clickedPositions, setClickedPositions] = useState<Position[]>([]);
 
   const handleClick = (event: React.MouseEvent) => {
     console.log("Clicked at:", event.clientX, event.clientY);
-    setClickedPosition({ x: event.clientX, y: event.clientY });
+    // setClickedPosition({ x: event.clientX, y: event.clientY });
+    const newClickPosition = { x: event.clientX, y: event.clientY };
+    setClickedPositions((prevPositions: Position[]) => {
+      if (prevPositions.length < 4) {
+        return [...prevPositions, newClickPosition];
+      } else {
+        return prevPositions;
+      }
+    });
   };
 
   const handleMousePosition = (event: React.MouseEvent) => {
@@ -54,16 +69,25 @@ export const MousePosition = () => {
   }, []);
 
   useEffect(() => {
-    console.log(clickedPosition);
-  }, [clickedPosition]);
+    console.log("clickedPositions: ", ...clickedPositions);
+  }, [clickedPositions]);
 
   return (
     <Container>
       <GuideText>To save the position, Click!</GuideText>
       <div>MousePosition</div>
       <output>
-        {clickedPosition.x !== 0 ? clickedPosition.x : position.x},{" "}
-        {clickedPosition.y !== 0 ? clickedPosition.y : position.y}
+        {position.x}, {position.y}
+      </output>
+      <br />
+      <br />
+      <div>ClickedPositions</div>
+      <output>
+        {clickedPositions.map((pos, index) => (
+          <span key={index}>
+            [{pos.x}, {pos.y}]
+          </span>
+        ))}
       </output>
     </Container>
   );
