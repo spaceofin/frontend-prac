@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useState, useReducer, ChangeEvent } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const Container = styled.div`
   display: flex;
@@ -65,7 +66,7 @@ const SlimText = styled.div`
   font-weight: normal;
 `;
 
-type CircleType = { id: number; color: string };
+type CircleType = { id: string; color: string };
 
 const CIRCLES_ACTION = {
   ADD: "addCircle" as const,
@@ -73,11 +74,11 @@ const CIRCLES_ACTION = {
 };
 
 const CirclesActionCreator = {
-  addCircle: (id: number, color: string) => ({
+  addCircle: (id: string, color: string) => ({
     type: CIRCLES_ACTION.ADD,
     payload: { id: id, color: color },
   }),
-  deleteCircle: (id: number) => ({
+  deleteCircle: (id: string) => ({
     type: CIRCLES_ACTION.DELETE,
     payload: { id: id },
   }),
@@ -102,8 +103,8 @@ const CirclesReducer = (
 };
 
 const initialCircles: Array<CircleType> = [
-  { id: 1, color: "red" },
-  { id: 2, color: "blue" },
+  { id: uuidv4(), color: "red" },
+  { id: uuidv4(), color: "blue" },
 ];
 
 export const Circles = () => {
@@ -123,11 +124,11 @@ export const Circles = () => {
     color = color || "lightgrey";
     console.log("color: ", color);
 
-    dispatch(CirclesActionCreator.addCircle(state.length + 1, color));
-    console.log(state.length);
+    dispatch(CirclesActionCreator.addCircle(uuidv4(), color));
+    console.log("state.length:", state.length);
   };
 
-  const deleteCircle = (id: number) => {
+  const deleteCircle = (id: string) => {
     console.log(`delete target Circle id: ${id}`);
     dispatch(CirclesActionCreator.deleteCircle(id));
   };
@@ -154,7 +155,8 @@ export const Circles = () => {
         <StyledSelect
           id="colorSelect"
           value={selectedOption}
-          onChange={handleChange}>
+          onChange={handleChange}
+        >
           {colorOptions.map((option, index) => (
             <option key={index} value={option.value}>
               {option.label}

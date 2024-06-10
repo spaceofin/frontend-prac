@@ -41,7 +41,7 @@ export const MousePosition = () => {
   const [clickedPositions, setClickedPositions] = useState<Position[]>([]);
 
   const handleClick = (event: React.MouseEvent) => {
-    console.log("Clicked at:", event.clientX, event.clientY);
+    // console.log("Clicked at:", event.clientX, event.clientY);
     // setClickedPosition({ x: event.clientX, y: event.clientY });
     const newClickPosition = { x: event.clientX, y: event.clientY };
     setClickedPositions((prevPositions: Position[]) => {
@@ -72,7 +72,7 @@ export const MousePosition = () => {
   }, []);
 
   useEffect(() => {
-    console.log("clickedPositions: ", ...clickedPositions);
+    // console.log("clickedPositions: ", ...clickedPositions);
   }, [clickedPositions]);
 
   return (
