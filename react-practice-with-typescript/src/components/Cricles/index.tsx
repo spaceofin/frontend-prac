@@ -77,9 +77,9 @@ const CirclesActionCreator = {
     type: CIRCLES_ACTION.ADD,
     payload: { id: id, color: color },
   }),
-  deleteCircle: () => ({
+  deleteCircle: (id: number) => ({
     type: CIRCLES_ACTION.DELETE,
-    payload: {},
+    payload: { id: id },
   }),
 };
 
@@ -95,7 +95,7 @@ const CirclesReducer = (
     case CIRCLES_ACTION.ADD:
       return [...state, { id: action.payload.id, color: action.payload.color }];
     case CIRCLES_ACTION.DELETE:
-      return [...state.slice(0, -1)];
+      return state.filter((circle) => circle.id !== action.payload.id);
     default:
       return state;
   }
@@ -127,13 +127,9 @@ export const Circles = () => {
     console.log(state.length);
   };
 
-  const deleteCircle = (id: number = state.length) => {
-    if (id === 0) {
-      alert("The Circle Board is empty!");
-      return;
-    }
+  const deleteCircle = (id: number) => {
     console.log(`delete target Circle id: ${id}`);
-    dispatch(CirclesActionCreator.deleteCircle());
+    dispatch(CirclesActionCreator.deleteCircle(id));
   };
 
   console.log("state", state);
@@ -171,7 +167,13 @@ export const Circles = () => {
       </InputContainer>
       <CirclesContainer>
         {state.map((circle) => (
-          <Circle key={circle.id} color={circle.color} />
+          <Circle
+            onClick={() => {
+              deleteCircle(circle.id);
+            }}
+            key={circle.id}
+            color={circle.color}
+          />
         ))}
       </CirclesContainer>
     </Container>
