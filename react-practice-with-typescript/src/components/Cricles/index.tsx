@@ -6,7 +6,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 500px;
-  height: 500px;
+  height: 520px;
   margin: 20px;
   margin-bottom: 5px;
   padding: 15px;
@@ -25,19 +25,20 @@ const StyledButton = styled.button`
   border: 0px;
 `;
 
-const SquaresContainer = styled.div`
+const CirclesContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 120px);
+  justify-content: center;
   width: inherit;
   margin: 5px;
 `;
 
-const Square = styled.div`
+const Circle = styled.div`
   width: 100px;
   height: 100px;
   background-color: ${(props) => props.color};
-  margin: 10px;
-  border-radius: 20px;
+  margin: 8px;
+  border-radius: 50%;
 `;
 
 const InputContainer = styled.div`
@@ -59,75 +60,80 @@ const StyledSelect = styled.select`
   padding-left: 15px;
 `;
 
-type SquareType = { id: number; color: string };
+const SlimText = styled.div`
+  font-size: 24px;
+  font-weight: normal;
+`;
 
-const SQUARES_ACTION = {
-  ADD: "addSquare" as const,
+type CircleType = { id: number; color: string };
+
+const CIRCLES_ACTION = {
+  ADD: "addCircle" as const,
   DELETE: "deleteSqaure" as const,
 };
 
-const SquaresActionCreator = {
-  addSquare: (id: number, color: string) => ({
-    type: SQUARES_ACTION.ADD,
+const CirclesActionCreator = {
+  addCircle: (id: number, color: string) => ({
+    type: CIRCLES_ACTION.ADD,
     payload: { id: id, color: color },
   }),
-  deleteSquare: () => ({
-    type: SQUARES_ACTION.DELETE,
+  deleteCircle: () => ({
+    type: CIRCLES_ACTION.DELETE,
     payload: {},
   }),
 };
 
-type SquaresActionType =
-  | ReturnType<typeof SquaresActionCreator.addSquare>
-  | ReturnType<typeof SquaresActionCreator.deleteSquare>;
+type CirclesActionType =
+  | ReturnType<typeof CirclesActionCreator.addCircle>
+  | ReturnType<typeof CirclesActionCreator.deleteCircle>;
 
-const SquaresReducer = (
-  state: Array<SquareType>,
-  action: SquaresActionType
+const CirclesReducer = (
+  state: Array<CircleType>,
+  action: CirclesActionType
 ) => {
   switch (action.type) {
-    case SQUARES_ACTION.ADD:
+    case CIRCLES_ACTION.ADD:
       return [...state, { id: action.payload.id, color: action.payload.color }];
-    case SQUARES_ACTION.DELETE:
+    case CIRCLES_ACTION.DELETE:
       return [...state.slice(0, -1)];
     default:
       return state;
   }
 };
 
-const initialSquares: Array<SquareType> = [
+const initialCircles: Array<CircleType> = [
   { id: 1, color: "red" },
   { id: 2, color: "blue" },
 ];
 
-export const Squares = () => {
-  const [state, dispatch] = useReducer(SquaresReducer, initialSquares);
+export const Circles = () => {
+  const [state, dispatch] = useReducer(CirclesReducer, initialCircles);
   const [selectedOption, setSelectedOption] = useState<string>("gray");
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedOption(e.target.value);
   };
 
-  const addSquare = (color: string) => {
+  const addCircle = (color: string) => {
     if (state.length === 12) {
-      alert("The Square Board is full!");
+      alert("The Circle Board is full!");
       return;
     }
 
     color = color || "lightgrey";
     console.log("color: ", color);
 
-    dispatch(SquaresActionCreator.addSquare(state.length + 1, color));
+    dispatch(CirclesActionCreator.addCircle(state.length + 1, color));
     console.log(state.length);
   };
 
-  const deleteSquare = (id: number = state.length) => {
+  const deleteCircle = (id: number = state.length) => {
     if (id === 0) {
-      alert("The Square Board is empty!");
+      alert("The Circle Board is empty!");
       return;
     }
-    console.log(`delete target square id: ${id}`);
-    dispatch(SquaresActionCreator.deleteSquare());
+    console.log(`delete target Circle id: ${id}`);
+    dispatch(CirclesActionCreator.deleteCircle());
   };
 
   console.log("state", state);
@@ -146,7 +152,8 @@ export const Squares = () => {
 
   return (
     <Container>
-      Squares
+      <div>Circles</div>
+      <SlimText>(click on the circle to delete it)</SlimText>
       <InputContainer>
         <StyledSelect
           id="colorSelect"
@@ -158,18 +165,15 @@ export const Squares = () => {
             </option>
           ))}
         </StyledSelect>
-        <StyledButton color="#C6DBBB" onClick={() => addSquare(selectedOption)}>
+        <StyledButton color="#C6DBBB" onClick={() => addCircle(selectedOption)}>
           CREATE
         </StyledButton>
-        <StyledButton color="#DBB8AA" onClick={() => deleteSquare()}>
-          DELETE
-        </StyledButton>
       </InputContainer>
-      <SquaresContainer>
-        {state.map((square) => (
-          <Square key={square.id} color={square.color} />
+      <CirclesContainer>
+        {state.map((circle) => (
+          <Circle key={circle.id} color={circle.color} />
         ))}
-      </SquaresContainer>
+      </CirclesContainer>
     </Container>
   );
 };
