@@ -16,6 +16,7 @@ const Container = styled.div`
   border: 5px solid #db7498;
   font-size: 25px;
   font-weight: bold;
+  overflow: hidden;
 `;
 
 const GuideText = styled.div`
@@ -23,9 +24,11 @@ const GuideText = styled.div`
   font-weight: 500;
 `;
 
-const PositionText = styled.div`
-  font-size: 20px;
-  font-weight: 500;
+const MousePositionDisplay = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
 `;
 
 interface Position {
@@ -75,20 +78,22 @@ export const MousePosition = () => {
   return (
     <Container>
       <GuideText>To save the position, Click!</GuideText>
-      <div>MousePosition</div>
-      <output>
-        {position.x}, {position.y}
-      </output>
-      <br />
-      <br />
-      <div>ClickedPositions</div>
-      <output>
-        {clickedPositions.map((pos, index) => (
-          <span key={index}>
-            [{pos.x}, {pos.y}]
-          </span>
-        ))}
-      </output>
+      <MousePositionDisplay>
+        <div>MousePosition</div>
+        <output>
+          {position.x}, {position.y}
+        </output>
+      </MousePositionDisplay>
+      <MousePositionDisplay>
+        <div>ClickedPositions</div>
+        <output>
+          {clickedPositions.map((pos, index) => (
+            <span key={index}>
+              [{pos.x}, {pos.y}]
+            </span>
+          ))}
+        </output>
+      </MousePositionDisplay>
     </Container>
   );
 };
