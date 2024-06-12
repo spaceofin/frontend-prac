@@ -3,11 +3,9 @@ import { useState, useEffect } from "react";
 
 const Container = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
   width: 500px;
-  height: 200px;
+  height: 250px;
   margin: 20px;
   margin-bottom: 5px;
   padding: 15px;
@@ -29,6 +27,45 @@ const MousePositionDisplay = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 10px;
+`;
+
+const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: inherit;
+  flex-grow: 1;
+  align-items: center;
+  padding-right: 50px;
+  padding-top: 20px;
+`;
+
+const ButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: inherit;
+  width: 70px;
+  align-items: center;
+  padding-top: 20px;
+`;
+
+interface BorderRadiusProps {
+  topLeftRadius?: number;
+  topRightRadius?: number;
+  bottomRightRadius?: number;
+  bottomLeftRadius?: number;
+}
+
+const StyledButton = styled.div<BorderRadiusProps>`
+  width: 50px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: normal;
+  background-color: ${(props) => props.color};
+  padding: 2px;
+  border-top-left-radius: ${(props) => props.topLeftRadius}px;
+  border-top-right-radius: ${(props) => props.topRightRadius}px;
+  border-bottom-right-radius: ${(props) => props.bottomRightRadius}px;
+  border-bottom-left-radius: ${(props) => props.bottomLeftRadius}px;
 `;
 
 interface Position {
@@ -77,23 +114,33 @@ export const MousePosition = () => {
 
   return (
     <Container>
-      <GuideText>To save the position, Click!</GuideText>
-      <MousePositionDisplay>
-        <div>MousePosition</div>
-        <output>
-          {position.x}, {position.y}
-        </output>
-      </MousePositionDisplay>
-      <MousePositionDisplay>
-        <div>ClickedPositions</div>
-        <output>
-          {clickedPositions.map((pos, index) => (
-            <span key={index}>
-              [{pos.x}, {pos.y}]
-            </span>
-          ))}
-        </output>
-      </MousePositionDisplay>
+      <ButtonsContainer>
+        <StyledButton color="red" topLeftRadius={7} topRightRadius={7}>
+          ON
+        </StyledButton>
+        <StyledButton color="white" bottomLeftRadius={7} bottomRightRadius={7}>
+          OFF
+        </StyledButton>
+      </ButtonsContainer>
+      <ContentWrapper>
+        <GuideText>To save the position, Click!</GuideText>
+        <MousePositionDisplay>
+          <div>MousePosition</div>
+          <output>
+            {position.x}, {position.y}
+          </output>
+        </MousePositionDisplay>
+        <MousePositionDisplay>
+          <div>ClickedPositions</div>
+          <output>
+            {clickedPositions.map((pos, index) => (
+              <span key={index}>
+                [{pos.x}, {pos.y}]
+              </span>
+            ))}
+          </output>
+        </MousePositionDisplay>
+      </ContentWrapper>
     </Container>
   );
 };
