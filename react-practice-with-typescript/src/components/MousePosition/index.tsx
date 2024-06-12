@@ -49,23 +49,33 @@ const ButtonsContainer = styled.div`
 `;
 
 interface BorderRadiusProps {
-  topLeftRadius?: number;
-  topRightRadius?: number;
-  bottomRightRadius?: number;
-  bottomLeftRadius?: number;
+  $topLeftRadius?: number;
+  $topRightRadius?: number;
+  $bottomRightRadius?: number;
+  $bottomLeftRadius?: number;
 }
 
-const StyledButton = styled.div<BorderRadiusProps>`
+const StyledButton = styled.button<BorderRadiusProps>`
   width: 50px;
   text-align: center;
   font-size: 20px;
   font-weight: normal;
   background-color: ${(props) => props.color};
   padding: 2px;
-  border-top-left-radius: ${(props) => props.topLeftRadius}px;
-  border-top-right-radius: ${(props) => props.topRightRadius}px;
-  border-bottom-right-radius: ${(props) => props.bottomRightRadius}px;
-  border-bottom-left-radius: ${(props) => props.bottomLeftRadius}px;
+  border-top-left-radius: ${(props) => props.$topLeftRadius}px;
+  border-top-right-radius: ${(props) => props.$topRightRadius}px;
+  border-bottom-right-radius: ${(props) => props.$bottomRightRadius}px;
+  border-bottom-left-radius: ${(props) => props.$bottomLeftRadius}px;
+  border: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const PositionText = styled.span`
+  font-size: 20px;
+  font-weight: normal;
 `;
 
 interface Position {
@@ -76,10 +86,16 @@ interface Position {
 export const MousePosition = () => {
   const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
   const [clickedPositions, setClickedPositions] = useState<Position[]>([]);
+  const [buttonOn, setButtonOn] = useState(false);
 
   const handleClick = (event: React.MouseEvent) => {
-    // console.log("Clicked at:", event.clientX, event.clientY);
-    // setClickedPosition({ x: event.clientX, y: event.clientY });
+    if (
+      buttonOn &&
+      event.target instanceof HTMLElement &&
+      event.target.closest("button")
+    ) {
+      return;
+    }
     const newClickPosition = { x: event.clientX, y: event.clientY };
     setClickedPositions((prevPositions: Position[]) => {
       if (prevPositions.length < 4) {
@@ -95,30 +111,48 @@ export const MousePosition = () => {
   };
 
   useEffect(() => {
-    window.addEventListener("mousemove", handleMousePosition as any);
+    if (buttonOn) {
+      window.addEventListener("mousemove", handleMousePosition as any);
+    } else {
+      window.removeEventListener("mousemove", handleMousePosition as any);
+    }
     return () => {
       window.removeEventListener("mousemove", handleMousePosition as any);
     };
-  }, []);
+  }, [buttonOn]);
 
   useEffect(() => {
-    window.addEventListener("click", handleClick as any);
+    if (buttonOn) {
+      window.addEventListener("click", handleClick as any);
+    } else {
+      window.removeEventListener("click", handleClick as any);
+    }
     return () => {
       window.removeEventListener("click", handleClick as any);
     };
-  }, []);
-
-  useEffect(() => {
-    // console.log("clickedPositions: ", ...clickedPositions);
-  }, [clickedPositions]);
+  }, [buttonOn]);
 
   return (
     <Container>
       <ButtonsContainer>
-        <StyledButton color="red" topLeftRadius={7} topRightRadius={7}>
+        <StyledButton
+          color={buttonOn ? "yellowgreen" : "white"}
+          $topLeftRadius={7}
+          $topRightRadius={7}
+          onClick={() => {
+            setButtonOn(true);
+          }}
+        >
           ON
         </StyledButton>
-        <StyledButton color="white" bottomLeftRadius={7} bottomRightRadius={7}>
+        <StyledButton
+          color={buttonOn ? "white" : "tomato"}
+          $bottomLeftRadius={7}
+          $bottomRightRadius={7}
+          onClick={() => {
+            setButtonOn(false);
+          }}
+        >
           OFF
         </StyledButton>
       </ButtonsContainer>
@@ -134,9 +168,9 @@ export const MousePosition = () => {
           <div>ClickedPositions</div>
           <output>
             {clickedPositions.map((pos, index) => (
-              <span key={index}>
+              <PositionText key={index}>
                 [{pos.x}, {pos.y}]
-              </span>
+              </PositionText>
             ))}
           </output>
         </MousePositionDisplay>
