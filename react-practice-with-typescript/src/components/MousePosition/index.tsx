@@ -55,6 +55,11 @@ interface BorderRadiusProps {
   $bottomLeftRadius?: number;
 }
 
+interface SpacerProps {
+  height: number;
+  width: number;
+}
+
 const StyledButton = styled.button<BorderRadiusProps>`
   width: 50px;
   text-align: center;
@@ -70,6 +75,31 @@ const StyledButton = styled.button<BorderRadiusProps>`
 
   &:hover {
     cursor: pointer;
+  }
+`;
+
+const Spacer = styled.div<SpacerProps>`
+  height: ${(props) => props.height}px;
+  width: ${(props) => props.width}px;
+`;
+
+const VerticalButton = styled.button`
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  width: 50px;
+  height: 120px;
+  font-size: 20px;
+  border-radius: 7px;
+  font-weight: normal;
+  background-color: palevioletred;
+  border: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:active {
+    background-color: gray;
   }
 `;
 
@@ -155,6 +185,15 @@ export const MousePosition = () => {
         >
           OFF
         </StyledButton>
+        <Spacer width={50} height={20} />
+        <VerticalButton
+          onClick={() => {
+            setClickedPositions([]);
+            setPosition({ x: 0, y: 0 });
+          }}
+        >
+          RESET
+        </VerticalButton>
       </ButtonsContainer>
       <ContentWrapper>
         <GuideText>To save the position, Click!</GuideText>
