@@ -39,7 +39,8 @@ const Button = styled.button`
   height: 40px;
   border: 0px;
   border-radius: 5px;
-  background-color: lightgrey;
+  // background-color: lightgrey;
+  background-color: ${(props) => props.color};
   font-size: 16px;
   font-weight: 600;
   box-shadow: 3px 3px 0px rgba(128, 128, 128, 1);
@@ -49,12 +50,18 @@ const Button = styled.button`
   }
 `;
 
+const Spacer = styled.div`
+  width: 30px;
+  height: inherit;
+`;
+
 export const Gallery = () => {
   const photosCount = 12;
   const [clickedPhotos, setClickedPhotos] = useState(
     Array.from({ length: photosCount }, () => false)
   );
   const { cartPhotos, setCartPhotos } = useCartPhotos();
+  const [randomNumber, setRandomNumber] = useState(0);
 
   const navigate = useNavigate();
 
@@ -78,6 +85,11 @@ export const Gallery = () => {
     if (clickedPhotos.includes(true)) navigate("/photos-cart");
   };
 
+  const handleReloadClick = () => {
+    const randomNumber = Math.floor(Math.random() * 100) + 1;
+    setRandomNumber(randomNumber);
+  };
+
   useEffect(() => {
     setClickedPhotos((prevState) =>
       prevState.map((value, index) =>
@@ -89,14 +101,20 @@ export const Gallery = () => {
   return (
     <Container>
       <ButtonWrapper>
-        <Button onClick={handleButtonClick}>Add To Cart</Button>
+        <Button color="lightgray" onClick={handleReloadClick}>
+          Reload Photos
+        </Button>
+        <Spacer />
+        <Button color="lightgray" onClick={handleButtonClick}>
+          Add To Cart
+        </Button>
       </ButtonWrapper>
       <ContentsWrapper>
         <PhotosContainer>
           {Array.from({ length: photosCount }, (_, index) => (
             <Photo
               key={index}
-              index={index}
+              index={index + randomNumber}
               clicked={clickedPhotos[index]}
               handleClick={handlePhotoClick}
               needCheckCircle={true}
