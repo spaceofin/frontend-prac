@@ -75,7 +75,7 @@ export const Gallery = () => {
         .map((value, index) => (value ? index : null))
         .filter((i) => i !== null)
     );
-    navigate("/photos-cart");
+    if (clickedPhotos.includes(true)) navigate("/photos-cart");
   };
 
   useEffect(() => {
