@@ -61,10 +61,11 @@ export const Gallery = () => {
     Array.from({ length: photosCount }, () => false)
   );
   const { cartPhotos, setCartPhotos } = useCartPhotos();
-  const [randomNumber, setRandomNumber] = useState(0);
+  const [isReload, setIsReload] = useState(false);
 
   const navigate = useNavigate();
 
+  console.log("***** Gallery component called.****** ");
   console.log("clickedPhotos", clickedPhotos);
   console.log("cartPhotos", cartPhotos);
 
@@ -82,21 +83,29 @@ export const Gallery = () => {
         .map((value, index) => (value ? index : null))
         .filter((i) => i !== null)
     );
+
+    console.log("clickedPhotos:", clickedPhotos);
     if (clickedPhotos.includes(true)) navigate("/photos-cart");
   };
 
   const handleReloadClick = () => {
-    const randomNumber = Math.floor(Math.random() * 100) + 1;
-    setRandomNumber(randomNumber);
+    setIsReload(true);
   };
 
   useEffect(() => {
+    console.log("***** Gallery component useEffect was called.****** ");
     setClickedPhotos((prevState) =>
       prevState.map((value, index) =>
         cartPhotos.includes(index) ? true : value
       )
     );
   }, [cartPhotos]);
+
+  useEffect(() => {
+    if (isReload) {
+      setIsReload(false);
+    }
+  }, [isReload]);
 
   return (
     <Container>
@@ -114,10 +123,11 @@ export const Gallery = () => {
           {Array.from({ length: photosCount }, (_, index) => (
             <Photo
               key={index}
-              index={index + randomNumber}
+              index={index}
               clicked={clickedPhotos[index]}
               handleClick={handlePhotoClick}
               needCheckCircle={true}
+              isReload={isReload}
             />
           ))}
         </PhotosContainer>
