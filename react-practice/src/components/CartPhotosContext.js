@@ -4,9 +4,11 @@ const CartPhotosContext = createContext();
 
 export const CartPhotosProvider = ({ children }) => {
   const [cartPhotos, setCartPhotos] = useState([]);
+  const [randomNumber, setRandomNumber] = useState(0);
 
   return (
-    <CartPhotosContext.Provider value={{ cartPhotos, setCartPhotos }}>
+    <CartPhotosContext.Provider
+      value={{ cartPhotos, setCartPhotos, randomNumber, setRandomNumber }}>
       {children}
     </CartPhotosContext.Provider>
   );
