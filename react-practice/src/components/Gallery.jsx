@@ -77,7 +77,7 @@ export const Gallery = () => {
     });
   };
 
-  const handleButtonClick = () => {
+  const handleAddToCartClick = () => {
     setCartPhotos(
       clickedPhotos
         .map((value, index) => (value ? index : null))
@@ -114,7 +114,7 @@ export const Gallery = () => {
           Reload Photos
         </Button>
         <Spacer />
-        <Button color="lightgray" onClick={handleButtonClick}>
+        <Button color="lightgray" onClick={handleAddToCartClick}>
           Add To Cart
         </Button>
       </ButtonWrapper>
