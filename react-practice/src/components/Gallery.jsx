@@ -94,9 +94,9 @@ export const Gallery = () => {
 
   useEffect(() => {
     console.log("***** Gallery component useEffect was called.****** ");
-    setClickedPhotos((prevState) =>
-      prevState.map((value, index) =>
-        cartPhotos.includes(index) ? true : value
+    setClickedPhotos(
+      Array.from({ length: photosCount }, (_, index) =>
+        cartPhotos.includes(index)
       )
     );
   }, [cartPhotos]);
