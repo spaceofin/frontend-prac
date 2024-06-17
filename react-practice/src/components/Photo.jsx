@@ -44,6 +44,10 @@ export const Photo = ({
   const [url, setUrl] = useState(`https://picsum.photos/seed/${index}/200/200`);
 
   useEffect(() => {
+    setUrl(`https://picsum.photos/seed/${index}/200/200`);
+  }, [index]);
+
+  useEffect(() => {
     if (isReload) {
       const randomNumber = Math.floor(Math.random() * 100) + 1;
 
