@@ -58,7 +58,9 @@ const Spacer = styled.div`
 export const Gallery = () => {
   const photosCount = 12;
   const [clickedPhotos, setClickedPhotos] = useState(
-    Array.from({ length: photosCount }, () => false)
+    Object.fromEntries(
+      Array.from({ length: photosCount }, (_, i) => [i + 1, false])
+    )
   );
   const { cartPhotos, setCartPhotos } = useCartPhotos();
   const [isReload, setIsReload] = useState(false);
@@ -71,7 +73,7 @@ export const Gallery = () => {
 
   const handlePhotoClick = (index) => {
     setClickedPhotos((prevState) => {
-      const newClickedPhotos = [...prevState];
+      const newClickedPhotos = { ...prevState };
       newClickedPhotos[index] = !prevState[index];
       return newClickedPhotos;
     });
@@ -79,13 +81,13 @@ export const Gallery = () => {
 
   const handleAddToCartClick = () => {
     setCartPhotos(
-      clickedPhotos
-        .map((value, index) => (value ? index : null))
-        .filter((i) => i !== null)
+      Object.entries(clickedPhotos)
+        .filter(([_, value]) => value)
+        .map(([key, _]) => Number(key))
     );
 
     console.log("clickedPhotos:", clickedPhotos);
-    if (clickedPhotos.includes(true)) navigate("/photos-cart");
+    if (Object.values(clickedPhotos).includes(true)) navigate("/photos-cart");
   };
 
   const handleReloadClick = () => {
@@ -93,10 +95,13 @@ export const Gallery = () => {
   };
 
   useEffect(() => {
-    console.log("***** Gallery component useEffect was called.****** ");
+    console.log("***** Gallery component useEffect was called.******");
     setClickedPhotos(
-      Array.from({ length: photosCount }, (_, index) =>
-        cartPhotos.includes(index)
+      Object.fromEntries(
+        Array.from({ length: photosCount }, (_, index) => [
+          index,
+          cartPhotos.includes(index),
+        ])
       )
     );
   }, [cartPhotos]);
