@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { ReactComponent as CheckCircle } from "../assets/icons/check-circle.svg";
 import { ReactComponent as Cancel } from "../assets/icons/cancel.svg";
-import { useEffect, useState } from "react";
+import { useCartPhotos } from "./CartPhotosContext";
 
 const Container = styled.div`
   position: relative;
@@ -41,25 +41,10 @@ export const Photo = ({
   needCancel = null,
   isReload = false,
 }) => {
-  const [url, setUrl] = useState(`https://picsum.photos/seed/${index}/200/200`);
+  const { randomNumber } = useCartPhotos();
+  const url = `https://picsum.photos/seed/${index + randomNumber}/200/200`;
 
-  useEffect(() => {
-    setUrl(`https://picsum.photos/seed/${index}/200/200`);
-  }, [index]);
-
-  useEffect(() => {
-    if (isReload) {
-      const randomNumber = Math.floor(Math.random() * 100) + 1;
-
-      setUrl(`https://picsum.photos/seed/${index + randomNumber}/200/200`);
-    }
-
-    console.log("---useEffect called--------------------");
-    console.log("index:", index, "isReload:", isReload);
-    console.log("url:", url);
-  }, [isReload]);
-
-  console.log("index:", index, " url:", url);
+  console.log("index:", index, "randomNumber:", randomNumber, " url:", url);
 
   return (
     <Container>

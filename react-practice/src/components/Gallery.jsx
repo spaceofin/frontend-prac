@@ -62,19 +62,18 @@ export const Gallery = () => {
       Array.from({ length: photosCount }, (_, i) => [i + 1, false])
     )
   );
-  const { cartPhotos, setCartPhotos } = useCartPhotos();
+  const { cartPhotos, setCartPhotos, setRandomNumber } = useCartPhotos();
   const [isReload, setIsReload] = useState(false);
 
   const navigate = useNavigate();
-
-  console.log("***** Gallery component called.****** ");
-  console.log("clickedPhotos", clickedPhotos);
-  console.log("cartPhotos", cartPhotos);
 
   const handlePhotoClick = (index) => {
     setClickedPhotos((prevState) => {
       const newClickedPhotos = { ...prevState };
       newClickedPhotos[index] = !prevState[index];
+      console.log("newClickePhotos:", newClickedPhotos);
+      console.log("index:", index);
+      console.log("clickedPhotos:", clickedPhotos);
       return newClickedPhotos;
     });
   };
@@ -86,12 +85,17 @@ export const Gallery = () => {
         .map(([key, _]) => Number(key))
     );
 
+    setIsReload(false);
+
     console.log("clickedPhotos:", clickedPhotos);
     if (Object.values(clickedPhotos).includes(true)) navigate("/photos-cart");
   };
 
   const handleReloadClick = () => {
     setIsReload(true);
+    const randNum = Math.floor(Math.random() * 100) + 1;
+    setRandomNumber(randNum);
+    console.log("setRandomNumber:", randNum);
   };
 
   useEffect(() => {
