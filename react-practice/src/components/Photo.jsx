@@ -39,7 +39,6 @@ export const Photo = ({
   handleCancelClick,
   needCheckCircle = null,
   needCancel = null,
-  isReload = false,
 }) => {
   const { randomNumber } = useCartPhotos();
   const url = `https://picsum.photos/seed/${index + randomNumber}/200/200`;
