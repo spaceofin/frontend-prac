@@ -92,6 +92,10 @@ export const Gallery = () => {
     const randNum = Math.floor(Math.random() * 100) + 1;
     setRandomNumber(randNum);
     console.log("setRandomNumber:", randNum);
+
+    Object.keys(clickedPhotos).forEach((key) => {
+      clickedPhotos[key] = false;
+    });
   };
 
   useEffect(() => {
