@@ -6,6 +6,7 @@ import { Counter } from "components/Counter";
 import { MousePosition } from "components/MousePosition";
 import { Squares } from "components/Squares";
 import { Circles } from "components/Cricles";
+import { Icons } from "components/Icons";
 
 import { memo } from "react";
 
@@ -28,6 +29,7 @@ export default function App() {
       <MemoizedMousePosition />
       <MemoizedSquares />
       <MemoizedCircles />
+      <Icons />
     </Container>
   );
 }
