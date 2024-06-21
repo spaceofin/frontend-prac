@@ -2,8 +2,6 @@ import styled from "styled-components";
 import { useClock } from "hooks";
 
 import { DigitalClock } from "components/DigitalClock";
-import { Clock } from "components/Clock";
-import { Counter } from "components/Counter";
 import { MousePosition } from "components/MousePosition";
 import { Squares } from "components/Squares";
 import { Circles } from "components/Cricles";
@@ -18,7 +16,6 @@ const Container = styled.div`
 
 const MemoizedCircles = memo(Circles);
 const MemoizedSquares = memo(Squares);
-const MemoizedCounter = memo(Counter);
 const MemoizedMousePosition = memo(MousePosition);
 
 export default function App() {
@@ -27,8 +24,6 @@ export default function App() {
   return (
     <Container>
       <DigitalClock />
-      {/* <Clock date={now} /> */}
-      <MemoizedCounter />
       <MemoizedMousePosition />
       <MemoizedSquares />
       <MemoizedCircles />

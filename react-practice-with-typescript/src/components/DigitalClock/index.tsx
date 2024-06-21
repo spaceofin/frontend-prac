@@ -11,9 +11,9 @@ const Container = styled.div`
   margin: 20px;
   margin-bottom: 5px;
   padding: 15px;
-  background-color: #151c03;
+  background-color: #cff0ff;
   border-radius: 10px;
-  border: 5px solid #bcff18;
+  border: 5px solid #cff0ff;
 `;
 
 const DigitContainer = styled.div`
@@ -32,7 +32,7 @@ const DigitCell = styled.div<DigitCellProps>`
   width: 12px;
   height: 13px;
   margin: 1px;
-  background-color: ${(props) => (props.active ? "#BCFF18" : " #151c03")};
+  background-color: ${(props) => (props.active ? "#1F8DF0" : " #CFF0FF")};
   transition: background-color 0.3s;
 `;
 
