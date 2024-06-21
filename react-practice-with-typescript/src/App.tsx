@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useClock } from "hooks";
 
+import { DigitalClock } from "components/DigitalClock";
 import { Clock } from "components/Clock";
 import { Counter } from "components/Counter";
 import { MousePosition } from "components/MousePosition";
@@ -11,7 +12,8 @@ import { Icons } from "components/Icons";
 import { memo } from "react";
 
 const Container = styled.div`
-  margin: 5px;
+  padding: 5px;
+  // background-color: rgba(4, 7, 32);
 `;
 
 const MemoizedCircles = memo(Circles);
@@ -24,7 +26,8 @@ export default function App() {
 
   return (
     <Container>
-      <Clock date={now} />
+      <DigitalClock />
+      {/* <Clock date={now} /> */}
       <MemoizedCounter />
       <MemoizedMousePosition />
       <MemoizedSquares />
