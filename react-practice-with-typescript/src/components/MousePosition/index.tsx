@@ -171,8 +171,7 @@ export const MousePosition = () => {
           $topRightRadius={7}
           onClick={() => {
             setButtonOn(true);
-          }}
-        >
+          }}>
           ON
         </StyledButton>
         <StyledButton
@@ -181,8 +180,7 @@ export const MousePosition = () => {
           $bottomRightRadius={7}
           onClick={() => {
             setButtonOn(false);
-          }}
-        >
+          }}>
           OFF
         </StyledButton>
         <Spacer width={50} height={20} />
@@ -190,8 +188,7 @@ export const MousePosition = () => {
           onClick={() => {
             setClickedPositions([]);
             setPosition({ x: 0, y: 0 });
-          }}
-        >
+          }}>
           RESET
         </VerticalButton>
       </ButtonsContainer>
