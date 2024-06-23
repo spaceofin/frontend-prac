@@ -147,18 +147,19 @@ const ButtonGrid = styled.div`
   gap: 10px;
 `;
 
-// type ButtonType = { isOperator?: boolean; isEqualSign?: boolean };
+// type ButtonType = { $isOperator?: boolean; $isEqualSign?: boolean };
 
-const Button = styled.button<{ isOperator?: boolean; isEqualSign?: boolean }>`
-  // background-color: ${(props) => (props.isOperator ? "#7CACFF" : "#e5e5e5")};
+const Button = styled.button<{ $isOperator?: boolean; $isEqualSign?: boolean }>`
+  // background-color: ${(props) =>
+    props.$isOperator ? "#7CACFF" : "#e5e5e5"};
   background-color: ${(props) => {
-    if (props.isOperator) {
+    if (props.$isOperator) {
       return "#7CACFF";
-    } else if (props.isEqualSign) {
+    } else if (props.$isEqualSign) {
       return "#BDF23A";
     } else return "#e9e9e9";
   }};
-  color: ${(props) => (props.isOperator ? "#ffffff" : "black")};
+  color: ${(props) => (props.$isOperator ? "#ffffff" : "black")};
   border: none;
   padding: 20px;
   font-size: 18px;
@@ -168,11 +169,11 @@ const Button = styled.button<{ isOperator?: boolean; isEqualSign?: boolean }>`
   width: 100px;
 
   &:hover {
-    // background-color: ${(props) => (props.isOperator ? "#ec971f" : "#ccc")};
+    // background-color: ${(props) => (props.$isOperator ? "#ec971f" : "#ccc")};
     background-color: ${(props) => {
-      if (props.isOperator) {
+      if (props.$isOperator) {
         return "#ec971f";
-      } else if (props.isEqualSign) {
+      } else if (props.$isEqualSign) {
         return "#FF81AF";
       } else return "#cccccc";
     }};
@@ -195,8 +196,9 @@ export const Calculator: React.FC = () => {
         <Button onClick={() => dispatch({ type: "DELETE_DIGIT" })}>DEL</Button>
         {/* <Button onClick={() => dispatch({ type: "BLANK" })}></Button> */}
         <Button
-          isOperator
-          onClick={() => dispatch({ type: "CHOOSE_OPERATOR", payload: "/" })}>
+          $isOperator
+          onClick={() => dispatch({ type: "CHOOSE_OPERATOR", payload: "/" })}
+        >
           /
         </Button>
         <Button onClick={() => dispatch({ type: "ADD_DIGIT", payload: "7" })}>
@@ -209,8 +211,9 @@ export const Calculator: React.FC = () => {
           9
         </Button>
         <Button
-          isOperator
-          onClick={() => dispatch({ type: "CHOOSE_OPERATOR", payload: "*" })}>
+          $isOperator
+          onClick={() => dispatch({ type: "CHOOSE_OPERATOR", payload: "*" })}
+        >
           *
         </Button>
         <Button onClick={() => dispatch({ type: "ADD_DIGIT", payload: "4" })}>
@@ -223,8 +226,9 @@ export const Calculator: React.FC = () => {
           6
         </Button>
         <Button
-          isOperator
-          onClick={() => dispatch({ type: "CHOOSE_OPERATOR", payload: "-" })}>
+          $isOperator
+          onClick={() => dispatch({ type: "CHOOSE_OPERATOR", payload: "-" })}
+        >
           -
         </Button>
         <Button onClick={() => dispatch({ type: "ADD_DIGIT", payload: "1" })}>
@@ -237,8 +241,9 @@ export const Calculator: React.FC = () => {
           3
         </Button>
         <Button
-          isOperator
-          onClick={() => dispatch({ type: "CHOOSE_OPERATOR", payload: "+" })}>
+          $isOperator
+          onClick={() => dispatch({ type: "CHOOSE_OPERATOR", payload: "+" })}
+        >
           +
         </Button>
         <Button onClick={() => dispatch({ type: "ADD_DIGIT", payload: "0" })}>
@@ -250,7 +255,7 @@ export const Calculator: React.FC = () => {
         <Button onClick={() => dispatch({ type: "ADD_DIGIT", payload: "." })}>
           .
         </Button>
-        <Button isEqualSign onClick={() => dispatch({ type: "EVALUATE" })}>
+        <Button $isEqualSign onClick={() => dispatch({ type: "EVALUATE" })}>
           =
         </Button>
       </ButtonGrid>

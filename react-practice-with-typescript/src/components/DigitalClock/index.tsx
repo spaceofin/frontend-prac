@@ -25,14 +25,14 @@ const DigitRow = styled.div`
 `;
 
 interface DigitCellProps {
-  active: number;
+  $active: number;
 }
 
 const DigitCell = styled.div<DigitCellProps>`
   width: 12px;
   height: 13px;
   margin: 1px;
-  background-color: ${(props) => (props.active ? "#1F8DF0" : " #CFF0FF")};
+  background-color: ${(props) => (props.$active ? "#1F8DF0" : " #CFF0FF")};
   transition: background-color 0.3s;
 `;
 
@@ -48,7 +48,7 @@ const Digit: React.FC<DigitProps> = ({ char }) => {
       {pattern.map((row, rowIndex) => (
         <DigitRow key={rowIndex}>
           {row.map((cell, cellIndex) => (
-            <DigitCell key={cellIndex} active={cell} />
+            <DigitCell key={cellIndex} $active={cell} />
           ))}
         </DigitRow>
       ))}
