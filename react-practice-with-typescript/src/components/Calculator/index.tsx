@@ -13,6 +13,7 @@ type Action =
   | { type: "CHOOSE_OPERATOR"; payload: string }
   | { type: "CLEAR" }
   | { type: "DELETE_DIGIT" }
+  | { type: "CLEAR_ENTRY" }
   | { type: "EVALUATE" };
 
 const reducer = (state: State, action: Action): State => {
@@ -51,7 +52,15 @@ const reducer = (state: State, action: Action): State => {
     case "DELETE_DIGIT":
       return {
         ...state,
-        currentValue: state.currentValue.slice(0, -1) || "0",
+        currentValue: state.currentValue.slice(0, -1) || "",
+      };
+    case "CLEAR_ENTRY":
+      if (state.currentValue === "0") {
+        return { ...state, currentValue: state.currentValue };
+      }
+      return {
+        ...state,
+        currentValue: "",
       };
     case "EVALUATE":
       if (
@@ -119,10 +128,13 @@ const Container = styled.div`
 `;
 
 const Display = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: right;
   width: 82%;
+  height: 40px;
   background-color: royalblue;
   color: #ffffff;
-  text-align: right;
   padding: 10px;
   border-radius: 5px;
   margin-bottom: 20px;
@@ -135,8 +147,17 @@ const ButtonGrid = styled.div`
   gap: 10px;
 `;
 
-const Button = styled.button<{ isOperator?: boolean }>`
-  background-color: ${(props) => (props.isOperator ? "#7CACFF" : "#e5e5e5")};
+// type ButtonType = { isOperator?: boolean; isEqualSign?: boolean };
+
+const Button = styled.button<{ isOperator?: boolean; isEqualSign?: boolean }>`
+  // background-color: ${(props) => (props.isOperator ? "#7CACFF" : "#e5e5e5")};
+  background-color: ${(props) => {
+    if (props.isOperator) {
+      return "#7CACFF";
+    } else if (props.isEqualSign) {
+      return "#BDF23A";
+    } else return "#e9e9e9";
+  }};
   color: ${(props) => (props.isOperator ? "#ffffff" : "black")};
   border: none;
   padding: 20px;
@@ -147,7 +168,14 @@ const Button = styled.button<{ isOperator?: boolean }>`
   width: 100px;
 
   &:hover {
-    background-color: ${(props) => (props.isOperator ? "#ec971f" : "#ccc")};
+    // background-color: ${(props) => (props.isOperator ? "#ec971f" : "#ccc")};
+    background-color: ${(props) => {
+      if (props.isOperator) {
+        return "#ec971f";
+      } else if (props.isEqualSign) {
+        return "#FF81AF";
+      } else return "#cccccc";
+    }};
   }
 `;
 
@@ -162,10 +190,10 @@ export const Calculator: React.FC = () => {
         </div>
       </Display>
       <ButtonGrid>
-        <Button onClick={() => dispatch({ type: "BLANK" })}></Button>
-        <Button onClick={() => dispatch({ type: "DELETE_DIGIT" })}>DEL</Button>
-
         <Button onClick={() => dispatch({ type: "CLEAR" })}>AC</Button>
+        <Button onClick={() => dispatch({ type: "CLEAR_ENTRY" })}>CE</Button>
+        <Button onClick={() => dispatch({ type: "DELETE_DIGIT" })}>DEL</Button>
+        {/* <Button onClick={() => dispatch({ type: "BLANK" })}></Button> */}
         <Button
           isOperator
           onClick={() => dispatch({ type: "CHOOSE_OPERATOR", payload: "/" })}>
@@ -213,14 +241,16 @@ export const Calculator: React.FC = () => {
           onClick={() => dispatch({ type: "CHOOSE_OPERATOR", payload: "+" })}>
           +
         </Button>
-        <Button onClick={() => dispatch({ type: "BLANK" })}></Button>
         <Button onClick={() => dispatch({ type: "ADD_DIGIT", payload: "0" })}>
           0
+        </Button>
+        <Button onClick={() => dispatch({ type: "ADD_DIGIT", payload: "00" })}>
+          00
         </Button>
         <Button onClick={() => dispatch({ type: "ADD_DIGIT", payload: "." })}>
           .
         </Button>
-        <Button isOperator onClick={() => dispatch({ type: "EVALUATE" })}>
+        <Button isEqualSign onClick={() => dispatch({ type: "EVALUATE" })}>
           =
         </Button>
       </ButtonGrid>
