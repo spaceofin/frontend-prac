@@ -3,17 +3,32 @@ import { digitPatterns } from "utils/digitPatterns";
 import styled from "styled-components";
 
 const Container = styled.div`
+  position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 500px;
-  height: 150px;
+  height: 200px;
   margin: 20px;
-  margin-bottom: 5px;
   padding: 15px;
+  padding-top: 25px;
   background-color: #cff0ff;
   border-radius: 10px;
   border: 5px solid #cff0ff;
+`;
+
+const DateContainer = styled.div`
+  position: absolute;
+  top: 35px;
+  left: 65px;
+  font-size: 36px;
+  font-family: "Micro 5 Charted", sans-serif;
+  font-color: white;
+`;
+
+const TimeContainer = styled.div`
+  display: flex;
 `;
 
 const DigitContainer = styled.div`
@@ -79,9 +94,18 @@ export const DigitalClock: React.FC = () => {
 
   return (
     <Container>
-      {timeString.split("").map((char, index) => (
-        <Digit key={index} char={char} />
-      ))}
+      <DateContainer>
+        {new Date().toLocaleDateString("ko-KR", {
+          year: "2-digit",
+          month: "numeric",
+          day: "numeric",
+        })}
+      </DateContainer>
+      <TimeContainer>
+        {timeString.split("").map((char, index) => (
+          <Digit key={index} char={char} />
+        ))}
+      </TimeContainer>
     </Container>
   );
 };

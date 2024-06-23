@@ -160,7 +160,7 @@ export const MousePosition = () => {
     return () => {
       window.removeEventListener("click", handleClick as any);
     };
-  }, [buttonOn]);
+  }, [buttonOn, handleClick]);
 
   return (
     <Container>
