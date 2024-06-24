@@ -50,14 +50,20 @@ const reducer = (state: State, action: Action): State => {
         operator: null,
       };
     case "DELETE_DIGIT":
+      if (state.currentValue === "")
+        return {
+          ...state,
+          operator: null,
+          currentValue: state.previousValue,
+          previousValue: "",
+        };
       return {
         ...state,
         currentValue: state.currentValue.slice(0, -1) || "",
       };
     case "CLEAR_ENTRY":
-      if (state.currentValue === "0") {
-        return { ...state, currentValue: state.currentValue };
-      }
+      if (state.currentValue === "0") return { ...state };
+      if (state.previousValue === "") return { ...state, currentValue: "0" };
       return {
         ...state,
         currentValue: "",
