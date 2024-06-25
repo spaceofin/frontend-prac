@@ -28,6 +28,7 @@ export const Header = () => {
       <StyledLink to="/about">About</StyledLink>
       <StyledLink to="/events">Events</StyledLink>
       <StyledLink to="/airports">Airports</StyledLink>
+      <StyledLink to="/weather">Weather</StyledLink>
     </Container>
   );
 };

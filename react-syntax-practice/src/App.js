@@ -8,6 +8,7 @@ import {
   Header,
   Airports,
   EventDetail,
+  Weather,
 } from "./components";
 import { AboutSub1, AboutSub2, AboutSub3 } from "./components/AboutSubPages";
 
@@ -36,6 +37,7 @@ const App = () => {
         <Route path="/events" element={<Events />} />
         <Route path="/airports" element={<Airports />} />
         <Route path="/event-detail" element={<EventDetail />} />
+        <Route path="/weather" element={<Weather />} />
       </Routes>
     </Container>
   );

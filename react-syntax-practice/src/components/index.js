@@ -4,3 +4,4 @@ export * from "./Events";
 export * from "./Header";
 export * from "./Airports";
 export * from "./EventDetail";
+export * from "./Weather";
