@@ -22,8 +22,13 @@ const InputGroup = styled.div`
   width: 300px;
 `;
 
+const Spacer = styled.div`
+  height: 30px;
+`;
+
 export const Weather = () => {
   const [weather, setWeather] = useState(null);
+  const [city, setCity] = useState("");
   const [lat, setLat] = useState("");
   const [lon, setLon] = useState("");
 
@@ -33,6 +38,20 @@ export const Weather = () => {
     try {
       const response = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`
+      );
+      console.log("response:", response);
+      console.log("city:", response.data.name);
+      setWeather(response.data);
+    } catch (err) {
+      console.log("error:", err);
+      setWeather(null);
+    }
+  };
+
+  const getWeatherByCity = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`
       );
       console.log("response:", response);
       console.log("city:", response.data.name);
@@ -60,16 +79,29 @@ export const Weather = () => {
           placeholder="Enter lon"
         />
         <button onClick={getWeather}>Get Weather</button>
-        {weather && (
-          <div>
-            <p>
-              CITY: {weather.name}
-              <br />
-              WEATHER: {weather.weather[0].description}
-            </p>
-          </div>
-        )}
       </InputGroup>
+      <Spacer />
+      <InputGroup>
+        <input
+          type="text"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+          placeholder="Enter city"
+        />
+        <button onClick={getWeatherByCity}>Get Weather By City</button>
+      </InputGroup>
+      <Spacer />
+      {weather && (
+        <div>
+          <p>
+            CITY: {weather.name}
+            <br />
+            WEATHER: {weather.weather[0].description}
+            <br />
+            TEMP: {(weather.main.temp - 273.15).toFixed(2)} °C
+          </p>
+        </div>
+      )}
     </Container>
   );
 };
