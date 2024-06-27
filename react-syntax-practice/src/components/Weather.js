@@ -35,36 +35,46 @@ export const Weather = () => {
   const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
   const getWeather = async () => {
-    try {
-      const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`
-      );
-      console.log("response:", response);
-      console.log("city:", response.data.name);
-      setWeather(response.data);
-    } catch (err) {
-      console.log("error:", err);
-      setWeather(null);
+    if (!city && (!lat || !lon)) {
+      alert("Please enter a city or latitude and longitude.");
+      return;
     }
-  };
+    let url = "";
+    if (city) {
+      url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`;
+    } else if (lat && lon) {
+      url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
+    }
 
-  const getWeatherByCity = async () => {
-    try {
-      const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`
-      );
-      console.log("response:", response);
-      console.log("city:", response.data.name);
-      setWeather(response.data);
-    } catch (err) {
-      console.log("error:", err);
-      setWeather(null);
+    if (url) {
+      try {
+        const response = await axios.get(url);
+        setWeather(response.data);
+        console.log(response.data);
+      } catch (err) {
+        console.log("error:", err);
+        setWeather(null);
+      }
+
+      setCity("");
+      setLat("");
+      setLon("");
     }
   };
 
   return (
     <Container>
       <Title>Weather App</Title>
+      <InputGroup>
+        <input
+          type="text"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+          placeholder="Enter city"
+        />
+        <button onClick={getWeather}>Get Weather</button>
+      </InputGroup>
+      <Spacer />
       <InputGroup>
         <input
           type="text"
@@ -81,16 +91,7 @@ export const Weather = () => {
         <button onClick={getWeather}>Get Weather</button>
       </InputGroup>
       <Spacer />
-      <InputGroup>
-        <input
-          type="text"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          placeholder="Enter city"
-        />
-        <button onClick={getWeatherByCity}>Get Weather By City</button>
-      </InputGroup>
-      <Spacer />
+
       {weather && (
         <div>
           <p>
