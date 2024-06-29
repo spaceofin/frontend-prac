@@ -32,10 +32,19 @@ const DraggableItem = styled.div`
   left: 0;
 `;
 
+const Title = styled.div`
+  position: absolute;
+  margin-left: 20px;
+  margin-top: 10px;
+  top: 0;
+  left: 0;
+`;
+
 export const Icons = () => {
   const nodeRef = useRef(null);
   return (
     <Container>
+      <Title>Drag and Drop Icons</Title>
       <Draggable
         nodeRef={nodeRef}
         defaultPosition={{ x: 60, y: 220 }}
