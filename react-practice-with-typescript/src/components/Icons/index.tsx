@@ -4,6 +4,7 @@ import { ReactComponent as WaterDrop } from "assets/icons/water-drop.svg";
 import { ReactComponent as Diamond } from "assets/icons/diamond.svg";
 import { ReactComponent as StrokeFull } from "assets/icons/stroke-full.svg";
 import { ReactComponent as Robot } from "assets/icons/robot.svg";
+import { useRef } from "react";
 
 import Draggable from "react-draggable";
 
@@ -32,10 +33,15 @@ const DraggableItems = styled.div`
 `;
 
 export const Icons = () => {
+  const nodeRef = useRef(null);
   return (
     <Container>
-      <Draggable defaultPosition={{ x: 0, y: 0 }} bounds="parent">
-        <DraggableItems>
+      <Draggable
+        nodeRef={nodeRef}
+        defaultPosition={{ x: 0, y: 0 }}
+        bounds="parent"
+      >
+        <DraggableItems ref={nodeRef}>
           <Raven />
           <WaterDrop />
           <Diamond />
