@@ -26,7 +26,7 @@ const Container = styled.div`
   font-weight: bold;
 `;
 
-const DraggableItems = styled.div`
+const DraggableItem = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -38,16 +38,48 @@ export const Icons = () => {
     <Container>
       <Draggable
         nodeRef={nodeRef}
-        defaultPosition={{ x: 0, y: 0 }}
+        defaultPosition={{ x: 60, y: 220 }}
         bounds="parent"
       >
-        <DraggableItems ref={nodeRef}>
+        <DraggableItem ref={nodeRef}>
           <Raven />
+        </DraggableItem>
+      </Draggable>
+      <Draggable
+        nodeRef={nodeRef}
+        defaultPosition={{ x: 140, y: 220 }}
+        bounds="parent"
+      >
+        <DraggableItem ref={nodeRef}>
           <WaterDrop />
+        </DraggableItem>
+      </Draggable>
+      <Draggable
+        nodeRef={nodeRef}
+        defaultPosition={{ x: 220, y: 220 }}
+        bounds="parent"
+      >
+        <DraggableItem ref={nodeRef}>
           <Diamond />
+        </DraggableItem>
+      </Draggable>
+      <Draggable
+        nodeRef={nodeRef}
+        defaultPosition={{ x: 300, y: 220 }}
+        bounds="parent"
+      >
+        <DraggableItem ref={nodeRef}>
           <StrokeFull />
+        </DraggableItem>
+      </Draggable>
+      <Draggable
+        nodeRef={nodeRef}
+        defaultPosition={{ x: 380, y: 220 }}
+        bounds="parent"
+      >
+        <DraggableItem ref={nodeRef}>
           <Robot />
-        </DraggableItems>
+        </DraggableItem>
       </Draggable>
     </Container>
   );
