@@ -6,6 +6,7 @@ import { Calculator } from "components/Calculator";
 import { Squares } from "components/Squares";
 import { Circles } from "components/Cricles";
 import { Icons } from "components/Icons";
+import { IconAdder } from "components/IconAdder";
 
 import { memo } from "react";
 
@@ -27,6 +28,7 @@ export default function App() {
       <MemoizedSquares />
       <MemoizedCircles />
       <Icons />
+      <IconAdder />
     </Container>
   );
 }
