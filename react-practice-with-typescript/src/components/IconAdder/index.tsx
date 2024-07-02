@@ -27,10 +27,11 @@ const Button = styled.button`
   height: 50px;
   font-size: 30px;
   margin: 5px;
+  border-radius: 3px;
+  border: 1px solid;
 `;
 
 const IconsContainer = styled.div`
-wie
   height: 50px;
   display: flex;
   justify-content: center;
@@ -44,36 +45,42 @@ const IconComponent = styled.div`
   flex-shrink: 0;
 `;
 
+const InitialIconList = ["FcBriefcase", "FcCloseUpMode", "FcGlobe"];
+
+const IconSet = Object.fromEntries(InitialIconList.map((icon) => [icon, []]));
+
 export const IconAdder = () => {
-  const [icons, setIcons] = useState<string[]>([]);
+  const [iconList, setIconList] = useState<{ [key: string]: string[] }>(
+    IconSet
+  );
 
   const addIcon = (icon: string) => {
-    setIcons([...icons, icon]);
+    setIconList((prevIcons) => ({
+      ...prevIcons,
+      [icon]: [...prevIcons[icon], icon],
+    }));
   };
 
   return (
     <Container>
-      <IconBuilder>
-        <Button onClick={() => addIcon("FcBriefcase")}>
-          +<FlatColorIcons.FcBriefcase />
-        </Button>
-        <IconsContainer>
-          {icons.map((icon, index) => {
-            const Icon = FlatColorIcons[icon as keyof typeof FlatColorIcons];
-            return <IconComponent key={index} as={Icon} />;
-          })}
-        </IconsContainer>
-      </IconBuilder>
-      <IconBuilder>
-        <Button onClick={() => addIcon("FcCloseUpMode")}>
-          +<FlatColorIcons.FcCloseUpMode />
-        </Button>
-      </IconBuilder>
-      <IconBuilder>
-        <Button onClick={() => addIcon("FcGlobe")}>
-          +<FlatColorIcons.FcGlobe />
-        </Button>
-      </IconBuilder>
+      {InitialIconList.map((icon, index) => {
+        const IconButtonComponent =
+          FlatColorIcons[icon as keyof typeof FlatColorIcons];
+        return (
+          <IconBuilder key={index}>
+            <Button onClick={() => addIcon(icon)}>
+              +<IconButtonComponent />
+            </Button>
+            <IconsContainer>
+              {iconList[icon].map((elem, index) => {
+                const Icon =
+                  FlatColorIcons[elem as keyof typeof FlatColorIcons];
+                return <IconComponent key={index} as={Icon} />;
+              })}
+            </IconsContainer>
+          </IconBuilder>
+        );
+      })}
     </Container>
   );
 };
