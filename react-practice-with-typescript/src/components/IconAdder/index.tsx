@@ -77,6 +77,12 @@ export const IconAdder = () => {
   const [selectedOption, setSelectedOption] = useState<string>("FcAbout");
 
   const addIcon = (icon: string) => {
+    if (!(icon in iconList)) {
+      setIconList((prevState) => ({
+        ...prevState,
+        [icon]: [],
+      }));
+    }
     setIconList((prevIcons) => ({
       ...prevIcons,
       [icon]: [...prevIcons[icon], icon],
@@ -92,6 +98,8 @@ export const IconAdder = () => {
   // console.log(typeof FlatColorIcons.FcAbout);
 
   const iconOptions = Object.keys(FlatColorIcons);
+
+  console.log(iconList);
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedOption(e.target.value);
@@ -134,7 +142,17 @@ export const IconAdder = () => {
           ))}
         </StyledSelect>
         <IconBuilder>
-          <Button>+{<SelectedIconComponent />}</Button>
+          <Button onClick={() => addIcon(selectedOption)}>
+            +{<SelectedIconComponent />}
+          </Button>
+          <IconsContainer>
+            {iconList[selectedOption] &&
+              iconList[selectedOption].map((elem, index) => {
+                const Icon =
+                  FlatColorIcons[elem as keyof typeof FlatColorIcons];
+                return <IconComponent key={index} as={Icon} />;
+              })}
+          </IconsContainer>
         </IconBuilder>
       </IconSelectorContainer>
     </Container>
