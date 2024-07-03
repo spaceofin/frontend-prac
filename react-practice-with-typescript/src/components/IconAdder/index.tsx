@@ -61,6 +61,14 @@ export const IconAdder = () => {
     }));
   };
 
+  console.log(FlatColorIcons);
+  console.log(typeof FlatColorIcons);
+  console.log(Object.keys(FlatColorIcons));
+
+  console.log(FlatColorIcons.FcAbout);
+  console.log(FlatColorIcons["FcAbout"]);
+  console.log(typeof FlatColorIcons.FcAbout);
+
   return (
     <Container>
       {InitialIconList.map((icon, index) => {
