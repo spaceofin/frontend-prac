@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import * as FlatColorIcons from "react-icons/fc";
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 
 const Container = styled.div`
   display: flex;
@@ -12,11 +12,16 @@ const Container = styled.div`
   background-color: #ffb629;
   border-radius: 10px;
   border: 5px solid #ff7623;
+  gap: 0px;
+`;
+
+const IconSelectorContainer = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const IconBuilder = styled.div`
   display: flex;
-  // gap: 5px;
 `;
 
 const Button = styled.button`
@@ -26,13 +31,12 @@ const Button = styled.button`
   min-width: 70px;
   height: 50px;
   font-size: 30px;
-  margin: 5px;
+  margin: 2px 5px;
   border-radius: 3px;
   border: 1px solid;
 `;
 
 const IconsContainer = styled.div`
-  height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -45,6 +49,23 @@ const IconComponent = styled.div`
   flex-shrink: 0;
 `;
 
+const StyledSelect = styled.select`
+  width: 150px;
+  height: 25px;
+  border-radius: 5px;
+  border: 2px solid gray;
+  background-color: white;
+  font-size: 16px;
+  padding-left: 15px;
+  margin: 3px 5px 2px 5px;
+`;
+
+const GuildText = styled.p`
+  font-size: 20px;
+  font-weight: 600;
+  margin: 10px 0px 2px 10px;
+`;
+
 const InitialIconList = ["FcBriefcase", "FcCloseUpMode", "FcGlobe"];
 
 const IconSet = Object.fromEntries(InitialIconList.map((icon) => [icon, []]));
@@ -53,6 +74,7 @@ export const IconAdder = () => {
   const [iconList, setIconList] = useState<{ [key: string]: string[] }>(
     IconSet
   );
+  const [selectedOption, setSelectedOption] = useState<string>("FcAbout");
 
   const addIcon = (icon: string) => {
     setIconList((prevIcons) => ({
@@ -61,13 +83,22 @@ export const IconAdder = () => {
     }));
   };
 
-  console.log(FlatColorIcons);
-  console.log(typeof FlatColorIcons);
-  console.log(Object.keys(FlatColorIcons));
+  // console.log(FlatColorIcons);
+  // console.log(typeof FlatColorIcons);
+  // console.log(Object.keys(FlatColorIcons));
 
-  console.log(FlatColorIcons.FcAbout);
-  console.log(FlatColorIcons["FcAbout"]);
-  console.log(typeof FlatColorIcons.FcAbout);
+  // console.log(FlatColorIcons.FcAbout);
+  // console.log(FlatColorIcons["FcAbout"]);
+  // console.log(typeof FlatColorIcons.FcAbout);
+
+  const iconOptions = Object.keys(FlatColorIcons);
+
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setSelectedOption(e.target.value);
+  };
+
+  const SelectedIconComponent =
+    FlatColorIcons[selectedOption as keyof typeof FlatColorIcons];
 
   return (
     <Container>
@@ -89,6 +120,23 @@ export const IconAdder = () => {
           </IconBuilder>
         );
       })}
+      <GuildText>Select Icon!</GuildText>
+      <IconSelectorContainer>
+        <StyledSelect
+          id="colorSelect"
+          value={selectedOption}
+          onChange={handleChange}
+        >
+          {iconOptions.map((option, index) => (
+            <option key={index} value={option}>
+              {option}
+            </option>
+          ))}
+        </StyledSelect>
+        <IconBuilder>
+          <Button>+{<SelectedIconComponent />}</Button>
+        </IconBuilder>
+      </IconSelectorContainer>
     </Container>
   );
 };
