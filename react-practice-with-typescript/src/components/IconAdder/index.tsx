@@ -68,24 +68,22 @@ const GuildText = styled.p`
 
 const InitialIconList = ["FcBriefcase", "FcCloseUpMode", "FcGlobe"];
 
-const IconSet = Object.fromEntries(InitialIconList.map((icon) => [icon, []]));
+const IconSet = Object.fromEntries(InitialIconList.map((icon) => [icon, 0]));
 
 export const IconAdder = () => {
-  const [iconList, setIconList] = useState<{ [key: string]: boolean[] }>(
-    IconSet
-  );
+  const [iconList, setIconList] = useState<{ [key: string]: number }>(IconSet);
   const [selectedIcon, setSelectedIcon] = useState<string>("FcAbout");
 
   const addIcon = (icon: string) => {
     if (!(icon in iconList)) {
       setIconList((prevState) => ({
         ...prevState,
-        [icon]: [],
+        [icon]: 0,
       }));
     }
     setIconList((prevIcons) => ({
       ...prevIcons,
-      [icon]: [...prevIcons[icon], true],
+      [icon]: prevIcons[icon] + 1,
     }));
   };
 
@@ -111,11 +109,12 @@ export const IconAdder = () => {
               +<IconButtonComponent />
             </Button>
             <IconsContainer>
-              {iconList[icon].map((_, index) => {
-                const Icon =
-                  FlatColorIcons[icon as keyof typeof FlatColorIcons];
-                return <IconComponent key={index} as={Icon} />;
-              })}
+              {Array.from({ length: iconList[icon] }, (_, index) => (
+                <IconComponent
+                  key={index}
+                  as={FlatColorIcons[icon as keyof typeof FlatColorIcons]}
+                />
+              ))}
             </IconsContainer>
           </IconBuilder>
         );
@@ -138,12 +137,12 @@ export const IconAdder = () => {
             +{<SelectedIconComponent />}
           </Button>
           <IconsContainer>
-            {iconList[selectedIcon] &&
-              iconList[selectedIcon].map((_, index) => {
-                const Icon =
-                  FlatColorIcons[selectedIcon as keyof typeof FlatColorIcons];
-                return <IconComponent key={index} as={Icon} />;
-              })}
+            {Array.from({ length: iconList[selectedIcon] }, (_, index) => (
+              <IconComponent
+                key={index}
+                as={FlatColorIcons[selectedIcon as keyof typeof FlatColorIcons]}
+              />
+            ))}
           </IconsContainer>
         </IconBuilder>
       </IconSelectorContainer>
