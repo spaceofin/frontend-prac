@@ -6,7 +6,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 500px;
-  height: 300px;
+  height: 400px;
   margin: 20px;
   padding: 15px;
   background-color: #ffb629;
@@ -51,11 +51,11 @@ const IconComponent = styled.div`
 
 const StyledSelect = styled.select`
   width: 150px;
-  height: 25px;
+  height: 30px;
   border-radius: 5px;
   border: 2px solid gray;
   background-color: white;
-  font-size: 16px;
+  font-size: 20px;
   padding-left: 15px;
   margin: 3px 5px 2px 5px;
 `;
@@ -66,6 +66,13 @@ const GuildText = styled.p`
   margin: 10px 0px 2px 10px;
 `;
 
+const DeleteButton = styled.button`
+  width: 100px;
+  height: 30px;
+  font-size: 20px;
+  margin: 3px 5px 2px 5px;
+`;
+
 const InitialIconList = ["FcBriefcase", "FcCloseUpMode", "FcGlobe"];
 
 const IconSet = Object.fromEntries(InitialIconList.map((icon) => [icon, 0]));
@@ -73,6 +80,7 @@ const IconSet = Object.fromEntries(InitialIconList.map((icon) => [icon, 0]));
 export const IconAdder = () => {
   const [iconList, setIconList] = useState<{ [key: string]: number }>(IconSet);
   const [selectedIcon, setSelectedIcon] = useState<string>("FcAbout");
+  const [iconToDelete, setIconToDelete] = useState<string>("");
 
   const addIcon = (icon: string) => {
     if (!(icon in iconList)) {
@@ -90,6 +98,18 @@ export const IconAdder = () => {
     }));
   };
 
+  const deleteIcon = (icon: string) => {
+    console.log(icon);
+    if (iconList[icon] === 0) return;
+
+    setIconList((prevIcons) => ({
+      ...prevIcons,
+      [icon]: prevIcons[icon] - 1,
+    }));
+
+    setIconToDelete("");
+  };
+
   const iconOptions = Object.keys(FlatColorIcons);
 
   console.log(iconList);
@@ -98,9 +118,17 @@ export const IconAdder = () => {
     setSelectedIcon(e.target.value);
   };
 
+  const handleDeleteIconChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setIconToDelete(e.target.value);
+  };
+
   const SelectedIconComponent =
     FlatColorIcons[selectedIcon as keyof typeof FlatColorIcons];
 
+  console.log(
+    "asdf:",
+    Object.keys(iconList).filter((icon) => iconList[icon] > 1)
+  );
   return (
     <Container>
       {InitialIconList.map((icon, index) => {
@@ -125,7 +153,7 @@ export const IconAdder = () => {
       <GuildText>Select Icon!</GuildText>
       <IconSelectorContainer>
         <StyledSelect
-          id="colorSelect"
+          id="iconSelect"
           value={selectedIcon}
           onChange={handleChange}
         >
@@ -148,6 +176,26 @@ export const IconAdder = () => {
             ))}
           </IconsContainer>
         </IconBuilder>
+      </IconSelectorContainer>
+      <GuildText>Delete Icon!</GuildText>
+      <IconSelectorContainer>
+        <StyledSelect
+          id="iconSelect"
+          value={iconToDelete}
+          onChange={handleDeleteIconChange}
+        >
+          <option> </option>
+          {Object.keys(iconList)
+            .filter((icon) => iconList[icon] > 0)
+            .map((option, index) => (
+              <option key={index} value={option}>
+                {option}
+              </option>
+            ))}
+        </StyledSelect>
+        <DeleteButton onClick={() => deleteIcon(iconToDelete)}>
+          Delete
+        </DeleteButton>
       </IconSelectorContainer>
     </Container>
   );
