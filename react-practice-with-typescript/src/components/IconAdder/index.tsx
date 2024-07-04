@@ -81,6 +81,9 @@ export const IconAdder = () => {
         [icon]: 0,
       }));
     }
+
+    if (iconList[icon] === 10) return;
+
     setIconList((prevIcons) => ({
       ...prevIcons,
       [icon]: prevIcons[icon] + 1,
