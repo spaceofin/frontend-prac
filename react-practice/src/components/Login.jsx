@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -57,9 +58,15 @@ const SubmitButton = styled.button`
   box-sizing: border-box;
 `;
 
+const testUser = {
+  id: "testid",
+  password: "testpassword",
+};
+
 export const Login = () => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const onChange = (event) => {
     const { name, value } = event.target;
@@ -67,12 +74,23 @@ export const Login = () => {
     else if (name === "password") setPassword(value);
   };
 
+  const handleLogin = () => {
+    if (id === testUser.id && password === testUser.password) {
+      alert("Welcome!");
+      navigate("/gallery");
+    } else {
+      alert("Invalid Id or Password...");
+      setId("");
+      setPassword("");
+    }
+  };
+
   return (
     <Container>
       <Spacer />
       <ContentsWrapper>
         <ContentsContainer>
-          <StyledForm>
+          <StyledForm autocomplete="off">
             <StyledInput
               name="id"
               type="text"
@@ -89,7 +107,9 @@ export const Login = () => {
               onChange={onChange}
               required
             />
-            <SubmitButton type="submit">Log In</SubmitButton>
+            <SubmitButton type="submit" onClick={handleLogin}>
+              Log In
+            </SubmitButton>
           </StyledForm>
         </ContentsContainer>
       </ContentsWrapper>
