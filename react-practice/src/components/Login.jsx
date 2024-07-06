@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { users } from "data/userData";
 
 const Container = styled.div`
   display: flex;
@@ -58,11 +59,6 @@ const SubmitButton = styled.button`
   box-sizing: border-box;
 `;
 
-const testUser = {
-  id: "testid",
-  password: "testpassword",
-};
-
 export const Login = () => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
@@ -75,7 +71,10 @@ export const Login = () => {
   };
 
   const handleLogin = () => {
-    if (id === testUser.id && password === testUser.password) {
+    const user = users.find(
+      (user) => user.id === id && user.password === password
+    );
+    if (user) {
       alert("Welcome!");
       navigate("/gallery");
     } else {
