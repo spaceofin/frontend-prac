@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { users } from "data/userData";
+import { useEffect, useRef } from "react";
 
 const Container = styled.div`
   display: flex;
@@ -60,26 +60,41 @@ const SubmitButton = styled.button`
 `;
 
 export const Login = () => {
-  const [id, setId] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const url = process.env.REACT_APP_RANDOM_USERS_API_URL;
+  const userListRef = useRef(null);
 
   const onChange = (event) => {
     const { name, value } = event.target;
-    if (name === "id") setId(value);
+    if (name === "username") setUserName(value);
     else if (name === "password") setPassword(value);
   };
 
+  useEffect(() => {
+    fetch(url)
+      .then((response) => response.json())
+      .then((users) => {
+        userListRef.current = users.data;
+        console.log(userListRef.current);
+      })
+      .catch((error) => {
+        console.log("error: ", error);
+      });
+  }, [url]);
+
   const handleLogin = () => {
-    const user = users.find(
-      (user) => user.id === id && user.password === password
+    const isUser = userListRef.current.find(
+      (user) => user.username === userName && user.password === password
     );
-    if (user) {
+
+    if (isUser) {
       alert("Welcome!");
       navigate("/gallery");
     } else {
-      alert("Invalid Id or Password...");
-      setId("");
+      alert("Invalid userName or Password...");
+      setUserName("");
       setPassword("");
     }
   };
@@ -89,12 +104,12 @@ export const Login = () => {
       <Spacer />
       <ContentsWrapper>
         <ContentsContainer>
-          <StyledForm autocomplete="off">
+          <StyledForm>
             <StyledInput
-              name="id"
+              name="username"
               type="text"
-              placeholder="Id"
-              value={id}
+              placeholder="UserName"
+              value={userName}
               onChange={onChange}
               required
             />
