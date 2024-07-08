@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
-import { DigitalClock } from "components/DigitalClock";
-import { MousePosition } from "components/MousePosition";
-import { Calculator } from "components/Calculator";
-import { Squares } from "components/Squares";
-import { Circles } from "components/Cricles";
-import { Icons } from "components/Icons";
-import { IconAdder } from "components/IconAdder";
+// import { DigitalClock } from "components/DigitalClock";
+// import { MousePosition } from "components/MousePosition";
+// import { Calculator } from "components/Calculator";
+// import { Squares } from "components/Squares";
+// import { Circles } from "components/Cricles";
+// import { Icons } from "components/Icons";
+// import { IconAdder } from "components/IconAdder";
+import { DogsSquares } from "components/DogsSquares";
 
 import { memo } from "react";
 
@@ -15,20 +16,14 @@ const Container = styled.div`
   // background-color: rgba(4, 7, 32);
 `;
 
-const MemoizedCircles = memo(Circles);
-const MemoizedSquares = memo(Squares);
-const MemoizedMousePosition = memo(MousePosition);
+// const MemoizedCircles = memo(Circles);
+// const MemoizedSquares = memo(Squares);
+// const MemoizedMousePosition = memo(MousePosition);
 
 export default function App() {
   return (
     <Container>
-      <DigitalClock />
-      <MemoizedMousePosition />
-      <Calculator />
-      <MemoizedSquares />
-      <MemoizedCircles />
-      <Icons />
-      <IconAdder />
+      <DogsSquares />
     </Container>
   );
 }
