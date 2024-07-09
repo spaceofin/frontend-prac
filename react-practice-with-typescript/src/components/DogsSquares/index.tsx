@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState, useReducer, ChangeEvent } from "react";
+import { useState, useReducer, ChangeEvent, SVGProps } from "react";
 import { ReactComponent as Dog1 } from "assets/icons/dog1.svg";
 import { ReactComponent as Dog2 } from "assets/icons/dog2.svg";
 import { ReactComponent as Dog3 } from "assets/icons/dog3.svg";
@@ -37,13 +37,13 @@ const DogsSquaresContainer = styled.div`
   margin: 5px;
 `;
 
-const Square = styled.div`
-  width: 100px;
-  height: 100px;
-  background-color: ${(props) => props.color};
-  margin: 10px;
-  border-radius: 20px;
-`;
+// const Square = styled.div`
+//   width: 100px;
+//   height: 100px;
+//   background-color: ${(props) => props.color};
+//   margin: 10px;
+//   border-radius: 20px;
+// `;
 
 const InputContainer = styled.div`
   display: flex;
@@ -70,35 +70,38 @@ const DogsContainer = styled.div`
   height: 100px;
 `;
 
-type SquareType = { id: number; color: string };
+type DogType = { id: number; number: number };
 
 const DogsSquares_ACTION = {
-  ADD: "addSquare" as const,
-  DELETE: "deleteSqaure" as const,
+  ADD: "addDog" as const,
+  DELETE: "deleteDog" as const,
 };
 
 const DogsSquaresActionCreator = {
-  addSquare: (id: number, color: string) => ({
+  addDog: (id: number, number: number) => ({
     type: DogsSquares_ACTION.ADD,
-    payload: { id: id, color: color },
+    payload: { id: id, number: number },
   }),
-  deleteSquare: () => ({
+  deleteDog: () => ({
     type: DogsSquares_ACTION.DELETE,
     payload: {},
   }),
 };
 
 type DogsSquaresActionType =
-  | ReturnType<typeof DogsSquaresActionCreator.addSquare>
-  | ReturnType<typeof DogsSquaresActionCreator.deleteSquare>;
+  | ReturnType<typeof DogsSquaresActionCreator.addDog>
+  | ReturnType<typeof DogsSquaresActionCreator.deleteDog>;
 
 const DogsSquaresReducer = (
-  state: Array<SquareType>,
+  state: Array<DogType>,
   action: DogsSquaresActionType
 ) => {
   switch (action.type) {
     case DogsSquares_ACTION.ADD:
-      return [...state, { id: action.payload.id, color: action.payload.color }];
+      return [
+        ...state,
+        { id: action.payload.id, number: action.payload.number },
+      ];
     case DogsSquares_ACTION.DELETE:
       return [...state.slice(0, -1)];
     default:
@@ -106,87 +109,96 @@ const DogsSquaresReducer = (
   }
 };
 
-const initialDogsSquares: Array<SquareType> = [
-  { id: 1, color: "red" },
-  { id: 2, color: "blue" },
+const initialDogsSquares: Array<DogType> = [
+  { id: 1, number: 1 },
+  { id: 2, number: 2 },
 ];
 
+type DogsMap = {
+  [key: number]: React.FC<SVGProps<SVGSVGElement>>;
+};
+
+const dogsMap: DogsMap = {
+  1: Dog1,
+  2: Dog2,
+  3: Dog3,
+  4: Dog4,
+  5: Dog5,
+};
+
 export const DogsSquares = () => {
-  const [state, dispatch] = useReducer(DogsSquaresReducer, initialDogsSquares);
-  const [selectedOption, setSelectedOption] = useState<string>("gray");
+  const [state, dispatch] = useReducer<
+    React.Reducer<Array<DogType>, DogsSquaresActionType>
+  >(DogsSquaresReducer, initialDogsSquares);
+  const [selectedDog, setSelectedDog] = useState<number>(1);
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSelectedOption(e.target.value);
+    setSelectedDog(Number(e.target.value));
   };
 
-  const addSquare = (color: string) => {
+  const addDog = (number: number = 1) => {
     if (state.length === 12) {
       alert("The Square Board is full!");
       return;
     }
 
-    color = color || "lightgrey";
-    console.log("color: ", color);
-
-    dispatch(DogsSquaresActionCreator.addSquare(state.length + 1, color));
+    dispatch(DogsSquaresActionCreator.addDog(state.length + 1, number));
     console.log(state.length);
   };
 
-  const deleteSquare = (id: number = state.length) => {
+  const deleteDog = (id: number = state.length) => {
     if (id === 0) {
       alert("The Square Board is empty!");
       return;
     }
     console.log(`delete target square id: ${id}`);
-    dispatch(DogsSquaresActionCreator.deleteSquare());
+    dispatch(DogsSquaresActionCreator.deleteDog());
   };
 
   console.log("state", state);
 
-  const colorOptions = [
-    { value: "black", label: "Black" },
-    { value: "blue", label: "Blue" },
-    { value: "green", label: "Green" },
-    { value: "gray", label: "Gray" },
-    { value: "orange", label: "Orange" },
-    { value: "pink", label: "Pink" },
-    { value: "purple", label: "Purple" },
-    { value: "red", label: "Red" },
-    { value: "gold", label: "Yellow" },
+  const dogOptions = [
+    { value: 1, label: "Dog1" },
+    { value: 2, label: "Dog2" },
+    { value: 3, label: "Dog3" },
+    { value: 4, label: "Dog4" },
+    { value: 5, label: "Dog5" },
   ];
 
   return (
     <Container>
       DogsSquares
-      <DogsContainer>
+      {/* <DogsContainer>
         <Dog1 />
         <Dog2 />
         <Dog3 />
         <Dog4 />
         <Dog5 />
-      </DogsContainer>
+      </DogsContainer> */}
       <InputContainer>
         <StyledSelect
-          id="colorSelect"
-          value={selectedOption}
-          onChange={handleChange}>
-          {colorOptions.map((option, index) => (
+          id="dogSelect"
+          value={selectedDog}
+          onChange={handleChange}
+        >
+          {dogOptions.map((option, index) => (
             <option key={index} value={option.value}>
               {option.label}
             </option>
           ))}
         </StyledSelect>
-        <StyledButton color="#C6DBBB" onClick={() => addSquare(selectedOption)}>
+        <StyledButton color="#C6DBBB" onClick={() => addDog(selectedDog)}>
           CREATE
         </StyledButton>
-        <StyledButton color="#DBB8AA" onClick={() => deleteSquare()}>
+        <StyledButton color="#DBB8AA" onClick={() => deleteDog()}>
           DELETE
         </StyledButton>
       </InputContainer>
       <DogsSquaresContainer>
-        {state.map((square) => (
-          <Square key={square.id} color={square.color} />
-        ))}
+        {state.map((dog) => {
+          const Dog = dogsMap[dog.number];
+          return <Dog />;
+        })}
       </DogsSquaresContainer>
     </Container>
   );
