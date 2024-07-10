@@ -64,10 +64,9 @@ const StyledSelect = styled.select`
   padding-left: 15px;
 `;
 
-const DogsContainer = styled.div`
-  display: flex;
-  width: 500px;
-  height: 100px;
+const SlimText = styled.div`
+  font-size: 24px;
+  font-weight: normal;
 `;
 
 type DogType = { id: number; number: number };
@@ -82,9 +81,9 @@ const DogsSquaresActionCreator = {
     type: DogsSquares_ACTION.ADD,
     payload: { id: id, number: number },
   }),
-  deleteDog: () => ({
+  deleteDog: (id: number) => ({
     type: DogsSquares_ACTION.DELETE,
-    payload: {},
+    payload: { id: id },
   }),
 };
 
@@ -103,7 +102,7 @@ const DogsSquaresReducer = (
         { id: action.payload.id, number: action.payload.number },
       ];
     case DogsSquares_ACTION.DELETE:
-      return [...state.slice(0, -1)];
+      return state.filter((dog) => dog.id !== action.payload.id);
     default:
       return state;
   }
@@ -152,7 +151,7 @@ export const DogsSquares = () => {
       return;
     }
     console.log(`delete target square id: ${id}`);
-    dispatch(DogsSquaresActionCreator.deleteDog());
+    dispatch(DogsSquaresActionCreator.deleteDog(id));
   };
 
   console.log("state", state);
@@ -168,13 +167,7 @@ export const DogsSquares = () => {
   return (
     <Container>
       DogsSquares
-      {/* <DogsContainer>
-        <Dog1 />
-        <Dog2 />
-        <Dog3 />
-        <Dog4 />
-        <Dog5 />
-      </DogsContainer> */}
+      <SlimText>(click on the circle to delete it)</SlimText>
       <InputContainer>
         <StyledSelect
           id="dogSelect"
@@ -197,7 +190,7 @@ export const DogsSquares = () => {
       <DogsSquaresContainer>
         {state.map((dog) => {
           const Dog = dogsMap[dog.number];
-          return <Dog />;
+          return <Dog key={dog.id} onClick={() => deleteDog(dog.id)} />;
         })}
       </DogsSquaresContainer>
     </Container>
