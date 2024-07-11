@@ -8,6 +8,7 @@ import styled from "styled-components";
 // import { Icons } from "components/Icons";
 // import { IconAdder } from "components/IconAdder";
 import { DogsSquares } from "components/DogsSquares";
+import { ProfileGenerator } from "components/ProfileGenerator";
 
 import { memo } from "react";
 
@@ -24,6 +25,7 @@ export default function App() {
   return (
     <Container>
       <DogsSquares />
+      <ProfileGenerator />
     </Container>
   );
 }
