@@ -45,6 +45,8 @@ const DogWrapper = styled.div<DogWrapperProps>`
   //   z-index: 1;
 `;
 
+const dogComponents = [Dog1, Dog2, Dog3, Dog4, Dog5];
+
 export const ProfileGenerator = () => {
   const [clicked, setClicked] = useState([false, false, false, false, false]);
 
@@ -57,21 +59,14 @@ export const ProfileGenerator = () => {
     <Container>
       Choose Dog for Profile
       <DogsContainer>
-        <DogWrapper clicked={clicked[0]} onClick={() => handleClick(0)}>
-          <Dog1 />
-        </DogWrapper>
-        <DogWrapper clicked={clicked[1]} onClick={() => handleClick(1)}>
-          <Dog2 />
-        </DogWrapper>
-        <DogWrapper clicked={clicked[2]} onClick={() => handleClick(2)}>
-          <Dog3 />
-        </DogWrapper>
-        <DogWrapper clicked={clicked[3]} onClick={() => handleClick(3)}>
-          <Dog4 />
-        </DogWrapper>
-        <DogWrapper clicked={clicked[4]} onClick={() => handleClick(4)}>
-          <Dog5 />
-        </DogWrapper>
+        {dogComponents.map((Dog, index) => (
+          <DogWrapper
+            key={index}
+            clicked={clicked[index]}
+            onClick={() => handleClick(index)}>
+            <Dog />
+          </DogWrapper>
+        ))}
       </DogsContainer>
     </Container>
   );
