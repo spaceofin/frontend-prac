@@ -11,7 +11,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 500px;
-  height: 500px;
+  height: 600px;
   margin: 20px;
   margin-bottom: 5px;
   padding: 15px;
@@ -115,6 +115,7 @@ const BirthdaySelect = styled.select`
   border: 2px solid gray;
   margin: 0px 1px;
   width: 100px;
+  background-color: white;
 `;
 
 const BirthdaySelectWrapper = styled.div`
@@ -124,7 +125,37 @@ const BirthdaySelectWrapper = styled.div`
   font-weight: normal;
 `;
 
+const StyledButton = styled.button`
+  align-self: flex-end;
+  margin-right: 20px;
+  padding: 5px 10px;
+  font-size: 16px;
+  font-weight: 500;
+  background-color: #effcdb;
+  border: 3px solid #3fc248;
+  border-radius: 5px;
+
+  &:active {
+    box-shadow: inset 3px 3px 0px rgba(2, 181, 93, 0.4),
+      inset -3px -3px 0px rgba(2, 181, 93, 0.4);
+  }
+`;
+
+const ProfileListContainer = styled.div`
+  display: flex;
+  width: 450px;
+  margin: 30px;
+`;
+
 const dogComponents = [Dog1, Dog2, Dog3, Dog4, Dog5];
+
+interface Profile {
+  name: string;
+  year: string;
+  month: string;
+  day: string;
+  password: string;
+}
 
 export const ProfileGenerator = () => {
   const [clickedDog, setClickedDog] = useState<number | null>(null);
@@ -136,18 +167,29 @@ export const ProfileGenerator = () => {
     day: "",
     password: "",
   });
+  const [profileList, setProfileList] = useState<Profile[]>([]);
+
+  console.log("profile: ", profile);
 
   const handleClick = (index: number) => {
     setClickedDog(index);
     setSelectedDog(dogComponents[index]);
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChange = (
+    event:
+      | React.ChangeEvent<HTMLSelectElement>
+      | React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = event.target;
     setProfile((prevProfile) => ({
       ...prevProfile,
       [name]: value,
     }));
+  };
+
+  const handleSaveClick = () => {
+    setProfileList((prevProfileList) => [...prevProfileList, profile]);
   };
 
   const currentYear = new Date().getFullYear();
@@ -169,26 +211,40 @@ export const ProfileGenerator = () => {
           <DogWrapper
             key={index}
             clicked={clickedDog ? clickedDog === index : false}
-            onClick={() => handleClick(index)}>
+            onClick={() => handleClick(index)}
+          >
             <Dog />
           </DogWrapper>
         ))}
       </DogsContainer>
+      <StyledButton onClick={handleSaveClick}>Save Profile</StyledButton>
       <ProfileContainer>
         <ProfileImageWrapper>
           {SelectedDog && <SelectedDog />}
         </ProfileImageWrapper>
+
         <ProfileWrapper>
           <LineText>Profile</LineText>
           <StyledForm>
-            <StyledInput placeholder="name" value={profile.name} />
-            <StyledInput placeholder="password" value={profile.password} />
+            <StyledInput
+              name="name"
+              placeholder="name"
+              value={profile.name}
+              onChange={handleChange}
+            />
+            <StyledInput
+              name="password"
+              placeholder="password"
+              value={profile.password}
+              onChange={handleChange}
+            />
             <SmallText>Birthday</SmallText>
             <BirthdaySelectWrapper>
               <BirthdaySelect
                 name="year"
                 value={profile.year}
-                onChange={handleChange}>
+                onChange={handleChange}
+              >
                 <option value="">Year</option>
                 {years.map((year) => (
                   <option key={year} value={year}>
@@ -199,7 +255,8 @@ export const ProfileGenerator = () => {
               <BirthdaySelect
                 name="month"
                 value={profile.month}
-                onChange={handleChange}>
+                onChange={handleChange}
+              >
                 <option value="">Month</option>
                 {months.map((month) => (
                   <option key={month} value={month}>
@@ -210,7 +267,8 @@ export const ProfileGenerator = () => {
               <BirthdaySelect
                 name="day"
                 value={profile.day}
-                onChange={handleChange}>
+                onChange={handleChange}
+              >
                 <option value="">Day</option>
                 {days.map((day) => (
                   <option key={day} value={day}>
@@ -222,6 +280,12 @@ export const ProfileGenerator = () => {
           </StyledForm>
         </ProfileWrapper>
       </ProfileContainer>
+      <ProfileListContainer>
+        {profileList &&
+          profileList.map((profile, index) => {
+            return <StyledButton key={index}>{profile.name}</StyledButton>;
+          })}
+      </ProfileListContainer>
     </Container>
   );
 };
