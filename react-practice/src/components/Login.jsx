@@ -5,23 +5,13 @@ import { useEffect, useRef } from "react";
 
 const Container = styled.div`
   display: flex;
-  flex-direction: column;
   margin: 20px;
-`;
-
-const Spacer = styled.div`
-  height: 40px;
-`;
-
-const ContentsWrapper = styled.div`
-  display: flex;
-  justify-contents: center;
+  margin-top: 60px;
 `;
 
 const ContentsContainer = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
   min-width: 630px;
   min-height: 840px;
   padding: 20px;
@@ -33,6 +23,11 @@ const ContentsContainer = styled.div`
 
 const StyledForm = styled.form`
   display: flex;
+  flex-frow: 1;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
   flex-direction: column;
   align-items: center;
 `;
@@ -48,12 +43,18 @@ const StyledInput = styled.input`
   box-sizing: border-box;
 `;
 
-const SubmitButton = styled.button`
+const ButtonGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+`;
+
+const StyledButton = styled.button`
   font-size: 20px;
   padding: 10px;
-  margin: 10px;
+  margin: 2px;
   border: none;
-  background-color: tomato;
+  background-color: ${(props) => props.color};
   border-radius: 10px;
   width: 300px;
   box-sizing: border-box;
@@ -101,32 +102,31 @@ export const Login = () => {
 
   return (
     <Container>
-      <Spacer />
-      <ContentsWrapper>
-        <ContentsContainer>
-          <StyledForm>
-            <StyledInput
-              name="username"
-              type="text"
-              placeholder="UserName"
-              value={userName}
-              onChange={onChange}
-              required
-            />
-            <StyledInput
-              name="password"
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={onChange}
-              required
-            />
-            <SubmitButton type="submit" onClick={handleLogin}>
-              Log In
-            </SubmitButton>
-          </StyledForm>
-        </ContentsContainer>
-      </ContentsWrapper>
+      <ContentsContainer>
+        <StyledForm>
+          <StyledInput
+            name="username"
+            type="text"
+            placeholder="UserName"
+            value={userName}
+            onChange={onChange}
+            required
+          />
+          <StyledInput
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={onChange}
+            required
+          />
+          <ButtonGroup>
+            <StyledButton color="tomato" type="submit" onClick={handleLogin}>
+              Sign In
+            </StyledButton>
+          </ButtonGroup>
+        </StyledForm>
+      </ContentsContainer>
     </Container>
   );
 };
