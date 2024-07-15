@@ -100,6 +100,10 @@ export const LoginPage = () => {
     }
   };
 
+  const handleSignUp = () => {
+    navigate("/sign-up");
+  };
+
   return (
     <Container>
       <ContentsContainer>
@@ -123,6 +127,9 @@ export const LoginPage = () => {
           <ButtonGroup>
             <StyledButton color="tomato" type="submit" onClick={handleLogin}>
               Sign In
+            </StyledButton>
+            <StyledButton color="skyblue" onClick={handleSignUp}>
+              Sign Up
             </StyledButton>
           </ButtonGroup>
         </StyledForm>
