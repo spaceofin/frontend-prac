@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { ReactComponent as CheckCircle } from "../assets/icons/check-circle.svg";
-import { ReactComponent as Cancel } from "../assets/icons/cancel.svg";
-import { useCartPhotos } from "./CartPhotosContext";
+import { ReactComponent as CheckCircle } from "assets/icons/check-circle.svg";
+import { ReactComponent as Cancel } from "assets/icons/cancel.svg";
+import { useCartPhotos } from "contexts/CartPhotosContext";
 
 const Container = styled.div`
   position: relative;

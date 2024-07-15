@@ -1,9 +1,6 @@
-import { Gallery } from "components/Gallery";
+import { Gallery, PhotosCart, LoginPage, SignUpPage } from "components";
 import { Routes, Route } from "react-router-dom";
-import { PhotosCart } from "components/PhotosCart";
-import { CartPhotosProvider } from "components/CartPhotosContext";
-import { LoginPage } from "components/LoginPage";
-import { SignUpPage } from "components/SignUpPage";
+import { CartPhotosProvider } from "contexts/CartPhotosContext";
 
 const App = () => {
   return (

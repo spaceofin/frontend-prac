@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { Photo } from "components/Photo";
+import { Photo } from ".";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useCartPhotos } from "./CartPhotosContext";
+import { useCartPhotos } from "contexts/CartPhotosContext";
 
 const Container = styled.div`
   display: flex;
