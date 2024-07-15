@@ -60,7 +60,7 @@ const StyledButton = styled.button`
   box-sizing: border-box;
 `;
 
-export const Login = () => {
+export const LoginPage = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
