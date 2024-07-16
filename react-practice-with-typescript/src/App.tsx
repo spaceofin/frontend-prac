@@ -10,7 +10,7 @@ import styled from "styled-components";
 import { DogsSquares } from "components/DogsSquares";
 import { ProfileGenerator } from "components/ProfileGenerator";
 
-import { memo } from "react";
+// import { memo } from "react";
 
 const Container = styled.div`
   padding: 5px;

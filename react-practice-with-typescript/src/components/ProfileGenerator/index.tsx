@@ -4,14 +4,14 @@ import { ReactComponent as Dog2 } from "assets/icons/dog2.svg";
 import { ReactComponent as Dog3 } from "assets/icons/dog3.svg";
 import { ReactComponent as Dog4 } from "assets/icons/dog4.svg";
 import { ReactComponent as Dog5 } from "assets/icons/dog5.svg";
-import React, { useState } from "react";
+import React, { useState, ReactNode } from "react";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 500px;
-  height: 600px;
+  height: 900px;
   margin: 20px;
   margin-bottom: 5px;
   padding: 15px;
@@ -50,11 +50,12 @@ const ProfileContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-top: 10px;
+  margin: 10px 0px;
   padding: 15px;
   width: 450px;
   height: 200px;
-  background-color: #cced71;
+  background-color: ${(props) => props.color};
+  // background-color: #cced71;
   border-radius: 10px;
 `;
 
@@ -102,8 +103,8 @@ const StyledInput = styled.input`
 `;
 
 const SmallText = styled.text`
-  // font-family: cursive;
-  font-size: 16px;
+  font-family: cursive;
+  font-size: 20px;
   font-weight: normal;
   margin: 5px 5px;
 `;
@@ -141,15 +142,34 @@ const StyledButton = styled.button`
   }
 `;
 
+const ProfileButton = styled.button`
+  align-self: flex-end;
+  margin: 5px;
+  padding: 10px 15px;
+  font-size: 20px;
+  font-weight: 500;
+  background-color: burlywood;
+  border-radius: 5px;
+  border: none;
+
+  &:active {
+    box-shadow: inset 3px 3px 0px rgba(255, 255, 255, 0.4),
+      inset -3px -3px 0px rgba(255, 255, 255, 0.4);
+  }
+`;
+
 const ProfileListContainer = styled.div`
-  display: flex;
+  margin: 20px;
   width: 450px;
-  margin: 30px;
+  height: 120px;
+  overflow: auto;
+  text-align: left;
 `;
 
 const dogComponents = [Dog1, Dog2, Dog3, Dog4, Dog5];
 
 interface Profile {
+  image: ReactNode;
   name: string;
   year: string;
   month: string;
@@ -160,7 +180,8 @@ interface Profile {
 export const ProfileGenerator = () => {
   const [clickedDog, setClickedDog] = useState<number | null>(null);
   const [SelectedDog, setSelectedDog] = useState<React.ComponentType>(Blank);
-  const [profile, setProfile] = useState({
+  const [profile, setProfile] = useState<Profile>({
+    image: null,
     name: "",
     year: "",
     month: "",
@@ -168,6 +189,7 @@ export const ProfileGenerator = () => {
     password: "",
   });
   const [profileList, setProfileList] = useState<Profile[]>([]);
+  const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
 
   console.log("profile: ", profile);
 
@@ -189,7 +211,12 @@ export const ProfileGenerator = () => {
   };
 
   const handleSaveClick = () => {
-    setProfileList((prevProfileList) => [...prevProfileList, profile]);
+    const updatedProfile = { ...profile, image: <SelectedDog /> };
+    setProfileList((prevProfileList) => [...prevProfileList, updatedProfile]);
+  };
+
+  const handleProfileClick = (profile: Profile) => {
+    setSelectedProfile(profile);
   };
 
   const currentYear = new Date().getFullYear();
@@ -218,11 +245,10 @@ export const ProfileGenerator = () => {
         ))}
       </DogsContainer>
       <StyledButton onClick={handleSaveClick}>Save Profile</StyledButton>
-      <ProfileContainer>
+      <ProfileContainer color="#cced71">
         <ProfileImageWrapper>
           {SelectedDog && <SelectedDog />}
         </ProfileImageWrapper>
-
         <ProfileWrapper>
           <LineText>Profile</LineText>
           <StyledForm>
@@ -283,9 +309,30 @@ export const ProfileGenerator = () => {
       <ProfileListContainer>
         {profileList &&
           profileList.map((profile, index) => {
-            return <StyledButton key={index}>{profile.name}</StyledButton>;
+            return (
+              <ProfileButton
+                key={index}
+                onClick={() => handleProfileClick(profile)}
+              >
+                {profile.name}
+              </ProfileButton>
+            );
           })}
       </ProfileListContainer>
+      {selectedProfile ? (
+        <ProfileContainer color="gainsboro">
+          <ProfileImageWrapper>{selectedProfile.image}</ProfileImageWrapper>
+          <ProfileWrapper>
+            <LineText>Profile</LineText>
+            <SmallText>name: {selectedProfile.name}</SmallText>
+            <LineText>Birthday</LineText>
+            <SmallText>
+              {selectedProfile.year}.{selectedProfile.month}.
+              {selectedProfile.day}.
+            </SmallText>
+          </ProfileWrapper>
+        </ProfileContainer>
+      ) : null}
     </Container>
   );
 };
