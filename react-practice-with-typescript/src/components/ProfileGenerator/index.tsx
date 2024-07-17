@@ -26,11 +26,11 @@ const DogsContainer = styled.div`
   margin: 20px 0px;
 `;
 
-interface DogWrapperProps {
-  clicked: boolean;
-}
+// interface DogWrapperProps {
+//   $clicked: boolean;
+// }
 
-const DogWrapper = styled.div<DogWrapperProps>`
+const DogWrapper = styled.div<{ $clicked: boolean }>`
   //   width: 200px;
   //   height: 200px;
   //   border: 5px solid orange;
@@ -38,7 +38,7 @@ const DogWrapper = styled.div<DogWrapperProps>`
   margin: 2px;
   //   box-shadow: inset 5px 5px 0px orange, inset -5px -5px 0px orange;
   box-shadow: ${(props) =>
-    props.clicked
+    props.$clicked
       ? "inset 5px 0px 0px lime, inset -5px 0px 0px green, inset 0px 5px 0px lime, inset 0px -5px 0px green"
       : null};
   border-radius: 10px;
@@ -102,7 +102,7 @@ const StyledInput = styled.input`
   margin: 2px 0px;
 `;
 
-const SmallText = styled.text`
+const SmallText = styled.span`
   font-family: cursive;
   font-size: 20px;
   font-weight: normal;
@@ -169,7 +169,7 @@ const ProfileListContainer = styled.div`
 const dogComponents = [Dog1, Dog2, Dog3, Dog4, Dog5];
 
 interface Profile {
-  image: ReactNode;
+  image: ReactNode | null;
   name: string;
   year: string;
   month: string;
@@ -181,7 +181,7 @@ export const ProfileGenerator = () => {
   const [clickedDog, setClickedDog] = useState<number | null>(null);
   const [SelectedDog, setSelectedDog] = useState<React.ComponentType>(Blank);
   const [profile, setProfile] = useState<Profile>({
-    image: null,
+    image: Blank,
     name: "",
     year: "",
     month: "",
@@ -211,7 +211,16 @@ export const ProfileGenerator = () => {
   };
 
   const handleSaveClick = () => {
+    if (SelectedDog === Blank) {
+      alert("Select Profile Image");
+      return;
+    }
     const updatedProfile = { ...profile, image: <SelectedDog /> };
+
+    if (!Object.values(updatedProfile).every((x) => x !== Blank && x !== "")) {
+      alert("Enter All Values");
+      return;
+    }
     setProfileList((prevProfileList) => [...prevProfileList, updatedProfile]);
   };
 
@@ -237,9 +246,8 @@ export const ProfileGenerator = () => {
         {dogComponents.map((Dog, index) => (
           <DogWrapper
             key={index}
-            clicked={clickedDog ? clickedDog === index : false}
-            onClick={() => handleClick(index)}
-          >
+            $clicked={clickedDog ? clickedDog === index : false}
+            onClick={() => handleClick(index)}>
             <Dog />
           </DogWrapper>
         ))}
@@ -247,7 +255,7 @@ export const ProfileGenerator = () => {
       <StyledButton onClick={handleSaveClick}>Save Profile</StyledButton>
       <ProfileContainer color="#cced71">
         <ProfileImageWrapper>
-          {SelectedDog && <SelectedDog />}
+          {SelectedDog ? <SelectedDog /> : null}
         </ProfileImageWrapper>
         <ProfileWrapper>
           <LineText>Profile</LineText>
@@ -269,8 +277,7 @@ export const ProfileGenerator = () => {
               <BirthdaySelect
                 name="year"
                 value={profile.year}
-                onChange={handleChange}
-              >
+                onChange={handleChange}>
                 <option value="">Year</option>
                 {years.map((year) => (
                   <option key={year} value={year}>
@@ -281,8 +288,7 @@ export const ProfileGenerator = () => {
               <BirthdaySelect
                 name="month"
                 value={profile.month}
-                onChange={handleChange}
-              >
+                onChange={handleChange}>
                 <option value="">Month</option>
                 {months.map((month) => (
                   <option key={month} value={month}>
@@ -293,8 +299,7 @@ export const ProfileGenerator = () => {
               <BirthdaySelect
                 name="day"
                 value={profile.day}
-                onChange={handleChange}
-              >
+                onChange={handleChange}>
                 <option value="">Day</option>
                 {days.map((day) => (
                   <option key={day} value={day}>
@@ -312,8 +317,7 @@ export const ProfileGenerator = () => {
             return (
               <ProfileButton
                 key={index}
-                onClick={() => handleProfileClick(profile)}
-              >
+                onClick={() => handleProfileClick(profile)}>
                 {profile.name}
               </ProfileButton>
             );
