@@ -11,7 +11,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 500px;
-  height: 900px;
+  height: 870px;
   margin: 20px;
   margin-bottom: 5px;
   padding: 15px;
@@ -103,10 +103,11 @@ const StyledInput = styled.input`
 `;
 
 const SmallText = styled.span`
-  font-family: cursive;
+  // font-family: cursive;
+  font-family: Arial, sans-serif;
   font-size: 20px;
   font-weight: normal;
-  margin: 5px 5px;
+  margin: 5px;
 `;
 
 const BirthdaySelect = styled.select`
@@ -128,7 +129,7 @@ const BirthdaySelectWrapper = styled.div`
 
 const StyledButton = styled.button`
   align-self: flex-end;
-  margin-right: 20px;
+  margin-right: 5px;
   padding: 5px 10px;
   font-size: 16px;
   font-weight: 500;
@@ -140,6 +141,13 @@ const StyledButton = styled.button`
     box-shadow: inset 3px 3px 0px rgba(2, 181, 93, 0.4),
       inset -3px -3px 0px rgba(2, 181, 93, 0.4);
   }
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  width: inherit;
+  justify-content: flex-end;
+  margin-right: 20px;
 `;
 
 const ProfileButton = styled.button`
@@ -161,7 +169,7 @@ const ProfileButton = styled.button`
 const ProfileListContainer = styled.div`
   margin: 20px;
   width: 450px;
-  height: 120px;
+  height: 100px;
   overflow: auto;
   text-align: left;
 `;
@@ -177,23 +185,25 @@ interface Profile {
   password: string;
 }
 
+const blankProfile = {
+  image: Blank,
+  name: "",
+  year: "",
+  month: "",
+  day: "",
+  password: "",
+};
+
 export const ProfileGenerator = () => {
   const [clickedDog, setClickedDog] = useState<number | null>(null);
   const [SelectedDog, setSelectedDog] = useState<React.ComponentType>(Blank);
-  const [profile, setProfile] = useState<Profile>({
-    image: Blank,
-    name: "",
-    year: "",
-    month: "",
-    day: "",
-    password: "",
-  });
+  const [profile, setProfile] = useState<Profile>(blankProfile);
   const [profileList, setProfileList] = useState<Profile[]>([]);
   const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
 
   console.log("profile: ", profile);
 
-  const handleClick = (index: number) => {
+  const handleProfileImageSelect = (index: number) => {
     setClickedDog(index);
     setSelectedDog(dogComponents[index]);
   };
@@ -224,6 +234,11 @@ export const ProfileGenerator = () => {
     setProfileList((prevProfileList) => [...prevProfileList, updatedProfile]);
   };
 
+  const handleClear = () => {
+    setProfile(blankProfile);
+    setSelectedDog(Blank);
+  };
+
   const handleProfileClick = (profile: Profile) => {
     setSelectedProfile(profile);
   };
@@ -247,12 +262,15 @@ export const ProfileGenerator = () => {
           <DogWrapper
             key={index}
             $clicked={clickedDog ? clickedDog === index : false}
-            onClick={() => handleClick(index)}>
+            onClick={() => handleProfileImageSelect(index)}>
             <Dog />
           </DogWrapper>
         ))}
       </DogsContainer>
-      <StyledButton onClick={handleSaveClick}>Save Profile</StyledButton>
+      <ButtonGroup>
+        <StyledButton onClick={handleSaveClick}>Save Profile</StyledButton>
+        <StyledButton onClick={handleClear}>Clear</StyledButton>
+      </ButtonGroup>
       <ProfileContainer color="#cced71">
         <ProfileImageWrapper>
           {SelectedDog ? <SelectedDog /> : null}
@@ -328,10 +346,10 @@ export const ProfileGenerator = () => {
           <ProfileImageWrapper>{selectedProfile.image}</ProfileImageWrapper>
           <ProfileWrapper>
             <LineText>Profile</LineText>
-            <SmallText>name: {selectedProfile.name}</SmallText>
-            <LineText>Birthday</LineText>
             <SmallText>
-              {selectedProfile.year}.{selectedProfile.month}.
+              name: {selectedProfile.name}
+              <br />
+              Birthday: {selectedProfile.year}.{selectedProfile.month}.
               {selectedProfile.day}.
             </SmallText>
           </ProfileWrapper>
