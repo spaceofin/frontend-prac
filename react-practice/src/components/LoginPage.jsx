@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef } from "react";
+import { useAuth } from "contexts/AuthContext";
 
 const Container = styled.div`
   display: flex;
@@ -67,6 +68,8 @@ export const LoginPage = () => {
   const url = process.env.REACT_APP_RANDOM_USERS_API_URL;
   const userListRef = useRef(null);
 
+  const { setUser } = useAuth();
+
   const onChange = (event) => {
     const { name, value } = event.target;
     if (name === "username") setUserName(value);
@@ -91,6 +94,7 @@ export const LoginPage = () => {
     );
 
     if (isUser) {
+      setUser(userName);
       alert("Welcome!");
       navigate("/gallery");
     } else {

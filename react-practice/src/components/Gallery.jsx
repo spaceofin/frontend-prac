@@ -3,6 +3,7 @@ import { Photo } from ".";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useCartPhotos } from "contexts/CartPhotosContext";
+import { useAuth } from "contexts/AuthContext";
 
 const Container = styled.div`
   display: flex;
@@ -63,6 +64,10 @@ export const Gallery = () => {
     )
   );
   const { cartPhotos, setCartPhotos, setRandomNumber } = useCartPhotos();
+  const { user } = useAuth();
+
+  console.log(user);
+  if (user === null) console.log("user is null");
 
   const navigate = useNavigate();
 
@@ -112,6 +117,7 @@ export const Gallery = () => {
 
   return (
     <Container>
+      user: {user}
       <ButtonWrapper>
         <Button color="lightgray" onClick={handleReloadClick}>
           Reload Photos
