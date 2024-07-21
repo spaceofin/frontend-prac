@@ -68,7 +68,7 @@ export const LoginPage = () => {
   const url = process.env.REACT_APP_RANDOM_USERS_API_URL;
   const userListRef = useRef(null);
 
-  const { setUser } = useAuth();
+  const { login } = useAuth();
 
   const onChange = (event) => {
     const { name, value } = event.target;
@@ -94,8 +94,7 @@ export const LoginPage = () => {
     );
 
     if (isUser) {
-      setUser(userName);
-      alert("Welcome!");
+      login(userName);
       navigate("/gallery");
     } else {
       alert("Invalid userName or Password...");

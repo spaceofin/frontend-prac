@@ -85,7 +85,7 @@ export const Gallery = () => {
     )
   );
   const { cartPhotos, setCartPhotos, setRandomNumber } = useCartPhotos();
-  const { user, setUser } = useAuth();
+  const { user, logout } = useAuth();
 
   console.log(user);
   if (user === null) console.log("user is null");
@@ -137,7 +137,7 @@ export const Gallery = () => {
   }, [cartPhotos]);
 
   const handleLogout = () => {
-    setUser(null);
+    logout();
     navigate("/");
   };
 
