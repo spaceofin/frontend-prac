@@ -61,12 +61,41 @@ const StyledButton = styled.button`
   box-sizing: border-box;
 `;
 
+const UserListContainer = styled.div`
+  margin: 30px;
+  font-size: 24px;
+`;
+
+const StyledTable = styled.table`
+  font-size: 20px;
+  padding: 10px;
+  width: 500px;
+  border-spacing: 30px 0px;
+  background-color: #eeeeee;
+`;
+
+const StyledTh = styled.th`
+  text-align: left;
+  width: 250px;
+`;
+
+const StyledCaption = styled.caption`
+  text-align: left;
+  padding: 5px;
+  padding-left: 40px;
+  font-size: 22px;
+  font-weight: 600;
+  background-color: #999999;
+`;
+
 export const LoginPage = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const url = process.env.REACT_APP_RANDOM_USERS_API_URL;
   const userListRef = useRef(null);
+
+  const [userList, setUserList] = useState({});
 
   const { login } = useAuth();
 
@@ -81,7 +110,10 @@ export const LoginPage = () => {
       .then((response) => response.json())
       .then((users) => {
         userListRef.current = users.data;
-        console.log(userListRef.current);
+        // console.log(userListRef.current);
+        // console.log(typeof userList);
+        // console.log(typeof userListRef.current);
+        setUserList(userListRef);
       })
       .catch((error) => {
         console.log("error: ", error);
@@ -137,6 +169,37 @@ export const LoginPage = () => {
           </ButtonGroup>
         </StyledForm>
       </ContentsContainer>
+      <UserListContainer>
+        <StyledTable>
+          <StyledCaption>USER LIST</StyledCaption>
+          {Object.keys(userList).length === 0 ? (
+            <thead>
+              <tr>
+                <td>No User</td>
+              </tr>
+            </thead>
+          ) : (
+            <>
+              <thead>
+                <tr>
+                  <StyledTh>UserName</StyledTh>
+                  <StyledTh>Password</StyledTh>
+                </tr>
+              </thead>
+              <tbody>
+                {userList.current.map(function (user) {
+                  return (
+                    <tr key={user.id}>
+                      <td>{user.username} </td>
+                      <td>{user.password}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </>
+          )}
+        </StyledTable>
+      </UserListContainer>
     </Container>
   );
 };
