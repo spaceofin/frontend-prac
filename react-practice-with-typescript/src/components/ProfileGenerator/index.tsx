@@ -5,6 +5,7 @@ import { ReactComponent as Dog3 } from "assets/icons/dog3.svg";
 import { ReactComponent as Dog4 } from "assets/icons/dog4.svg";
 import { ReactComponent as Dog5 } from "assets/icons/dog5.svg";
 import React, { useState, ReactNode } from "react";
+import { getYears, getMonths, getDays } from "utils/dateUtils";
 
 const Container = styled.div`
   display: flex;
@@ -96,6 +97,7 @@ const StyledForm = styled.form`
 
 const StyledInput = styled.input`
   font-size: 20px;
+  height: 25px;
   border-radius: 5px;
   padding-left: 10px;
   border: 2px solid gray;
@@ -194,6 +196,104 @@ const blankProfile = {
   password: "",
 };
 
+interface DogProfileProps {
+  SelectedDog: React.ComponentType;
+  profile: Profile;
+  handleChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
+}
+
+const DogProfile: React.FC<DogProfileProps> = ({
+  SelectedDog,
+  profile,
+  handleChange,
+}) => {
+  const years = getYears();
+  const months = getMonths();
+  const days = getDays();
+
+  return (
+    <ProfileContainer color="#cced71">
+      <ProfileImageWrapper>
+        {SelectedDog ? <SelectedDog /> : null}
+      </ProfileImageWrapper>
+      <ProfileWrapper>
+        <LineText>Profile</LineText>
+        <StyledForm>
+          <StyledInput
+            name="name"
+            placeholder="name"
+            value={profile.name}
+            onChange={handleChange}
+          />
+          <StyledInput
+            name="password"
+            placeholder="password"
+            value={profile.password}
+            onChange={handleChange}
+          />
+          <SmallText>Birthday</SmallText>
+          <BirthdaySelectWrapper>
+            <BirthdaySelect
+              name="year"
+              value={profile.year}
+              onChange={handleChange}>
+              <option value="">Year</option>
+              {years.map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </BirthdaySelect>
+            <BirthdaySelect
+              name="month"
+              value={profile.month}
+              onChange={handleChange}>
+              <option value="">Month</option>
+              {months.map((month) => (
+                <option key={month} value={month}>
+                  {month}
+                </option>
+              ))}
+            </BirthdaySelect>
+            <BirthdaySelect
+              name="day"
+              value={profile.day}
+              onChange={handleChange}>
+              <option value="">Day</option>
+              {days.map((day) => (
+                <option key={day} value={day}>
+                  {day}
+                </option>
+              ))}
+            </BirthdaySelect>
+          </BirthdaySelectWrapper>
+        </StyledForm>
+      </ProfileWrapper>
+    </ProfileContainer>
+  );
+};
+
+const SelectedProfile: React.FC<{ selectedProfile: Profile }> = ({
+  selectedProfile,
+}) => {
+  return (
+    <ProfileContainer color="gainsboro">
+      <ProfileImageWrapper>{selectedProfile.image}</ProfileImageWrapper>
+      <ProfileWrapper>
+        <LineText>Profile</LineText>
+        <SmallText>
+          name: {selectedProfile.name}
+          <br />
+          Birthday: {selectedProfile.year}.{selectedProfile.month}.
+          {selectedProfile.day}.
+        </SmallText>
+      </ProfileWrapper>
+    </ProfileContainer>
+  );
+};
+
 export const ProfileGenerator = () => {
   const [clickedDog, setClickedDog] = useState<number | null>(null);
   const [SelectedDog, setSelectedDog] = useState<React.ComponentType>(Blank);
@@ -209,11 +309,9 @@ export const ProfileGenerator = () => {
   };
 
   const handleChange = (
-    event:
-      | React.ChangeEvent<HTMLSelectElement>
-      | React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
   ) => {
-    const { name, value } = event.target;
+    const { name, value } = e.target;
     setProfile((prevProfile) => ({
       ...prevProfile,
       [name]: value,
@@ -243,17 +341,6 @@ export const ProfileGenerator = () => {
     setSelectedProfile(profile);
   };
 
-  const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: 100 }, (_, i) =>
-    (currentYear - i).toString()
-  );
-  const months = Array.from({ length: 12 }, (_, i) =>
-    (i + 1).toString().padStart(2, "0")
-  );
-  const days = Array.from({ length: 31 }, (_, i) =>
-    (i + 1).toString().padStart(2, "0")
-  );
-
   return (
     <Container>
       Choose Dog for Profile
@@ -271,64 +358,11 @@ export const ProfileGenerator = () => {
         <StyledButton onClick={handleSaveClick}>Save Profile</StyledButton>
         <StyledButton onClick={handleClear}>Clear</StyledButton>
       </ButtonGroup>
-      <ProfileContainer color="#cced71">
-        <ProfileImageWrapper>
-          {SelectedDog ? <SelectedDog /> : null}
-        </ProfileImageWrapper>
-        <ProfileWrapper>
-          <LineText>Profile</LineText>
-          <StyledForm>
-            <StyledInput
-              name="name"
-              placeholder="name"
-              value={profile.name}
-              onChange={handleChange}
-            />
-            <StyledInput
-              name="password"
-              placeholder="password"
-              value={profile.password}
-              onChange={handleChange}
-            />
-            <SmallText>Birthday</SmallText>
-            <BirthdaySelectWrapper>
-              <BirthdaySelect
-                name="year"
-                value={profile.year}
-                onChange={handleChange}>
-                <option value="">Year</option>
-                {years.map((year) => (
-                  <option key={year} value={year}>
-                    {year}
-                  </option>
-                ))}
-              </BirthdaySelect>
-              <BirthdaySelect
-                name="month"
-                value={profile.month}
-                onChange={handleChange}>
-                <option value="">Month</option>
-                {months.map((month) => (
-                  <option key={month} value={month}>
-                    {month}
-                  </option>
-                ))}
-              </BirthdaySelect>
-              <BirthdaySelect
-                name="day"
-                value={profile.day}
-                onChange={handleChange}>
-                <option value="">Day</option>
-                {days.map((day) => (
-                  <option key={day} value={day}>
-                    {day}
-                  </option>
-                ))}
-              </BirthdaySelect>
-            </BirthdaySelectWrapper>
-          </StyledForm>
-        </ProfileWrapper>
-      </ProfileContainer>
+      <DogProfile
+        SelectedDog={SelectedDog}
+        profile={profile}
+        handleChange={handleChange}
+      />
       <ProfileListContainer>
         {profileList &&
           profileList.map((profile, index) => {
@@ -342,18 +376,7 @@ export const ProfileGenerator = () => {
           })}
       </ProfileListContainer>
       {selectedProfile ? (
-        <ProfileContainer color="gainsboro">
-          <ProfileImageWrapper>{selectedProfile.image}</ProfileImageWrapper>
-          <ProfileWrapper>
-            <LineText>Profile</LineText>
-            <SmallText>
-              name: {selectedProfile.name}
-              <br />
-              Birthday: {selectedProfile.year}.{selectedProfile.month}.
-              {selectedProfile.day}.
-            </SmallText>
-          </ProfileWrapper>
-        </ProfileContainer>
+        <SelectedProfile selectedProfile={selectedProfile} />
       ) : null}
     </Container>
   );
