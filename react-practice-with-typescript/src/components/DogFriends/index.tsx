@@ -6,6 +6,7 @@ import {
   MouseEvent,
   MouseEventHandler,
 } from "react";
+import { useProfiles } from "contexts/ProfilesContext";
 
 const Container = styled.div`
   display: flex;
@@ -82,6 +83,7 @@ const Login = ({ handleChange, handleClick }: LoginProps) => {
 export const DogFriends = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const { profiles } = useProfiles();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const {
@@ -97,6 +99,15 @@ export const DogFriends = () => {
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+    if (
+      profiles.some(
+        (profile) => profile.name === name && profile.password === password
+      )
+    ) {
+      alert("Login succeeded");
+    } else {
+      alert("Login failed");
+    }
     console.log("name:", name, "password:", password);
   };
 

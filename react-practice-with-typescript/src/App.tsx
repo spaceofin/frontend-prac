@@ -10,6 +10,7 @@ import styled from "styled-components";
 import { DogsSquares } from "components/DogsSquares";
 import { ProfileGenerator } from "components/ProfileGenerator";
 import { DogFriends } from "components/DogFriends";
+import { ProfilesProvider } from "contexts/ProfilesContext";
 
 // import { memo } from "react";
 
@@ -24,10 +25,12 @@ const Container = styled.div`
 
 export default function App() {
   return (
-    <Container>
-      <DogsSquares />
-      <ProfileGenerator />
-      <DogFriends />
-    </Container>
+    <ProfilesProvider>
+      <Container>
+        <DogsSquares />
+        <ProfileGenerator />
+        <DogFriends />
+      </Container>
+    </ProfilesProvider>
   );
 }

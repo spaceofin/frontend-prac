@@ -6,6 +6,7 @@ import { ReactComponent as Dog4 } from "assets/icons/dog4.svg";
 import { ReactComponent as Dog5 } from "assets/icons/dog5.svg";
 import React, { useState, ReactNode } from "react";
 import { getYears, getMonths, getDays } from "utils/dateUtils";
+import { useProfiles } from "contexts/ProfilesContext";
 
 const Container = styled.div`
   display: flex;
@@ -238,7 +239,8 @@ const DogProfile: React.FC<DogProfileProps> = ({
             <BirthdaySelect
               name="year"
               value={profile.year}
-              onChange={handleChange}>
+              onChange={handleChange}
+            >
               <option value="">Year</option>
               {years.map((year) => (
                 <option key={year} value={year}>
@@ -249,7 +251,8 @@ const DogProfile: React.FC<DogProfileProps> = ({
             <BirthdaySelect
               name="month"
               value={profile.month}
-              onChange={handleChange}>
+              onChange={handleChange}
+            >
               <option value="">Month</option>
               {months.map((month) => (
                 <option key={month} value={month}>
@@ -260,7 +263,8 @@ const DogProfile: React.FC<DogProfileProps> = ({
             <BirthdaySelect
               name="day"
               value={profile.day}
-              onChange={handleChange}>
+              onChange={handleChange}
+            >
               <option value="">Day</option>
               {days.map((day) => (
                 <option key={day} value={day}>
@@ -298,7 +302,7 @@ export const ProfileGenerator = () => {
   const [clickedDog, setClickedDog] = useState<number | null>(null);
   const [SelectedDog, setSelectedDog] = useState<React.ComponentType>(Blank);
   const [profile, setProfile] = useState<Profile>(blankProfile);
-  const [profileList, setProfileList] = useState<Profile[]>([]);
+  const { profiles, setProfiles } = useProfiles();
   const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
 
   console.log("profile: ", profile);
@@ -329,7 +333,10 @@ export const ProfileGenerator = () => {
       alert("Enter All Values");
       return;
     }
-    setProfileList((prevProfileList) => [...prevProfileList, updatedProfile]);
+    setProfiles((prevProfiles: Profile[] | []) => [
+      ...prevProfiles,
+      updatedProfile,
+    ]);
   };
 
   const handleClear = () => {
@@ -349,7 +356,8 @@ export const ProfileGenerator = () => {
           <DogWrapper
             key={index}
             $clicked={clickedDog ? clickedDog === index : false}
-            onClick={() => handleProfileImageSelect(index)}>
+            onClick={() => handleProfileImageSelect(index)}
+          >
             <Dog />
           </DogWrapper>
         ))}
@@ -364,12 +372,13 @@ export const ProfileGenerator = () => {
         handleChange={handleChange}
       />
       <ProfileListContainer>
-        {profileList &&
-          profileList.map((profile, index) => {
+        {profiles &&
+          profiles.map((profile: Profile, index: number) => {
             return (
               <ProfileButton
                 key={index}
-                onClick={() => handleProfileClick(profile)}>
+                onClick={() => handleProfileClick(profile)}
+              >
                 {profile.name}
               </ProfileButton>
             );

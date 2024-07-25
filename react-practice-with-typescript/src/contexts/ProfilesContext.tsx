@@ -10,20 +10,23 @@ interface Profile {
 }
 
 interface ProfilesContextType {
-  profiles: Profile[] | null;
-  setProfiles: React.Dispatch<React.SetStateAction<Profile[] | null>>;
+  profiles: Profile[];
+  setProfiles: React.Dispatch<React.SetStateAction<Profile[]>>;
 }
 
-const ProfilesContext = createContext<ProfilesContextType | undefined>(
-  undefined
-);
+const initialContext: ProfilesContextType = {
+  profiles: [],
+  setProfiles: () => {},
+};
+
+const ProfilesContext = createContext<ProfilesContextType>(initialContext);
 
 interface ProfilesProviderProps {
   children: ReactNode;
 }
 
 export const ProfilesProvider = ({ children }: ProfilesProviderProps) => {
-  const [profiles, setProfiles] = useState<Profile[] | null>([]);
+  const [profiles, setProfiles] = useState<Profile[]>([]);
 
   return (
     <ProfilesContext.Provider value={{ profiles, setProfiles }}>
