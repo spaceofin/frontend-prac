@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 
 export interface Profile {
+  id: string;
   image: ReactNode | null;
   name: string;
   year: string;

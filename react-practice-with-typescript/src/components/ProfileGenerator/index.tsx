@@ -4,9 +4,10 @@ import { ReactComponent as Dog2 } from "assets/icons/dog2.svg";
 import { ReactComponent as Dog3 } from "assets/icons/dog3.svg";
 import { ReactComponent as Dog4 } from "assets/icons/dog4.svg";
 import { ReactComponent as Dog5 } from "assets/icons/dog5.svg";
-import React, { useState, ReactNode } from "react";
+import React, { useState } from "react";
 import { getYears, getMonths, getDays } from "utils/dateUtils";
-import { useProfiles } from "contexts/ProfilesContext";
+import { useProfiles, Profile } from "contexts/ProfilesContext";
+import { v4 as uuidv4 } from "uuid";
 
 const Container = styled.div`
   display: flex;
@@ -179,16 +180,8 @@ const ProfileListContainer = styled.div`
 
 const dogComponents = [Dog1, Dog2, Dog3, Dog4, Dog5];
 
-interface Profile {
-  image: ReactNode | null;
-  name: string;
-  year: string;
-  month: string;
-  day: string;
-  password: string;
-}
-
 const blankProfile = {
+  id: "",
   image: Blank,
   name: "",
   year: "",
@@ -239,8 +232,7 @@ const DogProfile: React.FC<DogProfileProps> = ({
             <BirthdaySelect
               name="year"
               value={profile.year}
-              onChange={handleChange}
-            >
+              onChange={handleChange}>
               <option value="">Year</option>
               {years.map((year) => (
                 <option key={year} value={year}>
@@ -251,8 +243,7 @@ const DogProfile: React.FC<DogProfileProps> = ({
             <BirthdaySelect
               name="month"
               value={profile.month}
-              onChange={handleChange}
-            >
+              onChange={handleChange}>
               <option value="">Month</option>
               {months.map((month) => (
                 <option key={month} value={month}>
@@ -263,8 +254,7 @@ const DogProfile: React.FC<DogProfileProps> = ({
             <BirthdaySelect
               name="day"
               value={profile.day}
-              onChange={handleChange}
-            >
+              onChange={handleChange}>
               <option value="">Day</option>
               {days.map((day) => (
                 <option key={day} value={day}>
@@ -306,6 +296,7 @@ export const ProfileGenerator = () => {
   const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
 
   // console.log("profile: ", profile);
+  console.log("profiles: ", profiles);
 
   const handleProfileImageSelect = (index: number) => {
     setClickedDog(index);
@@ -327,7 +318,8 @@ export const ProfileGenerator = () => {
       alert("Select Profile Image");
       return;
     }
-    const updatedProfile = { ...profile, image: <SelectedDog /> };
+    const updatedProfile = { ...profile, image: <SelectedDog />, id: uuidv4() };
+    console.log("updatedProfile", updatedProfile);
 
     if (!Object.values(updatedProfile).every((x) => x !== Blank && x !== "")) {
       alert("Enter All Values");
@@ -356,8 +348,7 @@ export const ProfileGenerator = () => {
           <DogWrapper
             key={index}
             $clicked={clickedDog ? clickedDog === index : false}
-            onClick={() => handleProfileImageSelect(index)}
-          >
+            onClick={() => handleProfileImageSelect(index)}>
             <Dog />
           </DogWrapper>
         ))}
@@ -377,8 +368,7 @@ export const ProfileGenerator = () => {
             return (
               <ProfileButton
                 key={index}
-                onClick={() => handleProfileClick(profile)}
-              >
+                onClick={() => handleProfileClick(profile)}>
                 {profile.name}
               </ProfileButton>
             );
