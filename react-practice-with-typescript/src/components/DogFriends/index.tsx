@@ -88,6 +88,32 @@ const LogOutButton = styled.button`
   }
 `;
 
+const FriendsList = styled.div`
+  display: flex;
+  width: 350px;
+  background-color: #dddddd;
+  border-radius: 10px;
+  margin: 20px;
+  margin-top: 10px;
+  padding: 20px;
+`;
+
+const Friend = styled.button`
+  align-self: flex-end;
+  margin: 5px;
+  padding: 10px 15px;
+  font-size: 20px;
+  font-weight: 500;
+  background-color: burlywood;
+  border-radius: 5px;
+  border: none;
+
+  &:active {
+    box-shadow: inset 3px 3px 0px rgba(255, 255, 255, 0.4),
+      inset -3px -3px 0px rgba(255, 255, 255, 0.4);
+  }
+`;
+
 type LoginProps = {
   handleChange: ChangeEventHandler<HTMLInputElement>;
   handleClick: MouseEventHandler<HTMLButtonElement>;
@@ -178,7 +204,21 @@ export const DogFriends = () => {
     <Container>
       Log in with the Dog Profile you created
       {isLoggedIn && currentProfile ? (
-        <CurrentProfile profile={currentProfile} handleLogout={handleLogout} />
+        <>
+          <CurrentProfile
+            profile={currentProfile}
+            handleLogout={handleLogout}
+          />
+          Select a Friend
+          <FriendsList>
+            {profiles.map(
+              (profile) =>
+                profile.id !== currentProfile.id && (
+                  <Friend key={profile.id}>{profile.name}</Friend>
+                )
+            )}
+          </FriendsList>
+        </>
       ) : (
         <Login handleChange={handleChange} handleClick={handleLogin} />
       )}
