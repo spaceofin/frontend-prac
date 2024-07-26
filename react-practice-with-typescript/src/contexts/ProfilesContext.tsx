@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 
-interface Profile {
+export interface Profile {
   image: ReactNode | null;
   name: string;
   year: string;

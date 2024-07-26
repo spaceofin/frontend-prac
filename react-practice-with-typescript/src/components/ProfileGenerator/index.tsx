@@ -305,7 +305,7 @@ export const ProfileGenerator = () => {
   const { profiles, setProfiles } = useProfiles();
   const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
 
-  console.log("profile: ", profile);
+  // console.log("profile: ", profile);
 
   const handleProfileImageSelect = (index: number) => {
     setClickedDog(index);

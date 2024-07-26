@@ -6,7 +6,7 @@ import {
   MouseEvent,
   MouseEventHandler,
 } from "react";
-import { useProfiles } from "contexts/ProfilesContext";
+import { useProfiles, Profile } from "contexts/ProfilesContext";
 
 const Container = styled.div`
   display: flex;
@@ -15,7 +15,6 @@ const Container = styled.div`
   width: 500px;
   height: 400px;
   margin: 20px;
-  margin-bottom: 5px;
   padding: 15px;
   border-radius: 10px;
   border: 5px solid #666666;
@@ -25,6 +24,8 @@ const Container = styled.div`
 const LoginForm = styled.form`
   display: flex;
   flex-direction: column;
+  width: 350px;
+  height: 100px;
   gap: 2px;
   margin: 20px;
   padding: 20px;
@@ -59,6 +60,34 @@ const LoginButton = styled.button`
   }
 `;
 
+const ProfileContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  height: 100px;
+  gap: 2px;
+  margin: 20px;
+  padding: 20px;
+  padding-bottom: 15px;
+  background-color: #4ee65f;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: normal;
+  text-indent: 25px;
+`;
+
+const LogOutButton = styled.button`
+  margin: 7px 25px;
+  height: 25px;
+  border-radius: 5px;
+  background-color: white;
+
+  &:active {
+    background-color: lightgray;
+    box-shadow: inset 3px 3px 0px rgba(127, 127, 127, 0.4);
+  }
+`;
+
 type LoginProps = {
   handleChange: ChangeEventHandler<HTMLInputElement>;
   handleClick: MouseEventHandler<HTMLButtonElement>;
@@ -80,11 +109,33 @@ const Login = ({ handleChange, handleClick }: LoginProps) => {
   );
 };
 
+const CurrentProfile = ({
+  profile,
+  handleLogout,
+}: {
+  profile: Profile;
+  handleLogout: (event: MouseEvent<HTMLButtonElement>) => void;
+}) => {
+  return (
+    <ProfileContainer>
+      <span>Name: {profile.name}</span>
+      <span>
+        Birthday: {profile.year}.{profile.month}.{profile.day}.
+      </span>
+      <LogOutButton onClick={handleLogout}>LOGOUT</LogOutButton>
+    </ProfileContainer>
+  );
+};
+
 export const DogFriends = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const { profiles } = useProfiles();
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentProfile, setCurrentProfile] = useState<Profile | undefined>(
+    undefined
+  );
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const {
       target: { name, value },
@@ -97,13 +148,17 @@ export const DogFriends = () => {
     }
   };
 
-  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+  const handleLogin = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    if (
-      profiles.some(
-        (profile) => profile.name === name && profile.password === password
-      )
-    ) {
+    const targetProfile = profiles.find(
+      (profile) => profile.name === name && profile.password === password
+    );
+
+    if (targetProfile) {
+      setIsLoggedIn(true);
+      setCurrentProfile(targetProfile);
+      setName("");
+      setPassword("");
       alert("Login succeeded");
     } else {
       alert("Login failed");
@@ -111,10 +166,22 @@ export const DogFriends = () => {
     console.log("name:", name, "password:", password);
   };
 
+  const handleLogout = (event: MouseEvent<HTMLButtonElement>) => {
+    setIsLoggedIn(false);
+    setCurrentProfile(undefined);
+    alert("Logout succeeded");
+  };
+
+  console.log("currentProfile:", currentProfile);
+
   return (
     <Container>
       Log in with the Dog Profile you created
-      <Login handleChange={handleChange} handleClick={handleClick} />
+      {isLoggedIn && currentProfile ? (
+        <CurrentProfile profile={currentProfile} handleLogout={handleLogout} />
+      ) : (
+        <Login handleChange={handleChange} handleClick={handleLogin} />
+      )}
     </Container>
   );
 };
