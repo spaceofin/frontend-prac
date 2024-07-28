@@ -145,9 +145,7 @@ const CurrentProfile = ({
   return (
     <ProfileContainer>
       <span>Name: {profile.name}</span>
-      <span>
-        Birthday: {profile.year}.{profile.month}.{profile.day}.
-      </span>
+      <span>Birthday: {profile.birthday}</span>
       <LogOutButton onClick={handleLogout}>LOGOUT</LogOutButton>
     </ProfileContainer>
   );

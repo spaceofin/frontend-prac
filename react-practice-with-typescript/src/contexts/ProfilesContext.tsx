@@ -4,9 +4,7 @@ export interface Profile {
   id: string;
   image: ReactNode | null;
   name: string;
-  year: string;
-  month: string;
-  day: string;
+  birthday: string;
   password: string;
 }
 

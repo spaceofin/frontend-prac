@@ -184,16 +184,22 @@ const blankProfile = {
   id: "",
   image: Blank,
   name: "",
-  year: "",
-  month: "",
-  day: "",
+  birthday: "",
   password: "",
 };
 
 interface DogProfileProps {
   SelectedDog: React.ComponentType;
   profile: Profile;
+  birthday: {
+    year: string;
+    month: string;
+    day: string;
+  };
   handleChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
+  handleBirthdayChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => void;
 }
@@ -201,7 +207,9 @@ interface DogProfileProps {
 const DogProfile: React.FC<DogProfileProps> = ({
   SelectedDog,
   profile,
+  birthday,
   handleChange,
+  handleBirthdayChange,
 }) => {
   const years = getYears();
   const months = getMonths();
@@ -231,9 +239,8 @@ const DogProfile: React.FC<DogProfileProps> = ({
           <BirthdaySelectWrapper>
             <BirthdaySelect
               name="year"
-              value={profile.year}
-              onChange={handleChange}
-            >
+              value={birthday.year}
+              onChange={handleBirthdayChange}>
               <option value="">Year</option>
               {years.map((year) => (
                 <option key={year} value={year}>
@@ -243,9 +250,8 @@ const DogProfile: React.FC<DogProfileProps> = ({
             </BirthdaySelect>
             <BirthdaySelect
               name="month"
-              value={profile.month}
-              onChange={handleChange}
-            >
+              value={birthday.month}
+              onChange={handleBirthdayChange}>
               <option value="">Month</option>
               {months.map((month) => (
                 <option key={month} value={month}>
@@ -255,9 +261,8 @@ const DogProfile: React.FC<DogProfileProps> = ({
             </BirthdaySelect>
             <BirthdaySelect
               name="day"
-              value={profile.day}
-              onChange={handleChange}
-            >
+              value={birthday.day}
+              onChange={handleBirthdayChange}>
               <option value="">Day</option>
               {days.map((day) => (
                 <option key={day} value={day}>
@@ -283,8 +288,7 @@ const SelectedProfile: React.FC<{ selectedProfile: Profile }> = ({
         <SmallText>
           name: {selectedProfile.name}
           <br />
-          Birthday: {selectedProfile.year}.{selectedProfile.month}.
-          {selectedProfile.day}.
+          Birthday: {selectedProfile.birthday}
         </SmallText>
       </ProfileWrapper>
     </ProfileContainer>
@@ -297,6 +301,11 @@ export const ProfileGenerator = () => {
   const [profile, setProfile] = useState<Profile>(blankProfile);
   const { profiles, setProfiles } = useProfiles();
   const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
+  const [birthday, setBirthday] = useState<{
+    year: string;
+    month: string;
+    day: string;
+  }>({ year: "", month: "", day: "" });
 
   // console.log("profile: ", profile);
   console.log("profiles: ", profiles);
@@ -316,12 +325,33 @@ export const ProfileGenerator = () => {
     }));
   };
 
+  const handleBirthdayChange = (
+    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
+  ) => {
+    const { name, value } = e.target;
+    setBirthday((prevState) => ({ ...prevState, [name]: value }));
+  };
+
   const handleSaveClick = () => {
     if (SelectedDog === Blank) {
       alert("Select Profile Image");
       return;
     }
-    const updatedProfile = { ...profile, image: <SelectedDog />, id: uuidv4() };
+
+    if (!Object.values(birthday).every((x) => x !== Blank && x !== "")) {
+      alert("Enter Birthday");
+      return;
+    }
+
+    const formattedBirthday = `${birthday.year}-${birthday.month}-${birthday.day}`;
+
+    const updatedProfile = {
+      ...profile,
+      image: <SelectedDog />,
+      id: uuidv4(),
+      birthday: formattedBirthday,
+    };
+
     console.log("updatedProfile", updatedProfile);
 
     if (!Object.values(updatedProfile).every((x) => x !== Blank && x !== "")) {
@@ -331,11 +361,8 @@ export const ProfileGenerator = () => {
 
     if (
       profiles.some(
-        ({ name, year, month, day }: Profile) =>
-          name === profile.name &&
-          year === profile.year &&
-          month === profile.month &&
-          day === profile.day
+        ({ name, birthday }: Profile) =>
+          name === updatedProfile.name && birthday === updatedProfile.birthday
       )
     ) {
       alert("Same Profile Already Exists.");
@@ -365,8 +392,7 @@ export const ProfileGenerator = () => {
           <DogWrapper
             key={index}
             $clicked={clickedDog ? clickedDog === index : false}
-            onClick={() => handleProfileImageSelect(index)}
-          >
+            onClick={() => handleProfileImageSelect(index)}>
             <Dog />
           </DogWrapper>
         ))}
@@ -378,7 +404,9 @@ export const ProfileGenerator = () => {
       <DogProfile
         SelectedDog={SelectedDog}
         profile={profile}
+        birthday={birthday}
         handleChange={handleChange}
+        handleBirthdayChange={handleBirthdayChange}
       />
       <ProfileListContainer>
         {profiles &&
@@ -386,8 +414,7 @@ export const ProfileGenerator = () => {
             return (
               <ProfileButton
                 key={index}
-                onClick={() => handleProfileClick(profile)}
-              >
+                onClick={() => handleProfileClick(profile)}>
                 {profile.name}
               </ProfileButton>
             );
