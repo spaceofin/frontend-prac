@@ -232,7 +232,8 @@ const DogProfile: React.FC<DogProfileProps> = ({
             <BirthdaySelect
               name="year"
               value={profile.year}
-              onChange={handleChange}>
+              onChange={handleChange}
+            >
               <option value="">Year</option>
               {years.map((year) => (
                 <option key={year} value={year}>
@@ -243,7 +244,8 @@ const DogProfile: React.FC<DogProfileProps> = ({
             <BirthdaySelect
               name="month"
               value={profile.month}
-              onChange={handleChange}>
+              onChange={handleChange}
+            >
               <option value="">Month</option>
               {months.map((month) => (
                 <option key={month} value={month}>
@@ -254,7 +256,8 @@ const DogProfile: React.FC<DogProfileProps> = ({
             <BirthdaySelect
               name="day"
               value={profile.day}
-              onChange={handleChange}>
+              onChange={handleChange}
+            >
               <option value="">Day</option>
               {days.map((day) => (
                 <option key={day} value={day}>
@@ -325,6 +328,20 @@ export const ProfileGenerator = () => {
       alert("Enter All Values");
       return;
     }
+
+    if (
+      profiles.some(
+        ({ name, year, month, day }: Profile) =>
+          name === profile.name &&
+          year === profile.year &&
+          month === profile.month &&
+          day === profile.day
+      )
+    ) {
+      alert("Same Profile Already Exists.");
+      return;
+    }
+
     setProfiles((prevProfiles: Profile[] | []) => [
       ...prevProfiles,
       updatedProfile,
@@ -348,7 +365,8 @@ export const ProfileGenerator = () => {
           <DogWrapper
             key={index}
             $clicked={clickedDog ? clickedDog === index : false}
-            onClick={() => handleProfileImageSelect(index)}>
+            onClick={() => handleProfileImageSelect(index)}
+          >
             <Dog />
           </DogWrapper>
         ))}
@@ -368,7 +386,8 @@ export const ProfileGenerator = () => {
             return (
               <ProfileButton
                 key={index}
-                onClick={() => handleProfileClick(profile)}>
+                onClick={() => handleProfileClick(profile)}
+              >
                 {profile.name}
               </ProfileButton>
             );
