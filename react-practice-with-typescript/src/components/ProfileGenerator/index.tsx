@@ -186,6 +186,7 @@ const blankProfile = {
   name: "",
   birthday: "",
   password: "",
+  friends: [],
 };
 
 interface DogProfileProps {
@@ -359,13 +360,8 @@ export const ProfileGenerator = () => {
       return;
     }
 
-    if (
-      profiles.some(
-        ({ name, birthday }: Profile) =>
-          name === updatedProfile.name && birthday === updatedProfile.birthday
-      )
-    ) {
-      alert("Same Profile Already Exists.");
+    if (profiles.some(({ name }: Profile) => name === updatedProfile.name)) {
+      alert("Profile With Same Name Already Exists.");
       return;
     }
 

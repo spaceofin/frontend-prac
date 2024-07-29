@@ -13,7 +13,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 500px;
-  height: 400px;
+  height: 500px;
   margin: 20px;
   padding: 15px;
   border-radius: 10px;
@@ -21,6 +21,7 @@ const Container = styled.div`
   font-size: 25px;
   font-weight: bold;
 `;
+
 const LoginForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -67,6 +68,7 @@ const ProfileContainer = styled.div`
   height: 100px;
   gap: 2px;
   margin: 20px;
+  margin-bottom: 10px;
   padding: 20px;
   padding-bottom: 15px;
   background-color: #4ee65f;
@@ -88,18 +90,31 @@ const LogOutButton = styled.button`
   }
 `;
 
-const FriendsList = styled.div`
-  display: flex;
+const FriendCandidates = styled.div`
   width: 350px;
+  height: 70px;
   background-color: #dddddd;
   border-radius: 10px;
   margin: 20px;
   margin-top: 10px;
   padding: 20px;
+  overflow: auto;
+`;
+
+const FriendList = styled.div`
+  width: 350px;
+  height: 25px;
+  background-color: #4ee65f;
+  border-radius: 10px;
+  margin: 20px;
+  margin-top: 10px;
+  padding: 20px;
+  font-size: 14px;
+  font-weight: normal;
+  overflow-x: auto;
 `;
 
 const Friend = styled.button`
-  align-self: flex-end;
   margin: 5px;
   padding: 10px 15px;
   font-size: 20px;
@@ -112,6 +127,29 @@ const Friend = styled.button`
     box-shadow: inset 3px 3px 0px rgba(255, 255, 255, 0.4),
       inset -3px -3px 0px rgba(255, 255, 255, 0.4);
   }
+`;
+
+const FriendText = styled.div`
+  display: inline-block;
+  font-size: 16px;
+  font-weight: normal;
+  margin: 0px 10px;
+`;
+
+const Message = styled.span`
+  font-size: 18px;
+  font-weight: normal;
+  margin: 10px;
+`;
+
+const FriendListTitle = styled.div`
+  display: flex;
+  align-self: start;
+  margin-left: 70px;
+  margin-bottom: 0px;
+  font-size: 20px;
+  font-weight: 500;
+  color: #14692d;
 `;
 
 type LoginProps = {
@@ -143,11 +181,23 @@ const CurrentProfile = ({
   handleLogout: (event: MouseEvent<HTMLButtonElement>) => void;
 }) => {
   return (
-    <ProfileContainer>
-      <span>Name: {profile.name}</span>
-      <span>Birthday: {profile.birthday}</span>
-      <LogOutButton onClick={handleLogout}>LOGOUT</LogOutButton>
-    </ProfileContainer>
+    <>
+      <ProfileContainer>
+        <span>Name: {profile.name}</span>
+        <span>Birthday: {profile.birthday}</span>
+        <LogOutButton onClick={handleLogout}>LOGOUT</LogOutButton>
+      </ProfileContainer>
+      <FriendListTitle>Friends List</FriendListTitle>
+      <FriendList style={{ backgroundColor: "#4ee65f" }}>
+        {profile.friends.length !== 0 ? (
+          profile.friends.map((friend, index) => (
+            <FriendText key={index}>{friend}</FriendText>
+          ))
+        ) : (
+          <Message>{profile.name} has no friends</Message>
+        )}
+      </FriendList>
+    </>
   );
 };
 
@@ -198,6 +248,25 @@ export const DogFriends = () => {
 
   console.log("currentProfile:", currentProfile);
 
+  const handleFriendClick = (event: MouseEvent<HTMLButtonElement>) => {
+    const {
+      currentTarget: { textContent },
+    } = event;
+
+    if (currentProfile?.friends.includes(textContent)) {
+      alert("That Friend Is Already a Friend");
+      return;
+    }
+
+    if (currentProfile) {
+      const updatedProfile = {
+        ...currentProfile,
+        friends: [...currentProfile.friends, textContent],
+      };
+      setCurrentProfile(updatedProfile);
+    }
+  };
+
   return (
     <Container>
       Log in with the Dog Profile you created
@@ -208,14 +277,16 @@ export const DogFriends = () => {
             handleLogout={handleLogout}
           />
           Select a Friend
-          <FriendsList>
+          <FriendCandidates>
             {profiles.map(
               (profile) =>
                 profile.id !== currentProfile.id && (
-                  <Friend key={profile.id}>{profile.name}</Friend>
+                  <Friend key={profile.id} onClick={handleFriendClick}>
+                    <span>{profile.name}</span>
+                  </Friend>
                 )
             )}
-          </FriendsList>
+          </FriendCandidates>
         </>
       ) : (
         <Login handleChange={handleChange} handleClick={handleLogin} />

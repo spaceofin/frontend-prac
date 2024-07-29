@@ -6,6 +6,7 @@ export interface Profile {
   name: string;
   birthday: string;
   password: string;
+  friends: (string | null)[];
 }
 
 interface ProfilesContextType {
