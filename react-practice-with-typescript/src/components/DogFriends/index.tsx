@@ -114,12 +114,13 @@ const FriendList = styled.div`
   overflow-x: auto;
 `;
 
-const Friend = styled.button`
+const Friend = styled.button<{ isActive: boolean }>`
   margin: 5px;
   padding: 10px 15px;
   font-size: 20px;
   font-weight: 500;
-  background-color: burlywood;
+  // background-color: burlywood;
+  background-color: ${(props) => (props.isActive ? "#A3DEFF" : "burlywood")};
   border-radius: 5px;
   border: none;
 
@@ -210,6 +211,7 @@ export const DogFriends = () => {
   const [currentProfile, setCurrentProfile] = useState<Profile | undefined>(
     undefined
   );
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const {
       target: { name, value },
@@ -248,24 +250,31 @@ export const DogFriends = () => {
 
   console.log("currentProfile:", currentProfile);
 
-  const handleFriendClick = (event: MouseEvent<HTMLButtonElement>) => {
+  const handleFriendClick = (
+    event: MouseEvent<HTMLButtonElement>,
+    id: string
+  ): void => {
     const {
       currentTarget: { textContent },
     } = event;
 
-    if (currentProfile?.friends.includes(textContent)) {
-      alert("That Friend Is Already a Friend");
-      return;
-    }
-
     if (currentProfile) {
+      const updatedFriends = currentProfile?.friends.includes(textContent)
+        ? currentProfile.friends.filter((friend) => friend !== textContent)
+        : [...currentProfile.friends, textContent];
       const updatedProfile = {
         ...currentProfile,
-        friends: [...currentProfile.friends, textContent],
+        friends: updatedFriends,
       };
       setCurrentProfile(updatedProfile);
     }
   };
+
+  const isActive = (name: string): boolean => {
+    return currentProfile?.friends.includes(name) ?? false;
+  };
+
+  console.log("currentProfile", currentProfile);
 
   return (
     <Container>
@@ -281,7 +290,11 @@ export const DogFriends = () => {
             {profiles.map(
               (profile) =>
                 profile.id !== currentProfile.id && (
-                  <Friend key={profile.id} onClick={handleFriendClick}>
+                  <Friend
+                    key={profile.id}
+                    isActive={isActive(profile.name)}
+                    onClick={(event) => handleFriendClick(event, profile.id)}
+                  >
                     <span>{profile.name}</span>
                   </Friend>
                 )
