@@ -11,6 +11,7 @@ import { DogsSquares } from "components/DogsSquares";
 import { ProfileGenerator } from "components/ProfileGenerator";
 import { DogFriends } from "components/DogFriends";
 import { ProfilesProvider } from "contexts/ProfilesContext";
+import { IamgeUploader } from "components/ImageUploader";
 
 // import { memo } from "react";
 
@@ -30,6 +31,7 @@ export default function App() {
         <DogsSquares />
         <ProfileGenerator />
         <DogFriends />
+        <IamgeUploader />
       </Container>
     </ProfilesProvider>
   );
