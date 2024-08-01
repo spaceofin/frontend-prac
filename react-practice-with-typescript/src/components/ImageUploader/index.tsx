@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 500px;
-  height: 500px;
+  height: 520px;
   margin: 20px;
   padding: 15px;
   border-radius: 10px;
@@ -19,9 +19,9 @@ const ImageUploaderContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  //   background-color: lightgray;
+  // background-color: lightgray;
   margin: 20px;
+  height: 450px;
 `;
 
 const StyledInput = styled.input`
@@ -31,25 +31,41 @@ const StyledInput = styled.input`
   border: 3px solid #7c6bb8;
   border-radius: 5px;
   font-size: 16px;
-  font-weight: 600;
   background-color: #c7ceff;
 `;
 
 const ImageWrapper = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   margin: 30px;
-  //   background-color: lime;
-  width: 350px;
+  // background-color: lime;
+  width: 300px;
+  height: 300px;
+
+  img {
+    object-fit: contain;
+  }
+`;
+
+const ImageFilterContainer = styled.div`
+  display: flex;
+`;
+
+const StyledLabel = styled.label`
+  font-size: 18px;
+  font-weight: normal;
+  margin: 0px 10px;
 `;
 
 export const IamgeUploader = () => {
   const [image, setImage] = useState<string | null>(null);
+  const [filter, setFilter] = useState("none");
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("e.target.file:", e.target.files);
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("event.target.file:", event.target.files);
 
-    const fileName = e.target.files?.[0];
+    const fileName = event.target.files?.[0];
     const reader = new FileReader();
 
     reader.onloadend = () => {
@@ -58,6 +74,11 @@ export const IamgeUploader = () => {
 
     if (fileName) reader.readAsDataURL(fileName);
   };
+
+  const handleFilterChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    setFilter(event.target.value);
+  };
+
   return (
     <Container>
       ImageUploader
@@ -67,9 +88,39 @@ export const IamgeUploader = () => {
           accept="image/*"
           onChange={handleImageChange}
         />
+        <ImageFilterContainer>
+          <div>
+            <StyledLabel>Choose a filter</StyledLabel>
+            <select id="filters" onChange={handleFilterChange}>
+              <option value="none">None</option>
+              <option value="blur(5px)">Blur</option>
+              <option value="brightness(1.5)">Brightness</option>
+              <option value="contrast(200%)">Contrast</option>
+              <option value="drop-shadow(16px 16px 10px skyblue)">
+                Drop Shadow
+              </option>
+              <option value="grayscale(50%)">Grayscale</option>
+              <option value="hue-rotate(90deg)">Hue Rotate</option>
+              <option value="invert(75%)">Invert</option>
+              <option value="opacity(25%)">Opacity</option>
+              <option value="saturate(30%)">Saturate</option>
+              <option value="sepia(60%)">Sepia</option>
+              <option value="contrast(50%) brightness(150%)">
+                Multiple Filter 1
+              </option>
+              <option value="drop-shadow(3px 3px red) sepia(100%) drop-shadow(-3px -3px blue)">
+                Multiple Filter 2
+              </option>
+            </select>
+          </div>
+        </ImageFilterContainer>
         <ImageWrapper>
           {image && (
-            <img src={image} alt="Preview" style={{ width: "300px" }} />
+            <img
+              src={image}
+              alt="Preview"
+              style={{ width: "300px", filter: filter }}
+            />
           )}
         </ImageWrapper>
       </ImageUploaderContainer>

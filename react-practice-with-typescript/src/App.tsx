@@ -7,10 +7,10 @@ import styled from "styled-components";
 // import { Circles } from "components/Cricles";
 // import { Icons } from "components/Icons";
 // import { IconAdder } from "components/IconAdder";
-import { DogsSquares } from "components/DogsSquares";
-import { ProfileGenerator } from "components/ProfileGenerator";
-import { DogFriends } from "components/DogFriends";
-import { ProfilesProvider } from "contexts/ProfilesContext";
+// import { DogsSquares } from "components/DogsSquares";
+// import { ProfileGenerator } from "components/ProfileGenerator";
+// import { DogFriends } from "components/DogFriends";
+// import { ProfilesProvider } from "contexts/ProfilesContext";
 import { IamgeUploader } from "components/ImageUploader";
 
 // import { memo } from "react";
@@ -26,13 +26,8 @@ const Container = styled.div`
 
 export default function App() {
   return (
-    <ProfilesProvider>
-      <Container>
-        <DogsSquares />
-        <ProfileGenerator />
-        <DogFriends />
-        <IamgeUploader />
-      </Container>
-    </ProfilesProvider>
+    <Container>
+      <IamgeUploader />
+    </Container>
   );
 }
