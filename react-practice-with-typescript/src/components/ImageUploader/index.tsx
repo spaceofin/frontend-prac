@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState, ChangeEvent } from "react";
+import { useState } from "react";
 import ImageFilter from "react-image-filter";
 
 const Container = styled.div`
@@ -7,7 +7,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 500px;
-  height: 520px;
+  height: 900px;
   margin: 20px;
   padding: 15px;
   border-radius: 10px;
@@ -64,11 +64,55 @@ const StyledLabel = styled.label`
   margin: 0px 10px;
 `;
 
+const FiltersPreview = styled.div`
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  margin: 20px;
+`;
+
+const Filter = styled.div<{ isSelected: boolean }>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: top;
+  text-align: center;
+  width: 85px;
+  height: 95px;
+  padding: 15px 2px 0px 2px;
+  margin: 0px 5px;
+  outline: ${(props) => (props.isSelected ? "4px solid #88579C" : "none")};
+  border-radius: 10px;
+`;
+
+const FilterLabel = styled.label`
+  font-size: 16px;
+  font-weight: normal;
+`;
+
+const filters = [
+  { name: "None", filter: "none" },
+  { name: "Blur", filter: "blur(5px)" },
+  { name: "Brightness", filter: "brightness(1.5)" },
+  { name: "Contrast", filter: "contrast(200%)" },
+  { name: "Drop Shadow", filter: "drop-shadow(16px 16px 10px skyblue)" },
+  { name: "Grayscale", filter: "grayscale(50%)" },
+  { name: "Hue Rotate", filter: "hue-rotate(90deg)" },
+  { name: "Invert", filter: "invert(75%)" },
+  { name: "Opacity", filter: "opacity(25%)" },
+  { name: "Saturate", filter: "saturate(30%)" },
+  { name: "Sepia", filter: "sepia(60%)" },
+  { name: "Multiple Filter1", filter: "contrast(50%) brightness(150%)" },
+  {
+    name: "Multiple Filter2",
+    filter: "drop-shadow(3px 3px red) sepia(100%) drop-shadow(-3px -3px blue)",
+  },
+];
+
 export const IamgeUploader = () => {
   const [image, setImage] = useState<string | null>(null);
   const [imageUrl, setImageUrl] = useState<string>("");
-  const [filter, setFilter] = useState("none");
   const [isChecked, setIsChecked] = useState<boolean>(false);
+  const [selectedFilter, setSelectedFilter] = useState("");
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log("event.target.file:", event.target.files);
@@ -90,8 +134,9 @@ export const IamgeUploader = () => {
     }
   };
 
-  const handleFilterChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setFilter(event.target.value);
+  const handleFilterChange = (filter: string) => {
+    setSelectedFilter(filter);
+    // setFilter(filter);
   };
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -107,33 +152,29 @@ export const IamgeUploader = () => {
           accept="image/*"
           onChange={handleImageChange}
         />
+
+        <FiltersPreview>
+          {filters.map((filter) => (
+            <Filter
+              key={filter.name}
+              isSelected={selectedFilter === filter.filter}
+              onClick={() => handleFilterChange(filter.filter)}>
+              {image && (
+                <>
+                  <img
+                    src={image}
+                    alt={filter.name}
+                    style={{ filter: filter.filter }}
+                    width="50px"
+                    height="50px"
+                  />
+                  <FilterLabel>{filter.name}</FilterLabel>
+                </>
+              )}
+            </Filter>
+          ))}
+        </FiltersPreview>
         <ImageFiltersContainer>
-          <ImageFilterWrapper>
-            <div>
-              <StyledLabel>Choose a filter</StyledLabel>
-              <select id="filters" onChange={handleFilterChange}>
-                <option value="none">None</option>
-                <option value="blur(5px)">Blur</option>
-                <option value="brightness(1.5)">Brightness</option>
-                <option value="contrast(200%)">Contrast</option>
-                <option value="drop-shadow(16px 16px 10px skyblue)">
-                  Drop Shadow
-                </option>
-                <option value="grayscale(50%)">Grayscale</option>
-                <option value="hue-rotate(90deg)">Hue Rotate</option>
-                <option value="invert(75%)">Invert</option>
-                <option value="opacity(25%)">Opacity</option>
-                <option value="saturate(30%)">Saturate</option>
-                <option value="sepia(60%)">Sepia</option>
-                <option value="contrast(50%) brightness(150%)">
-                  Multiple Filter 1
-                </option>
-                <option value="drop-shadow(3px 3px red) sepia(100%) drop-shadow(-3px -3px blue)">
-                  Multiple Filter 2
-                </option>
-              </select>
-            </div>
-          </ImageFilterWrapper>
           <ImageFilterWrapper>
             <StyledLabel>Apply Special Filter </StyledLabel>
             <input
@@ -157,7 +198,7 @@ export const IamgeUploader = () => {
               <img
                 src={image}
                 alt="Preview"
-                style={{ width: "300px", filter: filter }}
+                style={{ width: "300px", filter: selectedFilter }}
               />
             )
           )}
