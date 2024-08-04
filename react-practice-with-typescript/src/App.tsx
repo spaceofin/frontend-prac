@@ -12,6 +12,7 @@ import styled from "styled-components";
 // import { DogFriends } from "components/DogFriends";
 // import { ProfilesProvider } from "contexts/ProfilesContext";
 import { IamgeUploader } from "components/ImageUploader";
+import { ImageCropper } from "components/ImageCropper";
 
 // import { memo } from "react";
 
@@ -28,6 +29,7 @@ export default function App() {
   return (
     <Container>
       <IamgeUploader />
+      <ImageCropper />
     </Container>
   );
 }

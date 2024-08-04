@@ -11,3 +11,8 @@ declare module "react-image-filter" {
 
   export default class ImageFilter extends Component<ImageFilterProps> {}
 }
+
+declare module "*.png" {
+  const value: string;
+  export default value;
+}
