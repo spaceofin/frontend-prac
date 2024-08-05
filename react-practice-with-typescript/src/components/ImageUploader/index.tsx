@@ -70,7 +70,7 @@ const FiltersPreview = styled.div`
   margin: 20px;
 `;
 
-const Filter = styled.div<{ isSelected: boolean }>`
+const Filter = styled.div<{ $isSelected: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -80,7 +80,7 @@ const Filter = styled.div<{ isSelected: boolean }>`
   height: 95px;
   padding: 15px 2px 0px 2px;
   margin: 0px 5px;
-  outline: ${(props) => (props.isSelected ? "4px solid #88579C" : "none")};
+  outline: ${(props) => (props.$isSelected ? "4px solid #88579C" : "none")};
   border-radius: 10px;
 `;
 
@@ -157,7 +157,7 @@ export const IamgeUploader = () => {
           {filters.map((filter) => (
             <Filter
               key={filter.name}
-              isSelected={selectedFilter === filter.filter}
+              $isSelected={selectedFilter === filter.filter}
               onClick={() => handleFilterChange(filter.filter)}>
               {image && (
                 <>
