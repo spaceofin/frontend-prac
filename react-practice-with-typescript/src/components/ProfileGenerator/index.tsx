@@ -1,9 +1,5 @@
 import styled from "styled-components";
-import { ReactComponent as Dog1 } from "assets/icons/dog1.svg";
-import { ReactComponent as Dog2 } from "assets/icons/dog2.svg";
-import { ReactComponent as Dog3 } from "assets/icons/dog3.svg";
-import { ReactComponent as Dog4 } from "assets/icons/dog4.svg";
-import { ReactComponent as Dog5 } from "assets/icons/dog5.svg";
+import { Dog1, Dog2, Dog3, Dog4, Dog5 } from "assets/icons";
 import React, { useState } from "react";
 import { getYears, getMonths, getDays } from "utils/dateUtils";
 import { useProfiles, Profile } from "contexts/ProfilesContext";

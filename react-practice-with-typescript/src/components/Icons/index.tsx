@@ -1,9 +1,5 @@
 import styled from "styled-components";
-import { ReactComponent as Raven } from "assets/icons/raven.svg";
-import { ReactComponent as WaterDrop } from "assets/icons/water-drop.svg";
-import { ReactComponent as Diamond } from "assets/icons/diamond.svg";
-import { ReactComponent as StrokeFull } from "assets/icons/stroke-full.svg";
-import { ReactComponent as Robot } from "assets/icons/robot.svg";
+import { Raven, WaterDrop, Diamond, StrokeFull, Robot } from "assets/icons";
 import { useRef } from "react";
 
 import Draggable from "react-draggable";
@@ -48,8 +44,7 @@ export const Icons = () => {
       <Draggable
         nodeRef={nodeRef}
         defaultPosition={{ x: 60, y: 220 }}
-        bounds="parent"
-      >
+        bounds="parent">
         <DraggableItem ref={nodeRef}>
           <Raven />
         </DraggableItem>
@@ -57,8 +52,7 @@ export const Icons = () => {
       <Draggable
         nodeRef={nodeRef}
         defaultPosition={{ x: 140, y: 220 }}
-        bounds="parent"
-      >
+        bounds="parent">
         <DraggableItem ref={nodeRef}>
           <WaterDrop />
         </DraggableItem>
@@ -66,8 +60,7 @@ export const Icons = () => {
       <Draggable
         nodeRef={nodeRef}
         defaultPosition={{ x: 220, y: 220 }}
-        bounds="parent"
-      >
+        bounds="parent">
         <DraggableItem ref={nodeRef}>
           <Diamond />
         </DraggableItem>
@@ -75,8 +68,7 @@ export const Icons = () => {
       <Draggable
         nodeRef={nodeRef}
         defaultPosition={{ x: 300, y: 220 }}
-        bounds="parent"
-      >
+        bounds="parent">
         <DraggableItem ref={nodeRef}>
           <StrokeFull />
         </DraggableItem>
@@ -84,8 +76,7 @@ export const Icons = () => {
       <Draggable
         nodeRef={nodeRef}
         defaultPosition={{ x: 380, y: 220 }}
-        bounds="parent"
-      >
+        bounds="parent">
         <DraggableItem ref={nodeRef}>
           <Robot />
         </DraggableItem>
