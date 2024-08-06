@@ -6,6 +6,7 @@ import { useCartPhotos } from "contexts/CartPhotosContext";
 import { useAuth } from "contexts/AuthContext";
 import { ReactComponent as AccountCircle } from "assets/icons/account-circle.svg";
 import { ReactComponent as Logout } from "assets/icons/logout.svg";
+import { ReactComponent as House } from "assets/icons/house.svg";
 
 const Container = styled.div`
   display: flex;
@@ -69,6 +70,12 @@ const UserContainer = styled.div`
   padding: 10px;
   margin-left: 10px;
   gap: 5px;
+`;
+
+const StyledHouse = styled(House)`
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const StyledLogOut = styled(Logout)`
@@ -141,9 +148,14 @@ export const Gallery = () => {
     navigate("/");
   };
 
+  const handleGoToHome = () => {
+    navigate("/home");
+  };
+
   return (
     <Container>
       <UserContainer>
+        <StyledHouse onClick={handleGoToHome} />
         <AccountCircle />
         {user ? user : "No User Information"}
         <StyledLogOut onClick={handleLogout} />

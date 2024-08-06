@@ -127,7 +127,7 @@ export const LoginPage = () => {
 
     if (isUser) {
       login(userName);
-      navigate("/gallery");
+      navigate("/home");
     } else {
       alert("Invalid userName or Password...");
       setUserName("");
