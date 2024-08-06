@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "contexts/AuthContext";
-import { ReactComponent as AccountCircle } from "assets/icons/account-circle.svg";
-import { ReactComponent as Logout } from "assets/icons/logout.svg";
+import { NavigationBar } from "components";
 
 const Container = styled.div`
   display: flex;
@@ -55,36 +54,13 @@ const Spacer = styled.div`
   height: inherit;
 `;
 
-const UserContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  width: 650px;
-  font-size: 20px;
-  font-weight: 600;
-  padding: 10px;
-  margin-left: 10px;
-  gap: 5px;
-`;
-
-const StyledLogOut = styled(Logout)`
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
 export const Home = () => {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
 
   console.log(user);
   if (user === null) console.log("user is null");
 
   const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logout();
-    navigate("/");
-  };
 
   const handleUploadPhotos = () => {
     alert("Upload Photos");
@@ -96,11 +72,7 @@ export const Home = () => {
 
   return (
     <Container>
-      <UserContainer>
-        <AccountCircle />
-        {user ? user : "No User Information"}
-        <StyledLogOut onClick={handleLogout} />
-      </UserContainer>
+      <NavigationBar />
       <ButtonWrapper>
         <Button color="lightgray" onClick={handleUploadPhotos}>
           Upload Photos

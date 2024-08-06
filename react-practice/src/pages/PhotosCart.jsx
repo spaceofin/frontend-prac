@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { Photo } from "../components";
 import { useCartPhotos } from "contexts/CartPhotosContext";
+import { NavigationBar } from "components";
 
 const Container = styled.div`
   display: inline-flex;
@@ -77,6 +78,7 @@ export const PhotosCart = () => {
 
   return (
     <Container>
+      <NavigationBar />
       <TopBar>
         <Title>CART</Title>
         <Button onClick={handleBackClick}>BACK</Button>
