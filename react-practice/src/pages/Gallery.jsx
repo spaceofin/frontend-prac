@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Photo } from ".";
+import { Photo } from "../components";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useCartPhotos } from "contexts/CartPhotosContext";

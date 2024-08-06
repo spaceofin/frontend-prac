@@ -1,4 +1,4 @@
-import { Gallery, PhotosCart, LoginPage, SignUpPage } from "components";
+import { Gallery, PhotosCart, LoginPage, SignUpPage } from "pages";
 import { Routes, Route } from "react-router-dom";
 import { CartPhotosProvider } from "contexts/CartPhotosContext";
 import { AuthProvider } from "contexts/AuthContext";

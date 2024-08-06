@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { Photo } from ".";
+import { Photo } from "../components";
 import { useCartPhotos } from "contexts/CartPhotosContext";
 
 const Container = styled.div`
