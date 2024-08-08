@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "contexts/AuthContext";
 import { NavigationBar } from "components";
+import { Profile } from "components/Profile";
 
 const Container = styled.div`
   display: flex;
@@ -16,6 +17,7 @@ const ContentsWrapper = styled.div`
 
 const Content = styled.div`
   display: flex;
+  justify-content: center;
   min-width: 630px;
   min-height: 840px;
   padding: 20px;
@@ -83,7 +85,9 @@ export const Home = () => {
         </Button>
       </ButtonWrapper>
       <ContentsWrapper>
-        <Content>Content</Content>
+        <Content>
+          <Profile />
+        </Content>
       </ContentsWrapper>
     </Container>
   );
