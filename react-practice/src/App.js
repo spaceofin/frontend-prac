@@ -1,4 +1,11 @@
-import { Gallery, PhotosCart, LoginPage, SignUpPage, Home } from "pages";
+import {
+  Gallery,
+  PhotosCart,
+  LoginPage,
+  SignUpPage,
+  Home,
+  Practice,
+} from "pages";
 import { Routes, Route } from "react-router-dom";
 import { CartPhotosProvider } from "contexts/CartPhotosContext";
 import { AuthProvider } from "contexts/AuthContext";
@@ -14,6 +21,7 @@ const App = () => {
             <Route path="/sign-up" element={<SignUpPage />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/photos-cart" element={<PhotosCart />} />
+            <Route path="/practice" element={<Practice />} />
           </Routes>
         </AuthProvider>
       </CartPhotosProvider>
