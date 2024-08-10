@@ -117,20 +117,16 @@ export const IamgeUploader = () => {
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log("event.target.file:", event.target.files);
 
-    const fileName = event.target.files?.[0];
-    const reader = new FileReader();
-
-    reader.onloadend = () => {
-      setImage(reader.result as string);
-    };
-
-    if (fileName) reader.readAsDataURL(fileName);
-
     const file = event.target.files?.[0];
+
     if (file) {
-      const url = URL.createObjectURL(file);
-      console.log(imageUrl);
-      setImageUrl(url);
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        setImage(reader.result as string);
+        setImageUrl(URL.createObjectURL(file));
+      };
+      reader.readAsDataURL(file);
     }
   };
 
