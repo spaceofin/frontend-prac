@@ -13,6 +13,7 @@ import styled from "styled-components";
 // import { ProfilesProvider } from "contexts/ProfilesContext";
 import { IamgeUploader } from "components/ImageUploader";
 import { ImageCropper } from "components/ImageCropper";
+import { ImageResizer } from "components/ImageResizer";
 
 // import { memo } from "react";
 
@@ -30,6 +31,7 @@ export default function App() {
     <Container>
       <IamgeUploader />
       <ImageCropper />
+      <ImageResizer />
     </Container>
   );
 }
