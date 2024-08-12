@@ -14,6 +14,7 @@ import styled from "styled-components";
 import { IamgeUploader } from "components/ImageUploader";
 import { ImageCropper } from "components/ImageCropper";
 import { ImageResizer } from "components/ImageResizer";
+import { ImageScaler } from "components/ImageScaler";
 
 // import { memo } from "react";
 
@@ -32,6 +33,7 @@ export default function App() {
       <IamgeUploader />
       <ImageCropper />
       <ImageResizer />
+      <ImageScaler />
     </Container>
   );
 }
