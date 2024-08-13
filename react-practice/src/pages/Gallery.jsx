@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Photo } from "../components";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useCartPhotos } from "contexts/CartPhotosContext";
 import { NavigationBar } from "components";
+import { ReactComponent as Inventory } from "assets/icons/inventory.svg";
 
 const Container = styled.div`
   display: flex;
@@ -41,7 +42,7 @@ const Button = styled.button`
   height: 40px;
   border: 0px;
   border-radius: 5px;
-  // background-color: lightgrey;
+  margin: 0px 10px;
   background-color: ${(props) => props.color};
   font-size: 16px;
   font-weight: 600;
@@ -52,9 +53,24 @@ const Button = styled.button`
   }
 `;
 
-const Spacer = styled.div`
-  width: 30px;
-  height: inherit;
+const InventoryButton = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 5px 0px 10px;
+  padding: 0px 5px;
+  width: 50px;
+  height: 40px;
+  border: 0px;
+  border-radius: 5px;
+  background-color: ${(props) => props.color};
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow: 3px 3px 0px rgba(128, 128, 128, 1);
+
+  &:active {
+    box-shadow: inset 3px 3px 0px rgba(0, 0, 0, 0.5);
+  }
 `;
 
 export const Gallery = () => {
@@ -80,14 +96,20 @@ export const Gallery = () => {
   };
 
   const handleAddToCartClick = () => {
-    setCartPhotos(
-      Object.entries(clickedPhotos)
-        .filter(([_, value]) => value)
-        .map(([key, _]) => Number(key))
-    );
+    const newEntries = Object.entries(clickedPhotos)
+      .filter(([_, value]) => value)
+      .map(([key, _]) => Number(key));
+    const newCartPhotos = Array.from(new Set([...cartPhotos, ...newEntries]));
+
+    setCartPhotos(newCartPhotos);
 
     console.log("clickedPhotos:", clickedPhotos);
-    if (Object.values(clickedPhotos).includes(true)) navigate("/photos-cart");
+
+    setClickedPhotos(
+      Object.fromEntries(
+        Array.from({ length: photosCount }, (_, i) => [i + 1, false])
+      )
+    );
   };
 
   const handleReloadClick = () => {
@@ -100,17 +122,9 @@ export const Gallery = () => {
     });
   };
 
-  useEffect(() => {
-    console.log("***** Gallery component useEffect was called.******");
-    setClickedPhotos(
-      Object.fromEntries(
-        Array.from({ length: photosCount }, (_, index) => [
-          index,
-          cartPhotos.includes(index),
-        ])
-      )
-    );
-  }, [cartPhotos]);
+  const handleInventoryClick = () => {
+    navigate("/photos-cart");
+  };
 
   return (
     <Container>
@@ -119,10 +133,12 @@ export const Gallery = () => {
         <Button color="lightgray" onClick={handleReloadClick}>
           Reload Photos
         </Button>
-        <Spacer />
         <Button color="lightgray" onClick={handleAddToCartClick}>
-          Add To Cart
+          Save Photos
         </Button>
+        <InventoryButton color="lightgray">
+          <Inventory onClick={handleInventoryClick} />
+        </InventoryButton>
       </ButtonWrapper>
       <ContentsWrapper>
         <PhotosContainer>
