@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { ReactComponent as CheckCircle } from "assets/icons/check-circle.svg";
 import { ReactComponent as Cancel } from "assets/icons/cancel.svg";
 import { useCartPhotos } from "contexts/CartPhotosContext";
+import { useEffect } from "react";
 
 const Container = styled.div`
   position: relative;
@@ -40,10 +41,14 @@ export const Photo = ({
   needCheckCircle = null,
   needCancel = null,
 }) => {
-  const { randomNumber } = useCartPhotos();
+  const { randomNumber, setPhotoUrls } = useCartPhotos();
   const url = `https://picsum.photos/seed/${index + randomNumber}/200/200`;
 
-  console.log("index:", index, "randomNumber:", randomNumber, " url:", url);
+  useEffect(() => {
+    setPhotoUrls((prevUrls) => [...prevUrls, url]);
+  }, [setPhotoUrls, url]);
+
+  // console.log("index:", index, "randomNumber:", randomNumber, " url:", url);
 
   return (
     <Container>

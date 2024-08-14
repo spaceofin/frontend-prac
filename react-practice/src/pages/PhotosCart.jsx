@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { Photo } from "../components";
+// import { Photo } from "../components";
 import { useCartPhotos } from "contexts/CartPhotosContext";
 import { NavigationBar } from "components";
 
@@ -63,13 +63,18 @@ const Button = styled.button`
   }
 `;
 
-export const PhotosCart = () => {
-  const { cartPhotos, setCartPhotos } = useCartPhotos();
-  console.log("cartphotos:", cartPhotos);
+const StyledImg = styled.img`
+  border-radius: 5px;
+  margin: 5px;
+`;
 
-  const handleCancelClick = (photoNumber) => {
-    setCartPhotos(cartPhotos.filter((number) => number !== photoNumber));
-  };
+export const PhotosCart = () => {
+  const { cartPhotoUrls } = useCartPhotos();
+  console.log("cartphotos:", cartPhotoUrls);
+
+  // const handleCancelClick = (photoNumber) => {
+  //   setCartPhotoUrls(cartPhotoUrls.filter((number) => number !== photoNumber));
+  // };
 
   const navigate = useNavigate();
   const handleBackClick = () => {
@@ -84,7 +89,7 @@ export const PhotosCart = () => {
         <Button onClick={handleBackClick}>BACK</Button>
       </TopBar>
       <PhotosCartContainer>
-        {cartPhotos.length > 0 &&
+        {/* {cartPhotos.length > 0 &&
           cartPhotos.map((photoNumber, index) => (
             <Photo
               key={index}
@@ -92,6 +97,10 @@ export const PhotosCart = () => {
               needCancel={true}
               handleCancelClick={handleCancelClick}
             />
+          ))} */}
+        {cartPhotoUrls.length > 0 &&
+          cartPhotoUrls.map((photoUrl, index) => (
+            <StyledImg key={index} src={photoUrl} alt="random image" />
           ))}
       </PhotosCartContainer>
     </Container>

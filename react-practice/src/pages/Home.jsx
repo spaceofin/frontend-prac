@@ -59,7 +59,7 @@ const Spacer = styled.div`
 export const Home = () => {
   const { user } = useAuth();
 
-  console.log(user);
+  console.log("user is ", user);
   if (user === null) console.log("user is null");
 
   const navigate = useNavigate();

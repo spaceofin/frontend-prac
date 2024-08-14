@@ -80,7 +80,13 @@ export const Gallery = () => {
       Array.from({ length: photosCount }, (_, i) => [i + 1, false])
     )
   );
-  const { cartPhotos, setCartPhotos, setRandomNumber } = useCartPhotos();
+  const {
+    cartPhotoUrls,
+    setCartPhotoUrls,
+    setRandomNumber,
+    photoUrls,
+    setPhotoUrls,
+  } = useCartPhotos();
 
   const navigate = useNavigate();
 
@@ -89,19 +95,24 @@ export const Gallery = () => {
       const newClickedPhotos = { ...prevState };
       newClickedPhotos[index] = !prevState[index];
       console.log("newClickePhotos:", newClickedPhotos);
-      console.log("index:", index);
-      console.log("clickedPhotos:", clickedPhotos);
       return newClickedPhotos;
     });
   };
 
   const handleAddToCartClick = () => {
-    const newEntries = Object.entries(clickedPhotos)
-      .filter(([_, value]) => value)
-      .map(([key, _]) => Number(key));
-    const newCartPhotos = Array.from(new Set([...cartPhotos, ...newEntries]));
+    if (
+      cartPhotoUrls.length +
+        Object.values(clickedPhotos).filter((value) => value === true).length >
+      12
+    ) {
+      alert("The Cart Is full!");
+      return;
+    }
 
-    setCartPhotos(newCartPhotos);
+    const newPhotoUrls = Object.entries(clickedPhotos)
+      .filter(([_, value]) => value)
+      .map(([key, _]) => photoUrls[key]);
+    setCartPhotoUrls([...new Set([...cartPhotoUrls, ...newPhotoUrls])]);
 
     console.log("clickedPhotos:", clickedPhotos);
 
@@ -120,6 +131,8 @@ export const Gallery = () => {
     Object.keys(clickedPhotos).forEach((key) => {
       clickedPhotos[key] = false;
     });
+
+    setPhotoUrls([]);
   };
 
   const handleInventoryClick = () => {

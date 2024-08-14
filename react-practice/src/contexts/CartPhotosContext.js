@@ -3,12 +3,20 @@ import { createContext, useContext, useState } from "react";
 const CartPhotosContext = createContext();
 
 export const CartPhotosProvider = ({ children }) => {
-  const [cartPhotos, setCartPhotos] = useState([]);
+  const [cartPhotoUrls, setCartPhotoUrls] = useState([]);
+  const [photoUrls, setPhotoUrls] = useState([]);
   const [randomNumber, setRandomNumber] = useState(0);
 
   return (
     <CartPhotosContext.Provider
-      value={{ cartPhotos, setCartPhotos, randomNumber, setRandomNumber }}>
+      value={{
+        cartPhotoUrls,
+        setCartPhotoUrls,
+        randomNumber,
+        setRandomNumber,
+        photoUrls,
+        setPhotoUrls,
+      }}>
       {children}
     </CartPhotosContext.Provider>
   );
