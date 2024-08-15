@@ -31,10 +31,8 @@ const PhotosContainer = styled.div`
 
 const ButtonWrapper = styled.div`
   display: flex;
-  // justify-content: right;
   justify-content: flex-end;
-  width: 670px;
-  margin-left: 10px;
+  width: 680px;
 `;
 
 const Button = styled.button`
@@ -57,7 +55,7 @@ const InventoryButton = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0px 5px 0px 10px;
+  margin: 0px 10px 0px 10px;
   padding: 0px 5px;
   width: 50px;
   height: 40px;
@@ -149,8 +147,8 @@ export const Gallery = () => {
         <Button color="lightgray" onClick={handleAddToCartClick}>
           Save Photos
         </Button>
-        <InventoryButton color="lightgray">
-          <Inventory onClick={handleInventoryClick} />
+        <InventoryButton onClick={handleInventoryClick} color="lightgray">
+          <Inventory />
         </InventoryButton>
       </ButtonWrapper>
       <ContentsWrapper>

@@ -1,22 +1,20 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-// import { Photo } from "../components";
 import { useCartPhotos } from "contexts/CartPhotosContext";
 import { NavigationBar } from "components";
+import { CartPhoto } from "components";
+import { useState, useEffect } from "react";
 
 const Container = styled.div`
   display: inline-flex;
   flex-direction: column;
   margin: 20px;
-  width: auto;
 `;
 
 const Title = styled.div`
   display: flex;
   justify-content: center;
-
   align-items: center;
-  margin-left: 30px;
   width: 140px;
   height: 50px;
   background-color: #22b14c;
@@ -44,15 +42,19 @@ const PhotosCartContainer = styled.div`
 const TopBar = styled.div`
   display: flex;
   justify-content: space-between;
-  width: inherit;
-  margin: 0px 20px;
+  width: 680px;
+  padding-left: 50px;
+  box-sizing: border-box;
 `;
+
+const ButtonGroup = styled.div``;
 
 const Button = styled.button`
   width: 150px;
   height: 40px;
   border: 0px;
   border-radius: 5px;
+  margin: 0px 10px;
   background-color: lightgrey;
   font-size: 16px;
   font-weight: 600;
@@ -63,44 +65,59 @@ const Button = styled.button`
   }
 `;
 
-const StyledImg = styled.img`
-  border-radius: 5px;
-  margin: 5px;
-`;
-
 export const PhotosCart = () => {
-  const { cartPhotoUrls } = useCartPhotos();
+  const { cartPhotoUrls, setCartPhotoUrls } = useCartPhotos();
+  const [isClicked, setIsClicked] = useState(
+    Array(cartPhotoUrls.length).fill(false)
+  );
   console.log("cartphotos:", cartPhotoUrls);
-
-  // const handleCancelClick = (photoNumber) => {
-  //   setCartPhotoUrls(cartPhotoUrls.filter((number) => number !== photoNumber));
-  // };
 
   const navigate = useNavigate();
   const handleBackClick = () => {
     navigate(-1);
   };
 
+  const handleRemoveClick = () => {
+    const indexesToRemoveSet = isClicked.reduce(
+      (clickedIndexes, clicked, index) => {
+        if (clicked) clickedIndexes.add(index);
+        return clickedIndexes;
+      },
+      new Set()
+    );
+
+    const newCartPhotoUrls = cartPhotoUrls.filter(
+      (_, index) => !indexesToRemoveSet.has(index)
+    );
+    setCartPhotoUrls(newCartPhotoUrls);
+  };
+
+  useEffect(() => {
+    setIsClicked(Array(cartPhotoUrls.length).fill(false));
+  }, [cartPhotoUrls]);
+
+  console.log("isClicked:", isClicked);
+
   return (
     <Container>
       <NavigationBar />
       <TopBar>
         <Title>CART</Title>
-        <Button onClick={handleBackClick}>BACK</Button>
+        <ButtonGroup>
+          <Button onClick={handleRemoveClick}>Remove</Button>
+          <Button onClick={handleBackClick}>Back</Button>
+        </ButtonGroup>
       </TopBar>
       <PhotosCartContainer>
-        {/* {cartPhotos.length > 0 &&
-          cartPhotos.map((photoNumber, index) => (
-            <Photo
-              key={index}
-              index={photoNumber}
-              needCancel={true}
-              handleCancelClick={handleCancelClick}
-            />
-          ))} */}
         {cartPhotoUrls.length > 0 &&
           cartPhotoUrls.map((photoUrl, index) => (
-            <StyledImg key={index} src={photoUrl} alt="random image" />
+            <CartPhoto
+              key={index}
+              index={index}
+              url={photoUrl}
+              isClicked={isClicked[index]}
+              setIsClicked={setIsClicked}
+            />
           ))}
       </PhotosCartContainer>
     </Container>
