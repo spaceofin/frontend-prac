@@ -1,3 +1,7 @@
 export default function App() {
-  return <div>Hello, React Redux Typescript</div>;
+  return (
+    <div className="text-2xl text-orange-400">
+      Hello, React Redux Typescript
+    </div>
+  );
 }
