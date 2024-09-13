@@ -12,10 +12,21 @@ export function Todos() {
   const queryClient = useQueryClient();
 
   // Queries
-  const query = useQuery({ queryKey: ['todos'], queryFn: getTodos });
+  // const query = useQuery({ queryKey: ['todos'], queryFn: getTodos });
+  const {
+    data: todosData,
+    isLoading: isLoadingTodos,
+    isError: isErrorTodos,
+    error: errorTodos,
+  } = useQuery({ queryKey: ['todos'], queryFn: getTodos });
 
   // Mutations
-  const mutation = useMutation({
+  const {
+    mutate,
+    isError: isErrorPost,
+    error: errorPost,
+    isPending: isPendingPost,
+  } = useMutation({
     mutationFn: postTodo,
     onSuccess: (data) => {
       // Invalidate and refetch
@@ -27,10 +38,41 @@ export function Todos() {
     },
   });
 
+  if (isLoadingTodos) {
+    return <p>Loading todos...</p>;
+  }
+
+  if (isErrorTodos) {
+    return (
+      <>
+        <p>Error occurred while fetching todos!</p>
+        <p>{errorTodos.message}</p>
+      </>
+    );
+  }
+
+  if (isPendingPost) {
+    return (
+      <>
+        <p>Submitting your post, please wait...</p>
+      </>
+    );
+  }
+
+  if (isErrorPost) {
+    return (
+      <>
+        <p>Error occurred while posting todo!</p>
+        <p>{errorPost.message}</p>
+      </>
+    );
+  }
+
   return (
     <div>
+      <h1>Todos</h1>
       <ul>
-        {query.data?.map((todo: TodoType) => <li key={todo.id}>{todo.title}</li>)}
+        {todosData?.map((todo: TodoType) => <li key={todo.id}>{todo.title}</li>)}
 
         {newTodos.map((todo: TodoType) => (
           <li key={todo.id}>{todo.title}</li>
@@ -47,7 +89,7 @@ export function Todos() {
 
       <button
         onClick={() => {
-          mutation.mutate({
+          mutate({
             userId: Date.now(),
             id: 0,
             title: inputValue,

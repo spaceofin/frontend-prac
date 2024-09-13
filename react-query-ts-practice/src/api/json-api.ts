@@ -6,6 +6,9 @@ export async function getTodos() {
 }
 
 export async function postTodo(newTodo: TodoType) {
+  // 2s delay
+  // await new Promise((resolve) => setTimeout(resolve, 2000));
+
   const response = await fetch(`https://jsonplaceholder.typicode.com/todos`, {
     method: 'POST',
     body: JSON.stringify(newTodo),
