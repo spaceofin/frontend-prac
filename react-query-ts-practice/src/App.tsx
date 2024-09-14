@@ -1,7 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Todos } from 'components/Todos';
-import { TanStackQueryRepo } from 'components/TanStackQueryRepo';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { AppRouter } from 'router/AppRouter';
 
 // Create a client
 const queryClient = new QueryClient();
@@ -11,9 +10,7 @@ function App() {
     // Provide the client to your App
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools position="right" />
-      <Todos />
-      <hr />
-      <TanStackQueryRepo />
+      <AppRouter />
     </QueryClientProvider>
   );
 }
