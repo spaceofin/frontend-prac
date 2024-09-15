@@ -1,15 +1,23 @@
 import { TodoType } from 'types';
 
-export async function getTodos() {
-  const response = await fetch(`https://jsonplaceholder.typicode.com/todos`);
+export async function getTodos(pageNum?: number) {
+  const url = pageNum
+    ? `https://jsonplaceholder.typicode.com/todos?_page=${pageNum}`
+    : `https://jsonplaceholder.typicode.com/todos`;
+
+  const response = await fetch(url);
   return response.json();
 }
 
-export async function postTodo(newTodo: TodoType) {
+export async function postTodo(newTodo: TodoType, pageNum?: number) {
   // 2s delay
   // await new Promise((resolve) => setTimeout(resolve, 2000));
 
-  const response = await fetch(`https://jsonplaceholder.typicode.com/todos`, {
+  const url = pageNum
+    ? `https://jsonplaceholder.typicode.com/todos?_page=${pageNum}`
+    : `https://jsonplaceholder.typicode.com/todos`;
+
+  const response = await fetch(url, {
     method: 'POST',
     body: JSON.stringify(newTodo),
     headers: {

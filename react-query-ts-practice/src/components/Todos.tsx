@@ -4,9 +4,12 @@ import { getTodos, postTodo } from 'api/json-api';
 import { useState } from 'react';
 import { TodoType } from 'types';
 
+const maxPageNum = 20;
+
 export function Todos() {
   const [inputValue, setInputValue] = useState<string>('');
   const [newTodos, setNewTodos] = useState<TodoType[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   // Access the client
   const queryClient = useQueryClient();
@@ -18,7 +21,7 @@ export function Todos() {
     isLoading: isLoadingTodos,
     isError: isErrorTodos,
     error: errorTodos,
-  } = useQuery({ queryKey: ['todos'], queryFn: getTodos });
+  } = useQuery({ queryKey: ['todos', currentPage], queryFn: () => getTodos(currentPage) });
 
   // Mutations
   const {
@@ -27,7 +30,9 @@ export function Todos() {
     error: errorPost,
     isPending: isPendingPost,
   } = useMutation({
-    mutationFn: postTodo,
+    mutationFn: ({ newTodo, pageNum }: { newTodo: TodoType; pageNum: number }) =>
+      postTodo(newTodo, pageNum),
+
     onSuccess: (data) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ['todos'] });
@@ -73,10 +78,9 @@ export function Todos() {
       <h1>Todos</h1>
       <ul>
         {todosData?.map((todo: TodoType) => <li key={todo.id}>{todo.title}</li>)}
-
-        {newTodos.map((todo: TodoType) => (
+        {/* {newTodos.map((todo: TodoType) => (
           <li key={todo.id}>{todo.title}</li>
-        ))}
+        ))} */}
       </ul>
 
       <input
@@ -90,15 +94,30 @@ export function Todos() {
       <button
         onClick={() => {
           mutate({
-            userId: Date.now(),
-            id: 0,
-            title: inputValue,
-            completed: false,
+            newTodo: {
+              userId: Date.now(),
+              id: 0,
+              title: inputValue,
+              completed: false,
+            },
+            pageNum: currentPage,
           });
         }}
       >
         Add Todo
       </button>
+      <div style={{ display: 'flex', gap: '5px' }}>
+        <button disabled={currentPage <= 1} onClick={() => setCurrentPage((prev) => prev - 1)}>
+          prev
+        </button>
+        <span>{currentPage}</span>
+        <button
+          disabled={currentPage >= maxPageNum}
+          onClick={() => setCurrentPage((prev) => prev + 1)}
+        >
+          next
+        </button>
+      </div>
     </div>
   );
 }
