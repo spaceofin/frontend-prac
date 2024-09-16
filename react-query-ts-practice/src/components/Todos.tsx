@@ -29,6 +29,8 @@ export function Todos() {
     isError: isErrorPost,
     error: errorPost,
     isPending: isPendingPost,
+    isSuccess: isSuccessPost,
+    ...createMutation
   } = useMutation({
     mutationFn: ({ newTodo, pageNum }: { newTodo: TodoType; pageNum: number }) =>
       postTodo(newTodo, pageNum),
@@ -76,12 +78,7 @@ export function Todos() {
   return (
     <div>
       <h1>Todos</h1>
-      <ul>
-        {todosData?.map((todo: TodoType) => <li key={todo.id}>{todo.title}</li>)}
-        {/* {newTodos.map((todo: TodoType) => (
-          <li key={todo.id}>{todo.title}</li>
-        ))} */}
-      </ul>
+      <ul>{todosData?.map((todo: TodoType) => <li key={todo.id}>{todo.title}</li>)}</ul>
 
       <input
         type="text"
@@ -93,31 +90,56 @@ export function Todos() {
 
       <button
         onClick={() => {
-          mutate({
-            newTodo: {
-              userId: Date.now(),
-              id: 0,
-              title: inputValue,
-              completed: false,
-            },
-            pageNum: currentPage,
-          });
+          createMutation.reset();
+          if (inputValue) {
+            mutate({
+              newTodo: {
+                userId: Date.now(),
+                id: 0,
+                title: inputValue,
+                completed: false,
+              },
+              pageNum: currentPage,
+            });
+            setInputValue('');
+          } else {
+            alert('Enter a value.');
+          }
         }}
       >
         Add Todo
       </button>
+      {isSuccessPost && (
+        <span style={{ color: 'blue', marginLeft: '10px' }}>New Todo Added Successfully!</span>
+      )}
       <div style={{ display: 'flex', gap: '5px' }}>
-        <button disabled={currentPage <= 1} onClick={() => setCurrentPage((prev) => prev - 1)}>
+        <button
+          disabled={currentPage <= 1}
+          onClick={() => {
+            setCurrentPage((prev) => prev - 1);
+            createMutation.reset();
+          }}
+        >
           prev
         </button>
         <span>{currentPage}</span>
         <button
           disabled={currentPage >= maxPageNum}
-          onClick={() => setCurrentPage((prev) => prev + 1)}
+          onClick={() => {
+            setCurrentPage((prev) => prev + 1);
+            createMutation.reset();
+          }}
         >
           next
         </button>
       </div>
+
+      <h3>New Todo List</h3>
+      <ul>
+        {newTodos.map((todo: TodoType) => (
+          <li key={todo.id}>{todo.title}</li>
+        ))}
+      </ul>
     </div>
   );
 }
