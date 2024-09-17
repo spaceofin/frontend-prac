@@ -25,20 +25,14 @@ export async function postTodo(newTodo: TodoType) {
   return response.json();
 }
 
-// export async function deleteTodo(postId: number) {
-//   // 2s delay
-//   // await new Promise((resolve) => setTimeout(resolve, 2000));
+export async function deleteTodo(todoId: number) {
+  // 2s delay
+  // await new Promise((resolve) => setTimeout(resolve, 2000));
 
-//   const url = pageNum
-//     ? `https://jsonplaceholder.typicode.com/todos?_page=${pageNum}`
-//     : `https://jsonplaceholder.typicode.com/todos`;
+  const url = `https://jsonplaceholder.typicode.com/todos/${todoId}`;
 
-//   const response = await fetch(url, {
-//     method: 'POST',
-//     body: JSON.stringify(newTodo),
-//     headers: {
-//       'Content-type': 'application/json; charset=UTF-8',
-//     },
-//   });
-//   return response.json();
-// }
+  const response = await fetch(url, {
+    method: 'DELETE',
+  });
+  return { response, todoId };
+}

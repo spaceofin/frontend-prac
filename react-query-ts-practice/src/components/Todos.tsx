@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 // import { getTodos, postTodo } from 'api/my-api';
-import { getTodos, postTodo } from 'api/json-api';
+import { getTodos, postTodo, deleteTodo } from 'api/json-api';
 import { useState } from 'react';
 import { TodoType } from 'types';
 
@@ -25,7 +25,7 @@ export function Todos() {
 
   // Mutations
   const {
-    mutate,
+    mutate: mutatePost,
     isError: isErrorPost,
     error: errorPost,
     isPending: isPendingPost,
@@ -43,6 +43,27 @@ export function Todos() {
       const newTodo = { ...data, id: newTodos.length + 200 + 1 };
       setNewTodos((prevTodos) => [...prevTodos, newTodo]);
       console.log('newTodo:', newTodo, 'posted successfully!');
+    },
+  });
+
+  const {
+    mutate: mutateDelete,
+    isSuccess: isSuccessDelete,
+    ...deleteMutation
+  } = useMutation({
+    mutationFn: (todoId: number) => deleteTodo(todoId),
+
+    onSuccess: ({ response, todoId }) => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ['todos'] });
+
+      if (response.ok) {
+        console.log('delete response:', response);
+
+        console.log('todo ID', todoId, 'deleted successfully!');
+      } else {
+        console.log('railed to delete todo');
+      }
     },
   });
 
@@ -76,10 +97,23 @@ export function Todos() {
     );
   }
 
+  const handleDelClick = (todoId: number) => {
+    mutateDelete(todoId);
+  };
+
   return (
     <div>
       <h1>Todos</h1>
-      <ul>{todosData?.map((todo: TodoType) => <li key={todo.id}>{todo.title}</li>)}</ul>
+      <ul>
+        {todosData?.map((todo: TodoType) => (
+          <li key={todo.id}>
+            {todo.title}
+            <button onClick={() => handleDelClick(todo.id)} style={{ marginLeft: '5px' }}>
+              DEL
+            </button>
+          </li>
+        ))}
+      </ul>
 
       <input
         type="text"
@@ -92,8 +126,9 @@ export function Todos() {
       <button
         onClick={() => {
           createMutation.reset();
+          deleteMutation.reset();
           if (inputValue) {
-            mutate({
+            mutatePost({
               userId: Date.now(),
               id: 0,
               title: inputValue,
@@ -110,12 +145,16 @@ export function Todos() {
       {isSuccessPost && (
         <span style={{ color: 'blue', marginLeft: '10px' }}>New Todo Added Successfully!</span>
       )}
+      {isSuccessDelete && (
+        <span style={{ color: 'red', marginLeft: '10px' }}>Todo Deleted Successfully!</span>
+      )}
       <div style={{ display: 'flex', gap: '5px' }}>
         <button
           disabled={currentPage <= 1}
           onClick={() => {
             setCurrentPage((prev) => prev - 1);
             createMutation.reset();
+            deleteMutation.reset();
           }}
         >
           prev
@@ -126,6 +165,7 @@ export function Todos() {
           onClick={() => {
             setCurrentPage((prev) => prev + 1);
             createMutation.reset();
+            deleteMutation.reset();
           }}
         >
           next
