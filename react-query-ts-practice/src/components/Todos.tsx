@@ -32,12 +32,13 @@ export function Todos() {
     isSuccess: isSuccessPost,
     ...createMutation
   } = useMutation({
-    mutationFn: ({ newTodo, pageNum }: { newTodo: TodoType; pageNum: number }) =>
-      postTodo(newTodo, pageNum),
+    mutationFn: (newTodo: TodoType) => postTodo(newTodo),
 
     onSuccess: (data) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ['todos'] });
+
+      console.log('data:', data);
 
       const newTodo = { ...data, id: newTodos.length + 200 + 1 };
       setNewTodos((prevTodos) => [...prevTodos, newTodo]);
@@ -93,13 +94,10 @@ export function Todos() {
           createMutation.reset();
           if (inputValue) {
             mutate({
-              newTodo: {
-                userId: Date.now(),
-                id: 0,
-                title: inputValue,
-                completed: false,
-              },
-              pageNum: currentPage,
+              userId: Date.now(),
+              id: 0,
+              title: inputValue,
+              completed: false,
             });
             setInputValue('');
           } else {
