@@ -36,3 +36,16 @@ export async function deleteTodo(todoId: number) {
   });
   return { response, todoId };
 }
+
+export async function updateTodo(todoId: number, partialTodo: TodoType) {
+  const url = `https://jsonplaceholder.typicode.com/todos/${todoId}`;
+
+  const response = await fetch(url, {
+    method: 'PATCH',
+    body: JSON.stringify(partialTodo),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+  });
+  return response.json();
+}
