@@ -6,7 +6,7 @@ export function TanStackQueryRepo() {
     if (!response.ok) {
       throw new Error('fetch failed');
     }
-    return await response.json();
+    return response.json();
   };
 
   const { isPending, error, data, isFetching } = useQuery({
