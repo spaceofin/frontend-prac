@@ -15,7 +15,9 @@ export function Comments() {
   const fetchData = async (pageParam: number) => {
     try {
       const response = await fetch(url + '?_page=' + pageParam);
-      return await response.json();
+      const data = await response.json();
+
+      return { data: data, nextPage: pageParam + 1 };
     } catch (error) {
       console.error('Fetch error:', error);
     }
@@ -26,15 +28,12 @@ export function Comments() {
       queryKey: ['commentsData'],
       queryFn: ({ pageParam }) => fetchData(pageParam),
       initialPageParam: 1,
-      getNextPageParam: (pages) => {
-        return pages.length + 1;
-      },
-      getPreviousPageParam: (pages) => {
-        return pages.length - 1;
+      getNextPageParam: (lastPage) => {
+        return lastPage?.nextPage || undefined;
       },
     });
 
-  if (isFetching || isLoading) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 
@@ -45,6 +44,7 @@ export function Comments() {
   return (
     <div>
       <h1 style={{ marginLeft: '20px' }}>Comments</h1>
+      {isFetching && <div>Fetching...</div>}
       <InfiniteScroll
         loadMore={() => {
           if (!isFetching) {
@@ -54,28 +54,30 @@ export function Comments() {
         hasMore={hasNextPage}
       >
         {data &&
-          data.pages.map((pageData) =>
-            pageData.map((comment: Comment) => (
-              <div key={comment.id}>
-                <div
-                  style={{
-                    border: '1px solid black',
-                    borderRadius: '2px',
-                    margin: '10px',
-                    padding: '10px',
-                  }}
-                >
-                  <>postId: {comment.postId}</>
-                  <br />
-                  <>name: {comment.name}</>
-                  <> / email: {comment.email}</>
-                  <br />
-                  <br />
-                  <strong>Comment</strong>
-                  <div>{comment.body}</div>
+          data.pages.map(
+            (pageData) =>
+              pageData &&
+              pageData.data.map((comment: Comment) => (
+                <div key={comment.id}>
+                  <div
+                    style={{
+                      border: '1px solid black',
+                      borderRadius: '2px',
+                      margin: '10px',
+                      padding: '10px',
+                    }}
+                  >
+                    <>postId: {comment.postId}</>
+                    <br />
+                    <>name: {comment.name}</>
+                    <> / email: {comment.email}</>
+                    <br />
+                    <br />
+                    <strong>Comment</strong>
+                    <div>{comment.body}</div>
+                  </div>
                 </div>
-              </div>
-            )),
+              )),
           )}
       </InfiniteScroll>
       {/* <button
