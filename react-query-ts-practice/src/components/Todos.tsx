@@ -70,18 +70,20 @@ export function Todos() {
     );
   }
 
-  const handleDelClick = (todoId: number) => {
+  const resetMutations = () => {
     createMutation.reset();
     updateMutation.reset();
     deleteMutation.reset();
+  };
+
+  const handleDelClick = (todoId: number) => {
+    resetMutations();
     mutateDelete(todoId);
     setUpdateId(0);
   };
 
   const handleTodoClick = (todoId: number, targetTodo: string) => {
-    createMutation.reset();
-    updateMutation.reset();
-    deleteMutation.reset();
+    resetMutations();
     setUpdateId(todoId);
     setTargetTodo(targetTodo);
   };
@@ -116,9 +118,7 @@ export function Todos() {
         />
         <button
           onClick={() => {
-            createMutation.reset();
-            deleteMutation.reset();
-            updateMutation.reset();
+            resetMutations();
             if (inputValue) {
               mutatePost({
                 userId: Date.now(),
@@ -155,9 +155,7 @@ export function Todos() {
         <button
           disabled={updateId === 0}
           onClick={() => {
-            createMutation.reset();
-            deleteMutation.reset();
-            updateMutation.reset();
+            resetMutations();
             if (updateInputValue) {
               mutateUpdate({
                 todoId: updateId,
@@ -185,9 +183,7 @@ export function Todos() {
           disabled={currentPage <= 1}
           onClick={() => {
             setCurrentPage((prev) => prev - 1);
-            createMutation.reset();
-            deleteMutation.reset();
-            updateMutation.reset();
+            resetMutations();
           }}
         >
           prev
@@ -197,9 +193,7 @@ export function Todos() {
           disabled={currentPage >= maxPageNum}
           onClick={() => {
             setCurrentPage((prev) => prev + 1);
-            createMutation.reset();
-            deleteMutation.reset();
-            updateMutation.reset();
+            resetMutations();
           }}
         >
           next
