@@ -17,6 +17,13 @@ export function Todos() {
   // Access the client
   const queryClient = useQueryClient();
 
+  if (currentPage < maxPageNum) {
+    queryClient.prefetchQuery({
+      queryKey: ['todos', currentPage + 1],
+      queryFn: () => getTodos(currentPage + 1),
+    });
+  }
+
   // Queries
   // const query = useQuery({ queryKey: ['todos'], queryFn: getTodos });
   const {
