@@ -1,8 +1,12 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-// import { getTodos, postTodo } from 'api/my-api';
-import { getTodos, postTodo, deleteTodo, updateTodo } from 'api/json-api';
 import { useState } from 'react';
 import { TodoType } from 'types';
+import {
+  useGetTodos,
+  usePostTodo,
+  useUpdateTodo,
+  useDeleteTodo,
+  usePrefetchTodos,
+} from 'hooks/useTodos';
 
 const maxPageNum = 20;
 
@@ -14,26 +18,15 @@ export function Todos() {
   const [targetTodo, setTargetTodo] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  // Access the client
-  const queryClient = useQueryClient();
+  usePrefetchTodos(currentPage);
 
-  if (currentPage < maxPageNum) {
-    queryClient.prefetchQuery({
-      queryKey: ['todos', currentPage + 1],
-      queryFn: () => getTodos(currentPage + 1),
-    });
-  }
-
-  // Queries
-  // const query = useQuery({ queryKey: ['todos'], queryFn: getTodos });
   const {
     data: todosData,
     isLoading: isLoadingTodos,
     isError: isErrorTodos,
     error: errorTodos,
-  } = useQuery({ queryKey: ['todos', currentPage], queryFn: () => getTodos(currentPage) });
+  } = useGetTodos(currentPage);
 
-  // Mutations
   const {
     mutate: mutatePost,
     isError: isErrorPost,
@@ -41,57 +34,11 @@ export function Todos() {
     isPending: isPendingPost,
     isSuccess: isSuccessPost,
     ...createMutation
-  } = useMutation({
-    mutationFn: (newTodo: TodoType) => postTodo(newTodo),
+  } = usePostTodo(newTodos, setNewTodos);
 
-    onSuccess: (data) => {
-      // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ['todos'] });
+  const { mutate: mutateUpdate, isSuccess: isSuccessUpdate, ...updateMutation } = useUpdateTodo();
 
-      console.log('data:', data);
-
-      const newTodo = { ...data, id: newTodos.length + 200 + 1 };
-      setNewTodos((prevTodos) => [...prevTodos, newTodo]);
-      console.log('newTodo:', newTodo, 'posted successfully!');
-    },
-  });
-
-  const {
-    mutate: mutateDelete,
-    isSuccess: isSuccessDelete,
-    ...deleteMutation
-  } = useMutation({
-    mutationFn: (todoId: number) => deleteTodo(todoId),
-
-    onSuccess: ({ response, todoId }) => {
-      // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ['todos'] });
-
-      if (response.ok) {
-        console.log('delete response:', response);
-
-        console.log('todo ID', todoId, 'deleted successfully!');
-      } else {
-        console.log('failed to delete todo');
-      }
-    },
-  });
-
-  const {
-    mutate: mutateUpdate,
-    isSuccess: isSuccessUpdate,
-    ...updateMutation
-  } = useMutation({
-    mutationFn: ({ todoId, partialTodo }: { todoId: number; partialTodo: TodoType }) =>
-      updateTodo(todoId, partialTodo),
-
-    onSuccess: (data) => {
-      // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ['todos'] });
-
-      console.log('updated data:', data);
-    },
-  });
+  const { mutate: mutateDelete, isSuccess: isSuccessDelete, ...deleteMutation } = useDeleteTodo();
 
   if (isLoadingTodos) {
     return <p>Loading todos...</p>;
@@ -101,7 +48,7 @@ export function Todos() {
     return (
       <>
         <p>Error occurred while fetching todos!</p>
-        <p>{errorTodos.message}</p>
+        <p>{errorTodos && errorTodos.message}</p>
       </>
     );
   }
@@ -118,7 +65,7 @@ export function Todos() {
     return (
       <>
         <p>Error occurred while posting todo!</p>
-        <p>{errorPost.message}</p>
+        <p>{errorPost && errorPost.message}</p>
       </>
     );
   }
