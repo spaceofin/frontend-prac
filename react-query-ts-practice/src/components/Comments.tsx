@@ -10,6 +10,34 @@ type Comment = {
   body: string;
 };
 
+function DisplayComments({ comments }: { comments: Comment[] }) {
+  return (
+    <>
+      {comments.map((comment: Comment) => (
+        <div key={comment.id}>
+          <div
+            style={{
+              border: '1px solid black',
+              borderRadius: '2px',
+              margin: '10px',
+              padding: '10px',
+            }}
+          >
+            <>postId: {comment.postId}</>
+            <br />
+            <>name: {comment.name}</>
+            <> / email: {comment.email}</>
+            <br />
+            <br />
+            <strong>Comment</strong>
+            <div>{comment.body}</div>
+          </div>
+        </div>
+      ))}
+    </>
+  );
+}
+
 export function Comments() {
   const [inputValue, setInputValue] = useState<number>(1);
   const [searchPostId, setSearchPostId] = useState<number>(1);
@@ -118,58 +146,13 @@ export function Comments() {
           }}
           hasMore={hasNextPage}
         >
-          {data &&
-            data.pages.map(
-              (pageData) =>
-                pageData &&
-                pageData.data.map((comment: Comment) => (
-                  <div key={comment.id}>
-                    <div
-                      style={{
-                        border: '1px solid black',
-                        borderRadius: '2px',
-                        margin: '10px',
-                        padding: '10px',
-                      }}
-                    >
-                      <>postId: {comment.postId}</>
-                      <br />
-                      <>name: {comment.name}</>
-                      <> / email: {comment.email}</>
-                      <br />
-                      <br />
-                      <strong>Comment</strong>
-                      <div>{comment.body}</div>
-                    </div>
-                  </div>
-                )),
-            )}
+          {data?.pages.map(
+            (pageData) =>
+              pageData && <DisplayComments key={pageData.nextPage - 1} comments={pageData.data} />,
+          )}
         </InfiniteScroll>
       ) : (
-        <>
-          {postCommentsData &&
-            postCommentsData.map((comment: Comment) => (
-              <div key={comment.id}>
-                <div
-                  style={{
-                    border: '1px solid black',
-                    borderRadius: '2px',
-                    margin: '10px',
-                    padding: '10px',
-                  }}
-                >
-                  <>postId: {comment.postId}</>
-                  <br />
-                  <>name: {comment.name}</>
-                  <> / email: {comment.email}</>
-                  <br />
-                  <br />
-                  <strong>Comment</strong>
-                  <div>{comment.body}</div>
-                </div>
-              </div>
-            ))}
-        </>
+        <>{postCommentsData && <DisplayComments comments={postCommentsData} />}</>
       )}
       {/* <button
         onClick={() => fetchNextPage()}
