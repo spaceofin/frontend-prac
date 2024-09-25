@@ -1,4 +1,4 @@
-import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
+import { useGetComments, useGetInfiniteComments } from 'hooks/useComments';
 import InfiniteScroll from 'react-infinite-scroller';
 import { useState } from 'react';
 
@@ -43,50 +43,17 @@ export function Comments() {
   const [searchPostId, setSearchPostId] = useState<number>(1);
   const [allButtonClicked, setAllButtonClicked] = useState(true);
 
-  const url = 'https://jsonplaceholder.typicode.com/comments';
-
-  const fetchData = async (pageParam: number) => {
-    try {
-      const response = await fetch(url + '?_page=' + pageParam);
-      const data = await response.json();
-
-      return { data: data, nextPage: pageParam + 1 };
-    } catch (error) {
-      console.error('Fetch error:', error);
-    }
-  };
-
   const { data, fetchNextPage, hasNextPage, isFetching, isLoading, isError, error } =
-    useInfiniteQuery({
-      queryKey: ['commentsData'],
-      queryFn: ({ pageParam }) => fetchData(pageParam),
-      initialPageParam: 1,
-      getNextPageParam: (lastPage) => {
-        return lastPage?.nextPage || undefined;
-      },
-    });
+    useGetInfiniteComments();
 
-  const fetchPostComments = async (postId: number) => {
-    try {
-      const response = await fetch(url + '?postId=' + postId);
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Fetch error:', error);
-    }
-  };
-
-  const { data: postCommentsData } = useQuery({
-    queryKey: ['postCommentsData', searchPostId],
-    queryFn: () => fetchPostComments(searchPostId),
-  });
+  const { data: postCommentsData } = useGetComments(searchPostId);
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
   if (isError) {
-    return <div>Error: {error.message}</div>;
+    return <div>Error: {error && error.message}</div>;
   }
 
   const handleAllButtonClick = () => {
@@ -122,7 +89,7 @@ export function Comments() {
           <input
             type="number"
             min="1"
-            max="20"
+            max="100"
             value={inputValue}
             onChange={(e) => {
               setInputValue(Number(e.target.value));
