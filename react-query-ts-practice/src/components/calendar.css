@@ -1,0 +1,46 @@
+.calendar {
+  @apply w-10/12 m-10 font-sans;
+}
+
+.header {
+  @apply flex justify-between items-center bg-slate-300 p-2;
+}
+
+.button {
+  @apply border-none bg-blue-500 py-1 px-4 mx-4 text-base text-white rounded cursor-pointer;
+}
+
+.h1 {
+  @apply font-thin text-3xl;
+}
+
+.button:hover {
+  @apply bg-blue-700;
+}
+
+.days-of-week {
+  @apply flex h-14 bg-slate-400;
+}
+
+.day-of-week {
+  @apply flex justify-center items-center p-2 font-bold;
+  width: calc(100% / 7);
+}
+
+.days {
+  @apply flex flex-wrap;
+}
+
+.day {
+  @apply flex justify-center items-center border-solid border-2 border-gray-400 box-border rounded-md text-xl font-thin h-20;
+  width: calc(100% / 7);
+}
+
+.day-empty {
+  @apply flex justify-center items-center box-border rounded-md text-xl font-thin h-20 bg-slate-100;
+  width: calc(100% / 7);
+}
+
+.day:hover {
+  @apply bg-blue-200 rounded-md;
+}
