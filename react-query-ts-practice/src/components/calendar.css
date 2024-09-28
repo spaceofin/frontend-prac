@@ -32,7 +32,7 @@
 }
 
 .day {
-  @apply flex justify-center items-center border-solid border-2 border-gray-400 box-border rounded-md text-xl font-thin h-20;
+  @apply flex justify-center items-center border-solid border-2 border-gray-400 box-border rounded-md text-xl font-thin h-20 relative;
   width: calc(100% / 7);
 }
 
