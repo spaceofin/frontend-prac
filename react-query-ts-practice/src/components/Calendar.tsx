@@ -9,8 +9,8 @@ export function Calendar() {
   const [currentMonth, setCurrentMonth] = useState<Dayjs>(dayjs());
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['datedTodos'],
-    queryFn: getDatedTodos,
+    queryKey: ['datedTodos', currentMonth.year(), currentMonth.month() + 1],
+    queryFn: () => getDatedTodos({ year: currentMonth.year(), month: currentMonth.month() + 1 }),
   });
 
   const datedTodosMap = data?.datedTodos.reduce(
