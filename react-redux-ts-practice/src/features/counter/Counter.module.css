@@ -14,26 +14,32 @@
 }
 
 .value {
-  font-size: 78px;
-  padding-left: 16px;
-  padding-right: 16px;
-  margin-top: 2px;
-  font-family: 'Courier New', Courier, monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 60px;
+  width: 110px;
+  background-color: white;
+  border-radius: 5px;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   appearance: none;
   background: none;
-  font-size: 32px;
-  padding-left: 12px;
-  padding-right: 12px;
+  font-size: 28px;
+  height: 44px;
   outline: none;
-  border: 2px solid transparent;
-  color: rgb(112, 76, 182);
-  padding-bottom: 4px;
+  /* border: 2px solid transparent; */
+  color: white;
+  padding: 0px 15px;
+  margin: 2px 10px;
   cursor: pointer;
-  background-color: rgba(112, 76, 182, 0.1);
-  border-radius: 2px;
+  background-color: rgba(47, 12, 117, 0.7);
+  border-radius: 5px;
   transition: all 0.15s;
 }
 
@@ -42,16 +48,24 @@
   padding: 2px;
   width: 64px;
   text-align: center;
-  margin-right: 4px;
+  margin: 0px 4px;
+  border-radius: 5px;
+}
+
+.label {
+  font-size: 26px;
+  padding: 2px;
+  text-align: center;
+  margin: 0px 2px;
 }
 
 .button:hover,
 .button:focus {
-  border: 2px solid rgba(112, 76, 182, 0.4);
+  /* border: 2px solid rgba(112, 76, 182, 0.4); */
 }
 
 .button:active {
-  background-color: rgba(112, 76, 182, 0.2);
+  background-color: rgba(146, 125, 187, 0.7);
 }
 
 .asyncButton {
@@ -60,8 +74,8 @@
 }
 
 .asyncButton:after {
-  content: '';
-  background-color: rgba(112, 76, 182, 0.15);
+  content: "";
+  background-color: rgba(196, 182, 224, 0.8);
   display: block;
   position: absolute;
   width: 100%;
@@ -69,7 +83,8 @@
   left: 0;
   top: 0;
   opacity: 0;
-  transition: width 1s linear, opacity 0.5s ease 1s;
+  transition: width var(--transition-duration) linear,
+    opacity var(--transition-duration) ease var(--transition-duration);
 }
 
 .asyncButton:active:after {
