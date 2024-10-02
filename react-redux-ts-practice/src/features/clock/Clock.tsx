@@ -1,10 +1,20 @@
 import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
-import { updateTime, selectClock, resumeClock, pauseClock } from "./clockSlice";
+import {
+  updateTime,
+  selectClock,
+  resumeClock,
+  pauseClock,
+  updateMode,
+} from "./clockSlice";
 
 export const Clock = () => {
   const dispatch = useAppDispatch();
-  const { time, status } = useAppSelector(selectClock);
+  const { time, status, mode } = useAppSelector(selectClock);
+
+  useEffect(() => {
+    dispatch(updateMode());
+  }, [dispatch]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -27,6 +37,9 @@ export const Clock = () => {
         onClick={handleToggle}>
         {status === "running" ? "PAUSE" : "RESUME"}
       </button>
+      <div className="absolute flex justify-center items-center w-20 h-20 top-8 left-12 text-5xl bg-white bg-opacity-70 pb-2 rounded-full border-2 border-blue-100">
+        {mode === "day" ? "🌞" : "🌛"}
+      </div>
       <div className="text-4xl font-bold font-mono m-1 text-blue-950">
         CURRENT TIME
       </div>
