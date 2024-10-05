@@ -59,3 +59,8 @@ export interface WeatherResponse {
   name: string;
   cod: number;
 }
+
+export interface cityWeather {
+  city: string;
+  weather: string;
+}

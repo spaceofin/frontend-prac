@@ -1,18 +1,18 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import { WeatherResponse } from "./weatherTypes";
-import { RootState } from "../../app/store";
+import { WeatherResponse, cityWeather } from "./weatherTypes";
+import { RootState, AppThunk } from "../../app/store";
 
 interface WeatherState {
   data: WeatherResponse | null;
-  cities: string[];
+  citiesWeather: cityWeather[];
   loading: boolean;
   error: string | null;
 }
 
 const initialState: WeatherState = {
   data: null,
-  cities: [],
+  citiesWeather: [],
   loading: false,
   error: null,
 };
@@ -21,9 +21,9 @@ const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
 export const fetchWeather = createAsyncThunk(
   "weather/fetchWeather",
-  async (location: string) => {
+  async ({ city, forSave = false }: { city: string; forSave?: boolean }) => {
     const response = await axios.get(
-      `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${API_KEY}&units=metric`
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
     );
     return response.data;
   }
@@ -32,11 +32,7 @@ export const fetchWeather = createAsyncThunk(
 const weatherSlice = createSlice({
   name: "weather",
   initialState,
-  reducers: {
-    addCity: (state, action: PayloadAction<string>) => {
-      state.cities.push(action.payload);
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchWeather.pending, (state) => {
@@ -45,7 +41,14 @@ const weatherSlice = createSlice({
       })
       .addCase(fetchWeather.fulfilled, (state, action) => {
         state.loading = false;
-        state.data = action.payload;
+        if (action.meta.arg.forSave === true) {
+          state.citiesWeather.push({
+            city: action.payload.name,
+            weather: action.payload.weather[0].description,
+          });
+        } else {
+          state.data = action.payload;
+        }
       })
       .addCase(fetchWeather.rejected, (state, action) => {
         state.loading = false;
@@ -53,8 +56,6 @@ const weatherSlice = createSlice({
       });
   },
 });
-
-export const { addCity } = weatherSlice.actions;
 
 export const selectWeather = (state: RootState) => state.weather;
 

@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { fetchWeather, selectWeather, addCity } from "./weatherSlice";
+import { fetchWeather, selectWeather } from "./weatherSlice";
 import { cityList } from "./cityList";
 
 export const Weather = () => {
-  const [location, setLocation] = useState<string>("");
+  const [city, setCity] = useState<string>("");
   const [selectedCity, setSelectedCity] = useState<string>("");
   const dispatch = useAppDispatch();
-  const { data, loading, error, cities } = useAppSelector(selectWeather);
+  const { data, loading, error, citiesWeather } = useAppSelector(selectWeather);
 
   const handleShow = () => {
-    if (location.trim()) {
-      dispatch(fetchWeather(location));
+    if (city.trim()) {
+      dispatch(fetchWeather({ city: city }));
     } else {
       alert("Enter location");
     }
@@ -22,7 +22,7 @@ export const Weather = () => {
   };
 
   const handleSaveWeatherClick = () => {
-    dispatch(addCity(selectedCity));
+    dispatch(fetchWeather({ city: selectedCity, forSave: true }));
   };
 
   return (
@@ -33,9 +33,9 @@ export const Weather = () => {
       <div className="flex w-full justify-center items-center">
         <input
           type="text"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          placeholder="Enter location"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+          placeholder="Enter City Name"
           className="ml-8 w-1/2 my-5 mx-1 text-xl rounded-md border-4 border-green-800 px-2"
         />
         <button
@@ -57,7 +57,7 @@ export const Weather = () => {
           </div>
         )}
       </div>
-      <div className="flex flex-col w-full">
+      <div className="flex flex-col w-full items-center">
         <div className="flex w-full text-3xl font-bold justify-center pr-5 ">
           SAVE CITY WEATHERS
         </div>
@@ -66,7 +66,7 @@ export const Weather = () => {
             id="city"
             value={selectedCity}
             onChange={handleCityChange}
-            className="h-9 pl-4 bg-white rounded-md w-60 mr-1 border-4 border-gray-500 text-xl">
+            className="h-9 pl-4 bg-white rounded-md w-60 mr-1 border-4 border-gray-500 text-xl ml-8">
             <option value="">Select a city</option>
             {cityList.map((city) => (
               <option key={city} value={city}>
@@ -80,13 +80,14 @@ export const Weather = () => {
             Save Weather
           </button>
         </div>
-        <div className="flex w-full justify-center my-5 h-44">
-          {cities &&
-            cities.map((city, index) => (
+        <div className="grid grid-cols-3 justify-items-center overflow-auto w-4/5 my-5 h-44">
+          {citiesWeather &&
+            citiesWeather.map((cityWeather, index) => (
               <div
                 key={index}
-                className="flex justify-center items-center w-36 h-36 border-2 m-2 rounded-md bg-gray-100">
-                {city}
+                className="flex flex-col justify-center items-center w-36 h-36 m-2 rounded-md bg-gray-100">
+                <p>{cityWeather.city}</p>
+                <p className="text-sky-800">{cityWeather.weather}</p>
               </div>
             ))}
         </div>
