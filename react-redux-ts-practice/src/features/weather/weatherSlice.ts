@@ -1,16 +1,18 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { WeatherResponse } from "./weatherTypes";
 import { RootState } from "../../app/store";
 
 interface WeatherState {
   data: WeatherResponse | null;
+  cities: string[];
   loading: boolean;
   error: string | null;
 }
 
 const initialState: WeatherState = {
   data: null,
+  cities: [],
   loading: false,
   error: null,
 };
@@ -30,7 +32,11 @@ export const fetchWeather = createAsyncThunk(
 const weatherSlice = createSlice({
   name: "weather",
   initialState,
-  reducers: {},
+  reducers: {
+    addCity: (state, action: PayloadAction<string>) => {
+      state.cities.push(action.payload);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchWeather.pending, (state) => {
@@ -47,6 +53,8 @@ const weatherSlice = createSlice({
       });
   },
 });
+
+export const { addCity } = weatherSlice.actions;
 
 export const selectWeather = (state: RootState) => state.weather;
 
