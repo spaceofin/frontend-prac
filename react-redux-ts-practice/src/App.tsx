@@ -2,6 +2,7 @@ import { Counter } from "./features/counter/Counter";
 import { Container } from "./components/Container";
 import { Clock } from "./features/clock/Clock";
 import { Weather } from "./features/weather/Weather";
+import { User } from "./features/user/user";
 
 export default function App() {
   return (
@@ -17,6 +18,9 @@ export default function App() {
       </Container>
       <Container>
         <Weather />
+      </Container>
+      <Container>
+        <User />
       </Container>
     </div>
   );
