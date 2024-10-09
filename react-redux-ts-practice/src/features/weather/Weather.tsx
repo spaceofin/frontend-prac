@@ -27,16 +27,16 @@ export const Weather = () => {
 
   return (
     <div className="flex flex-col items-center w-full bg-green-300 font-mono">
-      <div className="flex w-full text-4xl font-bold mt-5 ml-72">
+      <div className="flex w-full justify-center text-4xl font-bold mt-10">
         CITY WEATHER
       </div>
-      <div className="flex w-full justify-center items-center">
+      <div className="flex w-2/3 justify-center items-center">
         <input
           type="text"
           value={city}
           onChange={(e) => setCity(e.target.value)}
           placeholder="Enter City Name"
-          className="ml-8 w-1/2 my-5 mx-1 text-xl rounded-md border-4 border-green-800 px-2"
+          className="flex flex-grow my-5 mr-1 text-xl rounded-md border-4 border-green-800 px-2"
         />
         <button
           onClick={handleShow}
@@ -58,15 +58,15 @@ export const Weather = () => {
         )}
       </div>
       <div className="flex flex-col w-full items-center">
-        <div className="flex w-full text-3xl font-bold justify-center pr-5 ">
+        <div className="flex text-4xl font-bold justify-center pr-5 ">
           SAVE CITY WEATHERS
         </div>
-        <div className="flex w-full m-5 justify-center">
+        <div className="flex w-2/3 my-5 justify-center">
           <select
             id="city"
             value={selectedCity}
             onChange={handleCityChange}
-            className="h-9 pl-4 bg-white rounded-md w-60 mr-1 border-4 border-gray-500 text-xl ml-8">
+            className="flex flex-grow min-w-0 h-9 pl-4 bg-white rounded-md mr-1 border-4 border-gray-500 text-xl">
             <option value="">Select a city</option>
             {cityList.map((city) => (
               <option key={city} value={city}>
@@ -76,7 +76,7 @@ export const Weather = () => {
           </select>
           <button
             onClick={handleSaveWeatherClick}
-            className="h-9 rounded-md bg-amber-400 text-lg px-2 active:scale-95 active:bg-amber-500 ">
+            className="min-w-36 h-9 rounded-md bg-amber-400 text-lg px-1 active:scale-95 active:bg-amber-500 ">
             Save Weather
           </button>
         </div>
