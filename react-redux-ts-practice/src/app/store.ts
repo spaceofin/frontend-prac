@@ -3,6 +3,7 @@ import counterReducer from "../features/counter/counterSlice";
 import clockReducer from "../features/clock/clockSlice";
 import weatherReducer from "../features/weather/weatherSlice";
 import userReducer from "../features/user/userSlice";
+import logUserUpdates from "../middleware/logUserUpdates";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,8 @@ export const store = configureStore({
     weather: weatherReducer,
     user: userReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(logUserUpdates),
 });
 
 export type AppDispatch = typeof store.dispatch;
