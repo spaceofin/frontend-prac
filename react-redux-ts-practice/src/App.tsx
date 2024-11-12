@@ -4,6 +4,7 @@ import { Clock } from "./features/clock/Clock";
 import { Weather } from "./features/weather/Weather";
 import { User } from "./features/user/user";
 import { Todos } from "./features/todos/todos";
+import { Cart } from "./features/cart/cart";
 
 export default function App() {
   return (
@@ -25,6 +26,9 @@ export default function App() {
       </Container>
       <Container>
         <Todos />
+      </Container>
+      <Container>
+        <Cart />
       </Container>
     </div>
   );

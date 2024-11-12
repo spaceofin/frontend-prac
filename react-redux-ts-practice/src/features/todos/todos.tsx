@@ -11,6 +11,7 @@ export const Todos = () => {
       console.log(`"${todo}" is already in the list.`);
       return;
     }
+    // console.log(addTodo(todo));
     dispatch(addTodo(todo));
   };
 
@@ -30,8 +31,8 @@ export const Todos = () => {
       </button>
       <ul className="w-1/2 mb-4 mt-6 h-36 overflow-y-auto">
         {todoList.length > 0 &&
-          todoList.map((todo, index) => (
-            <li key={index} className="text-xl m-2">
+          todoList.map((todo) => (
+            <li key={todo} className="text-xl m-2">
               {todo}
               <button
                 onClick={() => handleTodoRemove(todo)}

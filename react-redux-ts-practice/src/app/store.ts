@@ -4,6 +4,7 @@ import clockReducer from "../features/clock/clockSlice";
 import weatherReducer from "../features/weather/weatherSlice";
 import userReducer from "../features/user/userSlice";
 import todosReducer from "../features/todos/todosSlice";
+import cartReducer from "../features/cart/cartSlice";
 import logUserUpdates from "../middleware/logUserUpdates";
 
 export const store = configureStore({
@@ -13,6 +14,7 @@ export const store = configureStore({
     weather: weatherReducer,
     user: userReducer,
     todos: todosReducer,
+    cart: cartReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(logUserUpdates),
