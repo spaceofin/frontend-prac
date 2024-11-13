@@ -1,6 +1,10 @@
 import { createSlice, PayloadAction, createAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 
+export const reset = createAction("app/reset");
+
+// console.log(reset.toString());
+
 const initialState: string[] = [];
 
 const todosSlice = createSlice({
@@ -15,6 +19,11 @@ const todosSlice = createSlice({
       state.splice(index, 1);
     },
   },
+  extraReducers(builder) {
+    builder.addCase(reset, (state, action) => {
+      return [];
+    });
+  },
 });
 
 const doneSlice = createSlice({
@@ -24,6 +33,11 @@ const doneSlice = createSlice({
     addDone: (state, action: PayloadAction<string>) => {
       state.push(action.payload);
     },
+  },
+  extraReducers(builder) {
+    builder.addCase(reset, (state, action) => {
+      return [];
+    });
   },
 });
 

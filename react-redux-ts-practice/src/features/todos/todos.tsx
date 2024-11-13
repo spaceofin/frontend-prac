@@ -5,6 +5,7 @@ import {
   selectTodo,
   addDone,
   selectDone,
+  reset,
 } from "./todosSlice";
 import { createRandomTodo } from "./createRandomTodo";
 
@@ -29,6 +30,10 @@ export const Todos = () => {
   const handleTodoDone = (todo: string) => {
     dispatch(removeTodo(todo));
     dispatch(addDone(todo));
+  };
+
+  const handleReset = () => {
+    dispatch(reset());
   };
 
   return (
@@ -72,6 +77,13 @@ export const Todos = () => {
             ))}
           </ul>
         </div>
+      </div>
+      <div className="flex w-full mr-14 justify-end">
+        <button
+          onClick={handleReset}
+          className="text-lg bg-blue-300 px-4 h-8 flex items-center rounded-md">
+          RESET
+        </button>
       </div>
     </div>
   );
