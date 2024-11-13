@@ -3,7 +3,7 @@ import counterReducer from "../features/counter/counterSlice";
 import clockReducer from "../features/clock/clockSlice";
 import weatherReducer from "../features/weather/weatherSlice";
 import userReducer from "../features/user/userSlice";
-import todosReducer from "../features/todos/todosSlice";
+import { todosReducer, doneReducer } from "../features/todos/todosSlice";
 import cartReducer from "../features/cart/cartSlice";
 import logUserUpdates from "../middleware/logUserUpdates";
 
@@ -14,6 +14,7 @@ export const store = configureStore({
     weather: weatherReducer,
     user: userReducer,
     todos: todosReducer,
+    done: doneReducer,
     cart: cartReducer,
   },
   middleware: (getDefaultMiddleware) =>
