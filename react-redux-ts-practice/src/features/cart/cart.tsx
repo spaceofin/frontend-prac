@@ -1,14 +1,23 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { addItem, removeItem, selectCart } from "../cart/cartSlice";
-import { useState } from "react";
+import {
+  addItem,
+  removeItem,
+  changeSearchTerm,
+  selectCart,
+} from "../cart/cartSlice";
+import { useState, useEffect } from "react";
 
 export const Cart = () => {
   const dispatch = useAppDispatch();
-  const itemList = useAppSelector(selectCart);
+  const { items: itemList, searchTerm } = useAppSelector(selectCart);
 
   const [itemName, setItemName] = useState<string>("");
   const [itemValue, setItemValue] = useState<number>(0);
   const [totalValue, setTotalValue] = useState<number>(0);
+
+  useEffect(() => {
+    setTotalValue(itemList.reduce((acc, item) => acc + item.value, 0));
+  }, [itemList]);
 
   const handleItemAdd = () => {
     if (itemList.some(({ name }) => name === itemName)) {
@@ -16,7 +25,6 @@ export const Cart = () => {
       return;
     }
     dispatch(addItem({ name: itemName, value: itemValue }));
-    setTotalValue((prev) => prev + itemValue);
   };
 
   const handleItemRemove = ({
@@ -27,7 +35,6 @@ export const Cart = () => {
     value: number;
   }) => {
     dispatch(removeItem(name));
-    setTotalValue((prev) => prev - value);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,6 +44,10 @@ export const Cart = () => {
     } else if (name === "itemValue") {
       setItemValue(parseInt(value));
     }
+  };
+
+  const handleSearchTermChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(changeSearchTerm(e.target.value));
   };
 
   return (
@@ -74,6 +85,14 @@ export const Cart = () => {
             Add
           </button>
         </div>
+      </div>
+      <div className="w-full flex justify-between">
+        <label>Search</label>
+        <input
+          className="rounded-md"
+          value={searchTerm}
+          onChange={handleSearchTermChange}
+        />
       </div>
       <ul className="w-full my-2 px-6 h-24 overflow-y-auto bg-gray-100 bg-opacity-70 rounded-md">
         {itemList.length > 0 &&
