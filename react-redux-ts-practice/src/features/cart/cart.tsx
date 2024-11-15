@@ -5,19 +5,18 @@ import {
   changeSearchTerm,
   selectCart,
 } from "../cart/cartSlice";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export const Cart = () => {
   const dispatch = useAppDispatch();
-  const { items: itemList, searchTerm } = useAppSelector(selectCart);
+  const {
+    items: itemList,
+    searchTerm,
+    totalValue,
+  } = useAppSelector(selectCart);
 
   const [itemName, setItemName] = useState<string>("");
   const [itemValue, setItemValue] = useState<number>(0);
-  const [totalValue, setTotalValue] = useState<number>(0);
-
-  useEffect(() => {
-    setTotalValue(itemList.reduce((acc, item) => acc + item.value, 0));
-  }, [itemList]);
 
   const handleItemAdd = () => {
     if (itemList.some(({ name }) => name === itemName)) {
@@ -27,13 +26,7 @@ export const Cart = () => {
     dispatch(addItem({ name: itemName, value: itemValue }));
   };
 
-  const handleItemRemove = ({
-    name,
-    value,
-  }: {
-    name: string;
-    value: number;
-  }) => {
+  const handleItemRemove = ({ name }: { name: string }) => {
     dispatch(removeItem(name));
   };
 

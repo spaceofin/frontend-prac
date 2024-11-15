@@ -36,7 +36,8 @@ export const selectCart = ({ cart: { searchTerm, items } }: RootState) => {
   const filteredItems = items.filter((item) =>
     item.name.toLocaleLowerCase().includes(searchTerm.toLowerCase())
   );
-  return { items: filteredItems, searchTerm };
+  const totalValue = filteredItems.reduce((acc, item) => acc + item.value, 0);
+  return { items: filteredItems, searchTerm, totalValue };
 };
 
 export default cartSlice.reducer;
