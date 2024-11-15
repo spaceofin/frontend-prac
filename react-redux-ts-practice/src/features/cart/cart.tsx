@@ -5,25 +5,23 @@ import {
   changeSearchTerm,
   selectCart,
 } from "../cart/cartSlice";
-import { useState } from "react";
+import { changeName, changePrice, selectItemInput } from "./itemInputSlice";
 
 export const Cart = () => {
   const dispatch = useAppDispatch();
   const {
     items: itemList,
     searchTerm,
-    totalValue,
+    totalPrice,
   } = useAppSelector(selectCart);
-
-  const [itemName, setItemName] = useState<string>("");
-  const [itemValue, setItemValue] = useState<number>(0);
+  const { name: itemName, price: itemPrice } = useAppSelector(selectItemInput);
 
   const handleItemAdd = () => {
     if (itemList.some(({ name }) => name === itemName)) {
       console.log(`"${itemName}" is already in the cart.`);
       return;
     }
-    dispatch(addItem({ name: itemName, value: itemValue }));
+    dispatch(addItem({ name: itemName, price: itemPrice }));
   };
 
   const handleItemRemove = ({ name }: { name: string }) => {
@@ -33,9 +31,9 @@ export const Cart = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (name === "itemName") {
-      setItemName(value);
-    } else if (name === "itemValue") {
-      setItemValue(parseInt(value));
+      dispatch(changeName(value));
+    } else if (name === "itemPrice") {
+      dispatch(changePrice(value));
     }
   };
 
@@ -60,14 +58,14 @@ export const Cart = () => {
           />
         </div>
         <div className="flex flex-col">
-          <label>Item Value</label>
+          <label>Item price</label>
           <input
             className="rounded-md pl-2 w-full box-border"
-            name="itemValue"
+            name="itemPrice"
             type="number"
             step="1000"
             min="0"
-            value={itemValue}
+            value={itemPrice}
             onChange={handleInputChange}
           />
         </div>
@@ -91,7 +89,7 @@ export const Cart = () => {
         {itemList.length > 0 &&
           itemList.map((item, index) => (
             <li key={index} className="flex justify-between text-xl m-1">
-              {item.name} {item.value}
+              {item.name} {item.price}
               <button
                 onClick={() => handleItemRemove(item)}
                 className="bg-red-400 text-md bg-opacity-90 px-4 rounded-md">
@@ -101,8 +99,8 @@ export const Cart = () => {
           ))}
       </ul>
       <div className="flex w-full justify-between my-2">
-        <label>Total Value:</label>
-        <div>{totalValue}</div>
+        <label>Total Price:</label>
+        <div>{totalPrice}</div>
       </div>
     </div>
   );

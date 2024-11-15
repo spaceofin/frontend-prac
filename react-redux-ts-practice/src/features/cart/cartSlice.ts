@@ -3,7 +3,7 @@ import { RootState } from "../../app/store";
 
 interface CartItem {
   name: string;
-  value: number;
+  price: number;
 }
 
 const initialState: { searchTerm: string; items: CartItem[] } = {
@@ -36,8 +36,8 @@ export const selectCart = ({ cart: { searchTerm, items } }: RootState) => {
   const filteredItems = items.filter((item) =>
     item.name.toLocaleLowerCase().includes(searchTerm.toLowerCase())
   );
-  const totalValue = filteredItems.reduce((acc, item) => acc + item.value, 0);
-  return { items: filteredItems, searchTerm, totalValue };
+  const totalPrice = filteredItems.reduce((acc, item) => acc + item.price, 0);
+  return { items: filteredItems, searchTerm, totalPrice };
 };
 
 export default cartSlice.reducer;
