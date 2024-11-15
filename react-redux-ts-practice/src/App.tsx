@@ -15,9 +15,9 @@ export default function App() {
       <Container>
         <Counter />
       </Container>
-      {/* <Container>
+      <Container>
         <Clock />
-      </Container> */}
+      </Container>
       <Container>
         <Weather />
       </Container>

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
+import { createSelector } from "@reduxjs/toolkit";
 
 interface CartItem {
   name: string;
@@ -31,13 +32,17 @@ const cartSlice = createSlice({
 });
 
 export const { addItem, removeItem, changeSearchTerm } = cartSlice.actions;
-// export const selectCart = (state: RootState) => state.cart;
-export const selectCart = ({ cart: { searchTerm, items } }: RootState) => {
-  const filteredItems = items.filter((item) =>
-    item.name.toLocaleLowerCase().includes(searchTerm.toLowerCase())
-  );
-  const totalPrice = filteredItems.reduce((acc, item) => acc + item.price, 0);
-  return { items: filteredItems, searchTerm, totalPrice };
-};
-
+export const selectCart = createSelector(
+  [
+    (state: RootState) => state.cart.items,
+    (state: RootState) => state.cart.searchTerm,
+  ],
+  (items, searchTerm) => {
+    const filteredItems = items.filter((item) =>
+      item.name.toLocaleLowerCase().includes(searchTerm.toLowerCase())
+    );
+    const totalPrice = filteredItems.reduce((acc, item) => acc + item.price, 0);
+    return { items: filteredItems, searchTerm, totalPrice };
+  }
+);
 export default cartSlice.reducer;
