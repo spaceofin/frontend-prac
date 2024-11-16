@@ -1,10 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import {
-  addItem,
-  removeItem,
-  changeSearchTerm,
-  selectCart,
-} from "../cart/cartSlice";
+import { addItem, removeItem, changeSearchTerm, selectCart } from "./cartSlice";
 import { changeName, changePrice, selectItemInput } from "./itemInputSlice";
 
 export const Cart = () => {

@@ -2,9 +2,10 @@ import { Counter } from "./features/counter/Counter";
 import { Container } from "./components/Container";
 import { Clock } from "./features/clock/Clock";
 import { Weather } from "./features/weather/Weather";
-import { User } from "./features/user/user";
-import { Todos } from "./features/todos/todos";
-import { Cart } from "./features/cart/cart";
+import { User } from "./features/user/User";
+import { Todos } from "./features/todos/Todos";
+import { Cart } from "./features/cart/Cart";
+import Library from "./features/library/Library";
 
 export default function App() {
   return (
@@ -29,6 +30,9 @@ export default function App() {
       </Container>
       <Container>
         <Cart />
+      </Container>
+      <Container>
+        <Library />
       </Container>
     </div>
   );
