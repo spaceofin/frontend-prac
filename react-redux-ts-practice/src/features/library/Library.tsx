@@ -6,7 +6,7 @@ export default function Library() {
       <div className="flex w-full justify-center text-4xl font-bold my-5">
         Library
       </div>
-      <div className="flex items-center h-full">
+      <div className="flex items-center h-full w-full box-border">
         <SectionsList />
       </div>
     </div>

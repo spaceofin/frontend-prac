@@ -10,7 +10,7 @@ export const fetchBooks = createAsyncThunk(
   async (sectionId: number) => {
     const response = await axios.get(`${baseUrl}?sectionId=${sectionId}`);
 
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    // await new Promise((resolve) => setTimeout(resolve, 3000));
 
     return response.data;
   }
@@ -18,7 +18,7 @@ export const fetchBooks = createAsyncThunk(
 
 interface Book {
   id: number;
-  book: string;
+  title: string;
   sectionId: number;
 }
 

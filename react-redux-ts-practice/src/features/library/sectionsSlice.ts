@@ -8,7 +8,7 @@ const url = "http://localhost:3100/sections";
 export const fetchSections = createAsyncThunk("sections/fetch", async () => {
   const response = await axios.get(url);
 
-  await new Promise((resolve) => setTimeout(resolve, 3000));
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
 
   return response.data;
 });

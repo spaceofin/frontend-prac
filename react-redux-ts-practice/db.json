@@ -11,22 +11,61 @@
     { "id": 9, "name": "Uncategorized" }
   ],
   "books": [
-    { "id": 1, "book": "The Whispering Forest", "sectionId": 1 },
-    { "id": 2, "book": "Tales of the Forgotten City", "sectionId": 1 },
-    { "id": 3, "book": "Journey to the Unknown", "sectionId": 1 },
-    { "id": 4, "book": "Secrets of the Ancient Ruins", "sectionId": 1 },
-    { "id": 5, "book": "The Last Guardian", "sectionId": 2 },
-    { "id": 6, "book": "Echoes of the Past", "sectionId": 2 },
-    { "id": 7, "book": "The Hidden Path", "sectionId": 2 },
-    { "id": 8, "book": "Whispers in the Wind", "sectionId": 2 },
-    { "id": 9, "book": "The Enchanted Realm", "sectionId": 3 },
-    { "id": 10, "book": "Chronicles of the Lost World", "sectionId": 3 },
-    { "id": 11, "book": "The Time Traveler's Tale", "sectionId": 3 },
-    { "id": 12, "book": "Legends of the Forgotten", "sectionId": 3 },
-    { "id": 13, "book": "The Shadow of the Moon", "sectionId": 4 },
-    { "id": 14, "book": "The Crystal Key", "sectionId": 4 },
-    { "id": 15, "book": "The Fire Within", "sectionId": 4 },
-    { "id": 16, "book": "The Dreamweaver's Journey", "sectionId": 4 }
+    { "id": 1, "title": "The Whispering Forest", "sectionId": 1 },
+    { "id": 2, "title": "Tales of the Forgotten City", "sectionId": 1 },
+    { "id": 3, "title": "Journey to the Unknown", "sectionId": 1 },
+    { "id": 4, "title": "Secrets of the Ancient Ruins", "sectionId": 1 },
+    { "id": 5, "title": "The Last Guardian", "sectionId": 2 },
+    { "id": 6, "title": "Echoes of the Past", "sectionId": 2 },
+    { "id": 7, "title": "The Hidden Path", "sectionId": 2 },
+    { "id": 8, "title": "Whispers in the Wind", "sectionId": 2 },
+    { "id": 9, "title": "The Enchanted Realm", "sectionId": 3 },
+    { "id": 10, "title": "Chronicles of the Lost World", "sectionId": 3 },
+    { "id": 11, "title": "The Time Traveler's Tale", "sectionId": 3 },
+    { "id": 12, "title": "Legends of the Forgotten", "sectionId": 3 },
+    { "id": 13, "title": "The Shadow of the Moon", "sectionId": 4 },
+    { "id": 14, "title": "The Crystal Key", "sectionId": 4 },
+    { "id": 15, "title": "The Fire Within", "sectionId": 4 },
+    { "id": 16, "title": "The Dreamweaver's Journey", "sectionId": 4 },
+    { "id": 17, "title": "The Canvas of Imagination", "sectionId": 5 },
+    { "id": 18, "title": "Masterpieces of the Renaissance", "sectionId": 5 },
+    { "id": 19, "title": "Modern Art: Breaking Boundaries", "sectionId": 5 },
+    { "id": 20, "title": "The Musician’s Journey", "sectionId": 5 },
+
+    { "id": 21, "title": "The Magical Treehouse Adventures", "sectionId": 6 },
+    { "id": 22, "title": "Zippy the Curious Zebra", "sectionId": 6 },
+    {
+      "id": 23,
+      "title": "The Little Inventor’s Guide to Science",
+      "sectionId": 6
+    },
+    { "id": 24, "title": "Adventures in Candyland", "sectionId": 6 },
+
+    { "id": 25, "title": "The Meaning of Existence", "sectionId": 7 },
+    { "id": 26, "title": "Echoes of Ancient Wisdom", "sectionId": 7 },
+    { "id": 27, "title": "The Paradox of Freedom", "sectionId": 7 },
+    { "id": 28, "title": "Ethics in Modern Society", "sectionId": 7 },
+    {
+      "id": 29,
+      "title": "Wonders of the World: A Traveler's Guide",
+      "sectionId": 8
+    },
+    {
+      "id": 30,
+      "title": "Exploring the Hidden Gems of Europe",
+      "sectionId": 8
+    },
+    { "id": 31, "title": "Safari Tales from the Serengeti", "sectionId": 8 },
+    { "id": 32, "title": "Island Hopping in the Pacific", "sectionId": 8 },
+
+    { "id": 33, "title": "The Mystery of the Lost Artifact", "sectionId": 9 },
+    { "id": 34, "title": "Beyond the Unknown", "sectionId": 9 },
+    { "id": 35, "title": "A Collection of Timeless Recipes", "sectionId": 9 },
+    {
+      "id": 36,
+      "title": "The Life and Times of an Eccentric Genius",
+      "sectionId": 9
+    }
   ],
   "comments": [
     { "id": 1, "comment": "This book is really interesting!", "bookId": 1 },

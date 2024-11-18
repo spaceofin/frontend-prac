@@ -15,12 +15,12 @@ export default function Section({ sectionId }: { sectionId: number }) {
       {isLoading && <div>Loading fetching data...</div>}
       {error && <div>Error fetching data...</div>}
       {!isLoading && !error && (
-        <div className="grid grid-cols-3">
+        <div className="grid grid-cols-2 h-52 bg-gray-400 rounded-md py-5">
           {data.map((book) => (
             <div
               key={book.id}
-              className="flex items-center w-40 xl:w-60 my-2 mx-4 p-2 pl-2 xl:pl-6 bg-white rounded-md cursor-pointer text-md xl:text-xl border-4 border-double border-gray-700">
-              {book.book}
+              className="flex items-center h-18 my-2 mx-4 p-2 pl-2 xl:pl-6 bg-white rounded-md cursor-pointer text-md xl:text-xl border-4 border-double border-gray-700">
+              {book.title}
             </div>
           ))}
         </div>
