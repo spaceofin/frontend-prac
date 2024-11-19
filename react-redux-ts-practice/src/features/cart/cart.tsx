@@ -42,20 +42,20 @@ export const Cart = () => {
         Cart
       </div>
       <div className="flex w-full gap-4 my-2">
-        <div className="flex flex-col">
+        <div className="flex flex-col w-full">
           <label>Item Name</label>
           <input
-            className="rounded-md pl-2 w-full box-border"
+            className="rounded-md pl-2"
             name="itemName"
             type="text"
             value={itemName}
             onChange={handleInputChange}
           />
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col w-full">
           <label>Item price</label>
           <input
-            className="rounded-md pl-2 w-full box-border"
+            className="rounded-md pl-2 box-border"
             name="itemPrice"
             type="number"
             step="1000"

@@ -18,18 +18,18 @@ export default function SectionsList() {
     dispatch(fetchSections());
   }, [dispatch]);
 
-  if (isLoading) {
-    return <div>Loading fetching data...</div>;
-  }
-
-  if (error) {
-    return <div>Error fetching data...</div>;
-  }
-
   return (
     <>
-      {isLoading && <div>Loading fetching data...</div>}
-      {error && <div>Error fetching data...</div>}
+      {isLoading && (
+        <div className="flex w-full justify-center">
+          Loading fetching data...
+        </div>
+      )}
+      {error && (
+        <div className="flex w-full justify-center">
+          Error fetching data.....
+        </div>
+      )}
       {!isLoading && !error && (
         <>
           {sectionId ? (
@@ -48,7 +48,7 @@ export default function SectionsList() {
                   <div
                     key={section.id}
                     onClick={() => setSectionId(section.id)}
-                    className="flex items-center w-40 xl:w-60 my-2 mx-4 p-2 pl-2 xl:pl-6 bg-white rounded-md cursor-pointer text-md xl:text-xl border-4 border-double border-gray-700">
+                    className="flex items-center w-48 2xl:w-60 my-2 mx-2 2xl:mx-4 p-2 pl-2 2xl:pl-6 bg-white rounded-md cursor-pointer text-md 2xl:text-xl border-4 border-double border-gray-700">
                     {section.name}
                   </div>
                 ))}

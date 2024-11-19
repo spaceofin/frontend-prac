@@ -12,8 +12,16 @@ export default function Section({ sectionId }: { sectionId: number }) {
 
   return (
     <>
-      {isLoading && <div>Loading fetching data...</div>}
-      {error && <div>Error fetching data...</div>}
+      {isLoading && (
+        <div className="flex w-full justify-center">
+          Loading fetching data...
+        </div>
+      )}
+      {error && (
+        <div className="flex w-full justify-center">
+          Error fetching data.....
+        </div>
+      )}
       {!isLoading && !error && (
         <div className="grid grid-cols-2 h-52 bg-gray-400 rounded-md py-5">
           {data.map((book) => (
