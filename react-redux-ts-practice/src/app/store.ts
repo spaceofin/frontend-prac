@@ -9,6 +9,7 @@ import itemInputReducer from "../features/cart/itemInputSlice";
 import logUserUpdates from "../middleware/logUserUpdates";
 import sectionsReducer from "../features/library/sectionsSlice";
 import booksReducer from "../features/library/booksSlice";
+import commentsReducer from "../features/library/commentsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ export const store = configureStore({
     itemInput: itemInputReducer,
     sections: sectionsReducer,
     books: booksReducer,
+    comments: commentsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(logUserUpdates),
