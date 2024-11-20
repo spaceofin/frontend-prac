@@ -1,17 +1,10 @@
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { fetchBooks, selectBooks } from "./booksSlice";
 import { useState } from "react";
 import Comments from "./Comments";
+import { useFetchBooksQuery } from "./booksApi";
 
 export default function Section({ sectionId }: { sectionId: number }) {
-  const dispatch = useAppDispatch();
-  const { data, isLoading, error } = useAppSelector(selectBooks);
+  const { data, isLoading, error } = useFetchBooksQuery(sectionId);
   const [bookId, setBookId] = useState<number | null>(null);
-
-  useEffect(() => {
-    dispatch(fetchBooks(sectionId));
-  }, [dispatch]);
 
   const handleBookClick = (bookId: number) => {
     setBookId(bookId);
@@ -40,7 +33,7 @@ export default function Section({ sectionId }: { sectionId: number }) {
         </div>
       ) : (
         <div className="grid grid-cols-2 h-56 2xl:h-52 bg-gray-400 rounded-md py-5">
-          {data.map((book) => (
+          {data.map((book: Book) => (
             <div
               key={book.id}
               onClick={() => handleBookClick(book.id)}

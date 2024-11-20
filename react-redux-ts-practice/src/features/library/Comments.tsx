@@ -1,14 +1,7 @@
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { fetchComments, selectComments } from "./commentsSlice";
+import { useFetchcommentsQuery } from "./commentsApi";
 
 export default function Comments({ bookId }: { bookId: number }) {
-  const dispatch = useAppDispatch();
-  const { data, isLoading, error } = useAppSelector(selectComments);
-
-  useEffect(() => {
-    dispatch(fetchComments(bookId));
-  }, [dispatch]);
+  const { data, isLoading, error } = useFetchcommentsQuery(bookId);
 
   if (isLoading) {
     return (
@@ -24,7 +17,7 @@ export default function Comments({ bookId }: { bookId: number }) {
 
   return (
     <div className="m-2">
-      {data.map((comment) => (
+      {data.map((comment: BookComment) => (
         <div
           key={comment.id}
           className="flex items-center h-8 my-1 mx-4 pl-2 xl:pl-6 text-md xl:text-xl">
