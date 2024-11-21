@@ -5,9 +5,17 @@ import { useFetchBooksQuery } from "./booksApi";
 export default function Section({ sectionId }: { sectionId: number }) {
   const { data, isLoading, error } = useFetchBooksQuery(sectionId);
   const [bookId, setBookId] = useState<number | null>(null);
+  const [bookTitle, setBookTitle] = useState<string | null>(null);
 
-  const handleBookClick = (bookId: number) => {
+  const handleBookClick = ({
+    bookId,
+    bookTitle,
+  }: {
+    bookId: number;
+    bookTitle: string;
+  }) => {
     setBookId(bookId);
+    setBookTitle(bookTitle);
   };
 
   if (isLoading) {
@@ -27,7 +35,7 @@ export default function Section({ sectionId }: { sectionId: number }) {
       {bookId ? (
         <div className="flex flex-col w-full h-52 bg-gray-400 rounded-md py-5">
           <div className="flex justify-center items-center h-18 my-2 mx-4 p-2 pl-2 2xl:pl-6 bg-white rounded-md text-md 2xl:text-xl border-4 border-double border-gray-700">
-            {data[0].title}
+            {bookTitle}
           </div>
           <Comments bookId={bookId} />
         </div>
@@ -36,7 +44,9 @@ export default function Section({ sectionId }: { sectionId: number }) {
           {data.map((book: Book) => (
             <div
               key={book.id}
-              onClick={() => handleBookClick(book.id)}
+              onClick={() =>
+                handleBookClick({ bookId: book.id, bookTitle: book.title })
+              }
               className="flex items-center h-26 2xl:h-18 my-2 mx-4 p-2 pl-2 2xl:pl-6 bg-white rounded-md cursor-pointer text-md 2xl:text-xl border-4 border-double border-gray-700">
               {book.title}
             </div>
