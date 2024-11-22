@@ -5,7 +5,7 @@ const commentsApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3100",
   }),
-  tagTypes: ["Comment"],
+  tagTypes: ["Comment", "BookComment"],
   endpoints(builder) {
     return {
       fetchcomments: builder.query<BookComment[], number>({
@@ -37,9 +37,24 @@ const commentsApi = createApi({
           };
         },
       }),
+      removeComment: builder.mutation({
+        invalidatesTags: (result, error, { commentId, bookId }) => {
+          return [{ type: "Comment", id: bookId }];
+        },
+        query: ({ commentId }) => {
+          return {
+            method: "DELETE",
+            url: `/comments/${commentId}`,
+          };
+        },
+      }),
     };
   },
 });
 
-export const { useFetchcommentsQuery, useAddCommentMutation } = commentsApi;
+export const {
+  useFetchcommentsQuery,
+  useAddCommentMutation,
+  useRemoveCommentMutation,
+} = commentsApi;
 export { commentsApi };

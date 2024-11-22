@@ -1,13 +1,29 @@
-import { useFetchcommentsQuery, useAddCommentMutation } from "./commentsApi";
+import Comment from "./Comment";
+import {
+  useFetchcommentsQuery,
+  useAddCommentMutation,
+  useRemoveCommentMutation,
+} from "./commentsApi";
 import { useState } from "react";
 
 export default function Comments({ bookId }: { bookId: number }) {
   const { data, isLoading, error } = useFetchcommentsQuery(bookId);
   const [addComment, addCommentResults] = useAddCommentMutation();
+  const [removeComment, removeCommentReulsts] = useRemoveCommentMutation();
   const [inputValue, setInputValue] = useState<string>("");
 
   const handleAddComment = (comment: string) => {
     addComment({ bookId, comment });
+  };
+
+  const handleDelComment = ({
+    commentId,
+    bookId,
+  }: {
+    commentId: number;
+    bookId: number;
+  }) => {
+    removeComment({ commentId, bookId });
   };
 
   if (isLoading) {
@@ -41,7 +57,12 @@ export default function Comments({ bookId }: { bookId: number }) {
           <div
             key={comment.id}
             className="flex items-center h-8 my-1 mx-4 pl-2 xl:pl-6 text-md xl:text-xl">
-            {comment.comment}
+            <Comment
+              comment={comment.comment}
+              commentId={comment.id}
+              bookId={bookId}
+              handleDelComment={handleDelComment}
+            />
           </div>
         ))}
       </div>
