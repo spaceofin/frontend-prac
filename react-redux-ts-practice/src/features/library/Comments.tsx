@@ -16,14 +16,8 @@ export default function Comments({ bookId }: { bookId: number }) {
     addComment({ bookId, comment });
   };
 
-  const handleDelComment = ({
-    commentId,
-    bookId,
-  }: {
-    commentId: number;
-    bookId: number;
-  }) => {
-    removeComment({ commentId, bookId });
+  const handleDelComment = (commentId: number) => {
+    removeComment(commentId);
   };
 
   if (isLoading) {

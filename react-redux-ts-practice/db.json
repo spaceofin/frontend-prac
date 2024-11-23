@@ -1,562 +1,562 @@
 {
   "sections": [
     {
-      "id": "1",
+      "id": 1,
       "name": "Literature"
     },
     {
-      "id": "2",
+      "id": 2,
       "name": "Science"
     },
     {
-      "id": "3",
+      "id": 3,
       "name": "History"
     },
     {
-      "id": "4",
+      "id": 4,
       "name": "Self-Development"
     },
     {
-      "id": "5",
+      "id": 5,
       "name": "Arts"
     },
     {
-      "id": "6",
+      "id": 6,
       "name": "Children"
     },
     {
-      "id": "7",
+      "id": 7,
       "name": "Philosophy"
     },
     {
-      "id": "8",
+      "id": 8,
       "name": "Travel"
     },
     {
-      "id": "9",
+      "id": 9,
       "name": "Uncategorized"
     }
   ],
   "books": [
     {
-      "id": "1",
+      "id": 1,
       "title": "The Whispering Forest",
       "sectionId": 1
     },
     {
-      "id": "2",
+      "id": 2,
       "title": "Tales of the Forgotten City",
       "sectionId": 1
     },
     {
-      "id": "3",
+      "id": 3,
       "title": "Journey to the Unknown",
       "sectionId": 1
     },
     {
-      "id": "4",
+      "id": 4,
       "title": "Secrets of the Ancient Ruins",
       "sectionId": 1
     },
     {
-      "id": "5",
+      "id": 5,
       "title": "The Last Guardian",
       "sectionId": 2
     },
     {
-      "id": "6",
+      "id": 6,
       "title": "Echoes of the Past",
       "sectionId": 2
     },
     {
-      "id": "7",
+      "id": 7,
       "title": "The Hidden Path",
       "sectionId": 2
     },
     {
-      "id": "8",
+      "id": 8,
       "title": "Whispers in the Wind",
       "sectionId": 2
     },
     {
-      "id": "9",
+      "id": 9,
       "title": "The Enchanted Realm",
       "sectionId": 3
     },
     {
-      "id": "10",
+      "id": 10,
       "title": "Chronicles of the Lost World",
       "sectionId": 3
     },
     {
-      "id": "11",
+      "id": 11,
       "title": "The Time Traveler's Tale",
       "sectionId": 3
     },
     {
-      "id": "12",
+      "id": 12,
       "title": "Legends of the Forgotten",
       "sectionId": 3
     },
     {
-      "id": "13",
+      "id": 13,
       "title": "The Shadow of the Moon",
       "sectionId": 4
     },
     {
-      "id": "14",
+      "id": 14,
       "title": "The Crystal Key",
       "sectionId": 4
     },
     {
-      "id": "15",
+      "id": 15,
       "title": "The Fire Within",
       "sectionId": 4
     },
     {
-      "id": "16",
+      "id": 16,
       "title": "The Dreamweaver's Journey",
       "sectionId": 4
     },
     {
-      "id": "17",
+      "id": 17,
       "title": "The Canvas of Imagination",
       "sectionId": 5
     },
     {
-      "id": "18",
+      "id": 18,
       "title": "Masterpieces of the Renaissance",
       "sectionId": 5
     },
     {
-      "id": "19",
+      "id": 19,
       "title": "Modern Art: Breaking Boundaries",
       "sectionId": 5
     },
     {
-      "id": "20",
+      "id": 20,
       "title": "The Musician’s Journey",
       "sectionId": 5
     },
     {
-      "id": "21",
+      "id": 21,
       "title": "The Magical Treehouse Adventures",
       "sectionId": 6
     },
     {
-      "id": "22",
+      "id": 22,
       "title": "Zippy the Curious Zebra",
       "sectionId": 6
     },
     {
-      "id": "23",
+      "id": 23,
       "title": "The Little Inventor’s Guide to Science",
       "sectionId": 6
     },
     {
-      "id": "24",
+      "id": 24,
       "title": "Adventures in Candyland",
       "sectionId": 6
     },
     {
-      "id": "25",
+      "id": 25,
       "title": "The Meaning of Existence",
       "sectionId": 7
     },
     {
-      "id": "26",
+      "id": 26,
       "title": "Echoes of Ancient Wisdom",
       "sectionId": 7
     },
     {
-      "id": "27",
+      "id": 27,
       "title": "The Paradox of Freedom",
       "sectionId": 7
     },
     {
-      "id": "28",
+      "id": 28,
       "title": "Ethics in Modern Society",
       "sectionId": 7
     },
     {
-      "id": "29",
+      "id": 29,
       "title": "Wonders of the World: A Traveler's Guide",
       "sectionId": 8
     },
     {
-      "id": "30",
+      "id": 30,
       "title": "Exploring the Hidden Gems of Europe",
       "sectionId": 8
     },
     {
-      "id": "31",
+      "id": 31,
       "title": "Safari Tales from the Serengeti",
       "sectionId": 8
     },
     {
-      "id": "32",
+      "id": 32,
       "title": "Island Hopping in the Pacific",
       "sectionId": 8
     },
     {
-      "id": "33",
+      "id": 33,
       "title": "The Mystery of the Lost Artifact",
       "sectionId": 9
     },
     {
-      "id": "34",
+      "id": 34,
       "title": "Beyond the Unknown",
       "sectionId": 9
     },
     {
-      "id": "35",
+      "id": 35,
       "title": "A Collection of Timeless Recipes",
       "sectionId": 9
     },
     {
-      "id": "36",
+      "id": 36,
       "title": "The Life and Times of an Eccentric Genius",
       "sectionId": 9
     }
   ],
   "comments": [
     {
-      "id": "1",
+      "id": 1,
       "comment": "This book is really interesting!",
       "bookId": 1
     },
     {
-      "id": "2",
+      "id": 2,
       "comment": "The story is captivating.",
       "bookId": 1
     },
     {
-      "id": "3",
+      "id": 3,
       "comment": "The tale of the forgotten city is impressive.",
       "bookId": 2
     },
     {
-      "id": "4",
+      "id": 4,
       "comment": "It stimulates the imagination.",
       "bookId": 2
     },
     {
-      "id": "5",
+      "id": 5,
       "comment": "I'm looking forward to the journey into the unknown.",
       "bookId": 3
     },
     {
-      "id": "6",
+      "id": 6,
       "comment": "This book is full of adventure.",
       "bookId": 3
     },
     {
-      "id": "7",
+      "id": 7,
       "comment": "The secrets of the ancient ruins are fascinating.",
       "bookId": 4
     },
     {
-      "id": "8",
+      "id": 8,
       "comment": "The historical background is well depicted.",
       "bookId": 4
     },
     {
-      "id": "9",
+      "id": 9,
       "comment": "The story of the last guardian is touching.",
       "bookId": 5
     },
     {
-      "id": "10",
+      "id": 10,
       "comment": "The characters are charming.",
       "bookId": 5
     },
     {
-      "id": "11",
+      "id": 11,
       "comment": "The echoes of the past are intriguing.",
       "bookId": 6
     },
     {
-      "id": "12",
+      "id": 12,
       "comment": "The emotions are well conveyed in this book.",
       "bookId": 6
     },
     {
-      "id": "13",
+      "id": 13,
       "comment": "The story about the hidden path is interesting.",
       "bookId": 7
     },
     {
-      "id": "14",
+      "id": 14,
       "comment": "This is a journey full of adventure.",
       "bookId": 7
     },
     {
-      "id": "15",
+      "id": 15,
       "comment": "The whispers in the wind are captivating.",
       "bookId": 8
     },
     {
-      "id": "16",
+      "id": 16,
       "comment": "The connection with nature is beautifully expressed.",
       "bookId": 8
     },
     {
-      "id": "17",
+      "id": 17,
       "comment": "The story of the magical realm is fascinating.",
       "bookId": 9
     },
     {
-      "id": "18",
+      "id": 18,
       "comment": "The content is rich in imagination.",
       "bookId": 9
     },
     {
-      "id": "19",
+      "id": 19,
       "comment": "The chronicle of the lost world is appealing.",
       "bookId": 10
     },
     {
-      "id": "20",
+      "id": 20,
       "comment": "This story is full of adventure.",
       "bookId": 10
     },
     {
-      "id": "21",
+      "id": 21,
       "comment": "The tale of the time traveler is intriguing.",
       "bookId": 11
     },
     {
-      "id": "22",
+      "id": 22,
       "comment": "The connection between past and present is well done.",
       "bookId": 11
     },
     {
-      "id": "23",
+      "id": 23,
       "comment": "The forgotten legend is captivating.",
       "bookId": 12
     },
     {
-      "id": "24",
+      "id": 24,
       "comment": "The story is well-structured.",
       "bookId": 12
     },
     {
-      "id": "25",
+      "id": 25,
       "comment": "The shadow of the moon is mysterious.",
       "bookId": 13
     },
     {
-      "id": "26",
+      "id": 26,
       "comment": "The dark atmosphere is well portrayed.",
       "bookId": 13
     },
     {
-      "id": "27",
+      "id": 27,
       "comment": "The story of the crystal key is fascinating.",
       "bookId": 14
     },
     {
-      "id": "28",
+      "id": 28,
       "comment": "This book is full of adventure.",
       "bookId": 14
     },
     {
-      "id": "29",
+      "id": 29,
       "comment": "The story of the inner flame is touching.",
       "bookId": 15
     },
     {
-      "id": "30",
+      "id": 30,
       "comment": "The emotions are well conveyed in this content.",
       "bookId": 15
     },
     {
-      "id": "31",
+      "id": 31,
       "comment": "The journey of the dreamer is captivating.",
       "bookId": 16
     },
     {
-      "id": "32",
+      "id": 32,
       "comment": "The story is rich in imagination.",
       "bookId": 16
     },
     {
-      "id": "33",
+      "id": 33,
       "comment": "A captivating exploration of creativity.",
       "bookId": 17
     },
     {
-      "id": "34",
+      "id": 34,
       "comment": "Inspires readers to think outside the box.",
       "bookId": 17
     },
     {
-      "id": "35",
+      "id": 35,
       "comment": "A beautiful homage to classic art.",
       "bookId": 18
     },
     {
-      "id": "36",
+      "id": 36,
       "comment": "Richly detailed and informative.",
       "bookId": 18
     },
     {
-      "id": "37",
+      "id": 37,
       "comment": "Challenges conventional views on art.",
       "bookId": 19
     },
     {
-      "id": "38",
+      "id": 38,
       "comment": "A must-read for modern art enthusiasts.",
       "bookId": 19
     },
     {
-      "id": "39",
+      "id": 39,
       "comment": "An inspiring tale of perseverance.",
       "bookId": 20
     },
     {
-      "id": "40",
+      "id": 40,
       "comment": "Captures the essence of a musician's life.",
       "bookId": 20
     },
     {
-      "id": "41",
+      "id": 41,
       "comment": "A delightful adventure for young readers.",
       "bookId": 21
     },
     {
-      "id": "42",
+      "id": 42,
       "comment": "Encourages imagination and creativity.",
       "bookId": 21
     },
     {
-      "id": "43",
+      "id": 43,
       "comment": "A fun and educational journey.",
       "bookId": 22
     },
     {
-      "id": "44",
+      "id": 44,
       "comment": "Perfect for curious minds.",
       "bookId": 22
     },
     {
-      "id": "45",
+      "id": 45,
       "comment": "Engaging and informative for kids.",
       "bookId": 23
     },
     {
-      "id": "46",
+      "id": 46,
       "comment": "Sparks interest in science and invention.",
       "bookId": 23
     },
     {
-      "id": "47",
+      "id": 47,
       "comment": "A whimsical journey through Candyland.",
       "bookId": 24
     },
     {
-      "id": "48",
+      "id": 48,
       "comment": "Full of fun and adventure.",
       "bookId": 24
     },
     {
-      "id": "49",
+      "id": 49,
       "comment": "Provokes deep philosophical thought.",
       "bookId": 25
     },
     {
-      "id": "50",
+      "id": 50,
       "comment": "A profound exploration of existence.",
       "bookId": 25
     },
     {
-      "id": "51",
+      "id": 51,
       "comment": "Wisdom that transcends time.",
       "bookId": 26
     },
     {
-      "id": "52",
+      "id": 52,
       "comment": "A thought-provoking read.",
       "bookId": 26
     },
     {
-      "id": "53",
+      "id": 53,
       "comment": "Challenges the reader's perspective on freedom.",
       "bookId": 27
     },
     {
-      "id": "54",
+      "id": 54,
       "comment": "A compelling narrative on ethics.",
       "bookId": 27
     },
     {
-      "id": "55",
+      "id": 55,
       "comment": "A fascinating travel guide.",
       "bookId": 29
     },
     {
-      "id": "56",
+      "id": 56,
       "comment": "Explores the wonders of the world beautifully.",
       "bookId": 29
     },
     {
-      "id": "57",
+      "id": 57,
       "comment": "A hidden gem of a travel book.",
       "bookId": 30
     },
     {
-      "id": "58",
+      "id": 58,
       "comment": "Inspires wanderlust in every reader.",
       "bookId": 30
     },
     {
-      "id": "59",
+      "id": 59,
       "comment": "An adventurous tale from the wild.",
       "bookId": 31
     },
     {
-      "id": "60",
+      "id": 60,
       "comment": "Captivating stories of wildlife.",
       "bookId": 31
     },
     {
-      "id": "61",
+      "id": 61,
       "comment": "A thrilling mystery that keeps you guessing.",
       "bookId": 33
     },
     {
-      "id": "62",
+      "id": 62,
       "comment": "Rich in suspense and intrigue.",
       "bookId": 33
     },
     {
-      "id": "63",
+      "id": 63,
       "comment": "Explores the unknown with depth.",
       "bookId": 34
     },
     {
-      "id": "64",
+      "id": 64,
       "comment": "A thought-provoking journey into mystery.",
       "bookId": 34
     },
     {
-      "id": "65",
+      "id": 65,
       "comment": "A delightful collection of recipes.",
       "bookId": 35
     },
     {
-      "id": "66",
+      "id": 66,
       "comment": "Perfect for food lovers and home cooks.",
       "bookId": 35
     },
     {
-      "id": "67",
+      "id": 67,
       "comment": "An eccentric yet fascinating biography.",
       "bookId": 36
     },
     {
-      "id": "68",
+      "id": 68,
       "comment": "Captures the quirks of a genius beautifully.",
       "bookId": 36
     }

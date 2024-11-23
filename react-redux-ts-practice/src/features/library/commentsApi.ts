@@ -8,9 +8,14 @@ const commentsApi = createApi({
   tagTypes: ["Comment", "BookComment"],
   endpoints(builder) {
     return {
-      fetchcomments: builder.query<BookComment[], number>({
+      fetchcomments: builder.query({
         providesTags: (result, error, bookId) => {
-          return [{ type: "Comment", id: bookId }];
+          const tags = result?.map((comment: BookComment) => ({
+            type: "Comment",
+            id: comment.id,
+          }));
+          tags?.push({ type: "BookComment", id: bookId });
+          return tags;
         },
         query: (bookId) => {
           return {
@@ -24,7 +29,7 @@ const commentsApi = createApi({
       }),
       addComment: builder.mutation({
         invalidatesTags: (result, error, { bookId, comment }) => {
-          return [{ type: "Comment", id: bookId }];
+          return [{ type: "BookComment", id: bookId }];
         },
         query: ({ bookId, comment }) => {
           return {
@@ -38,10 +43,10 @@ const commentsApi = createApi({
         },
       }),
       removeComment: builder.mutation({
-        invalidatesTags: (result, error, { commentId, bookId }) => {
-          return [{ type: "Comment", id: bookId }];
+        invalidatesTags: (result, error, commentId) => {
+          return [{ type: "Comment", id: commentId }];
         },
-        query: ({ commentId }) => {
+        query: (commentId) => {
           return {
             method: "DELETE",
             url: `/comments/${commentId}`,
