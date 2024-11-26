@@ -3,6 +3,7 @@ import {
   useFetchcommentsQuery,
   useAddCommentMutation,
   useRemoveCommentMutation,
+  useEditCommentMutation,
 } from "./commentsApi";
 import { useState } from "react";
 
@@ -10,7 +11,9 @@ export default function Comments({ bookId }: { bookId: number }) {
   const { data, isLoading, error } = useFetchcommentsQuery(bookId);
   const [addComment, addCommentResults] = useAddCommentMutation();
   const [removeComment, removeCommentReulsts] = useRemoveCommentMutation();
+  const [editComment, editCommentReulsts] = useEditCommentMutation();
   const [inputValue, setInputValue] = useState<string>("");
+  const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const handleAddComment = (comment: string) => {
     addComment({ bookId, comment });
@@ -18,6 +21,16 @@ export default function Comments({ bookId }: { bookId: number }) {
 
   const handleDelComment = (commentId: number) => {
     removeComment(commentId);
+  };
+
+  const handleSaveComment = ({
+    commentId,
+    newComment,
+  }: {
+    commentId: number;
+    newComment: string;
+  }) => {
+    editComment({ commentId, newComment });
   };
 
   if (isLoading) {
@@ -54,8 +67,8 @@ export default function Comments({ bookId }: { bookId: number }) {
             <Comment
               comment={comment.comment}
               commentId={comment.id}
-              bookId={bookId}
               handleDelComment={handleDelComment}
+              handleSaveComment={handleSaveComment}
             />
           </div>
         ))}

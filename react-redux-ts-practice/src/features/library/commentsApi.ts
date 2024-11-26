@@ -53,6 +53,21 @@ const commentsApi = createApi({
           };
         },
       }),
+      editComment: builder.mutation({
+        invalidatesTags: (result, error, { commentId, newComment }) => {
+          return [{ type: "Comment", id: commentId }];
+        },
+        query: ({ commentId, newComment }) => {
+          return {
+            method: "PATCH",
+            url: `/comments/${commentId}`,
+            body: {
+              commentId: commentId,
+              comment: newComment,
+            },
+          };
+        },
+      }),
     };
   },
 });
@@ -61,5 +76,6 @@ export const {
   useFetchcommentsQuery,
   useAddCommentMutation,
   useRemoveCommentMutation,
+  useEditCommentMutation,
 } = commentsApi;
 export { commentsApi };
