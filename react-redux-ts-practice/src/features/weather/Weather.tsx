@@ -2,12 +2,16 @@ import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchWeather, selectWeather } from "./weatherSlice";
 import { cityList } from "./cityList";
+import { searchCity } from "./searchCityApi";
+import { City } from "./searchCityApi";
 
 export const Weather = () => {
   const [city, setCity] = useState<string>("");
   const [selectedCity, setSelectedCity] = useState<string>("");
   const dispatch = useAppDispatch();
   const { data, loading, error, citiesWeather } = useAppSelector(selectWeather);
+  const [queryCity, setQueryCity] = useState("");
+  const [searchedCities, setSearchedCities] = useState<City[]>([]);
 
   const handleShow = () => {
     if (city.trim()) {
@@ -23,6 +27,11 @@ export const Weather = () => {
 
   const handleSaveWeatherClick = () => {
     dispatch(fetchWeather({ city: selectedCity, forSave: true }));
+  };
+
+  const handleSearch = async () => {
+    const results = await searchCity(queryCity);
+    setSearchedCities(results);
   };
 
   return (
@@ -88,6 +97,36 @@ export const Weather = () => {
                 className="flex flex-col justify-center items-center w-36 h-36 m-2 rounded-md bg-gray-100">
                 <p>{cityWeather.city}</p>
                 <p className="text-sky-800">{cityWeather.weather}</p>
+              </div>
+            ))}
+        </div>
+      </div>
+      <div className="flex flex-col w-full items-center h-72 mt-6">
+        <div className="flex text-4xl font-bold justify-center pr-5 ">
+          SEARCH CITY
+        </div>
+        <div className="flex w-2/3 justify-center items-center">
+          <input
+            type="text"
+            value={queryCity}
+            onChange={(e) => setQueryCity(e.target.value)}
+            placeholder="Enter City Name"
+            className="flex flex-grow my-5 mr-1 text-xl rounded-md border-4 border-green-800 px-2"
+          />
+          <button
+            onClick={handleSearch}
+            className="h-9 rounded-md bg-amber-400 text-lg px-2 active:scale-95 active:bg-amber-500">
+            Search
+          </button>
+        </div>
+        <div className="flex flex-col w-2/3 h-32 overflow-y-auto">
+          {searchedCities &&
+            searchedCities.map((city) => (
+              <div key={city.id} className="flex gap-2 justify-start">
+                <p>{city.country}</p>
+                <p>{city.name}</p>
+                <p>{city.longitude}</p>
+                <p>{city.latitude}</p>
               </div>
             ))}
         </div>
