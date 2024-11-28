@@ -4,6 +4,7 @@ import { fetchWeather, selectWeather } from "./weatherSlice";
 import { cityList } from "./cityList";
 import { searchCity } from "./searchCityApi";
 import { City } from "./searchCityApi";
+import SearchBar from "./components/SearchBar";
 
 export const Weather = () => {
   const [city, setCity] = useState<string>("");
@@ -35,24 +36,15 @@ export const Weather = () => {
   };
 
   return (
-    <div className="flex flex-col items-center w-full bg-green-300 font-mono">
-      <div className="flex w-full justify-center text-4xl font-bold mt-10">
-        CITY WEATHER
-      </div>
-      <div className="flex w-2/3 justify-center items-center">
-        <input
-          type="text"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          placeholder="Enter City Name"
-          className="flex flex-grow my-5 mr-1 text-xl rounded-md border-4 border-green-800 px-2"
-        />
-        <button
-          onClick={handleShow}
-          className="h-9 rounded-md bg-amber-400 text-lg px-2 active:scale-95 active:bg-amber-500">
-          Show
-        </button>
-      </div>
+    <div className="flex flex-col items-center w-full bg-green-300 font-mono pt-14">
+      <SearchBar
+        title="CITY WEATHER"
+        inputValue={city}
+        onInputChange={(e) => setCity(e.target.value)}
+        placeholder="Enter City Name"
+        buttonLabel="Show"
+        onButtonClick={handleShow}
+      />
       <div className="flex flex-col w-full h-20 text-xl ml-72 mb-10">
         {loading && (
           <p className="flex justify-start h-full text-lg">Loading...</p>
@@ -102,23 +94,14 @@ export const Weather = () => {
         </div>
       </div>
       <div className="flex flex-col w-full items-center h-72 mt-6">
-        <div className="flex text-4xl font-bold justify-center pr-5 ">
-          SEARCH CITY
-        </div>
-        <div className="flex w-2/3 justify-center items-center">
-          <input
-            type="text"
-            value={queryCity}
-            onChange={(e) => setQueryCity(e.target.value)}
-            placeholder="Enter City Name"
-            className="flex flex-grow my-5 mr-1 text-xl rounded-md border-4 border-green-800 px-2"
-          />
-          <button
-            onClick={handleSearch}
-            className="h-9 rounded-md bg-amber-400 text-lg px-2 active:scale-95 active:bg-amber-500">
-            Search
-          </button>
-        </div>
+        <SearchBar
+          title="SEARCH CITY"
+          inputValue={queryCity}
+          onInputChange={(e) => setQueryCity(e.target.value)}
+          placeholder="Enter City Name"
+          buttonLabel="Search"
+          onButtonClick={handleSearch}
+        />
         <div className="flex flex-col w-2/3 h-32 overflow-y-auto">
           {searchedCities &&
             searchedCities.map((city) => (
