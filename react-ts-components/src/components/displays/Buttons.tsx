@@ -17,6 +17,7 @@ type ButtonComponent = (props: ButtonProps) => JSX.Element;
 const buttonPaths = {
   tailwindcss: "../tailwindcss/Button.tsx",
   "css-modules": "../css-modules/Button.tsx",
+  "styled-components": "../styled-components/Button.tsx",
 };
 
 const Buttons = ({ styleTool }: ButtonsProps) => {
