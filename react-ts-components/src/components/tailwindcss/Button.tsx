@@ -1,10 +1,4 @@
-import React from "react";
-
-type ButtonProps = {
-  className?: string;
-  variant?: "default" | "outline" | "ghost";
-  size?: "sm" | "md" | "lg";
-} & React.ComponentProps<"button">;
+import { ButtonProps } from "../types/button";
 
 const Button = ({
   variant = "default",

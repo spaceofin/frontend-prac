@@ -1,16 +1,5 @@
+import { ButtonProps, StyleTool } from "../types/button";
 import { JSX, useEffect, useState } from "react";
-
-type StyleTool = "tailwindcss" | "styled-components" | "css-modules";
-
-type ButtonsProps = {
-  styleTool: StyleTool;
-};
-
-type ButtonProps = {
-  className?: string;
-  variant?: "default" | "outline" | "ghost";
-  size?: "sm" | "md" | "lg";
-} & React.ComponentProps<"button">;
 
 type ButtonComponent = (props: ButtonProps) => JSX.Element;
 
@@ -20,7 +9,7 @@ const buttonPaths = {
   "styled-components": "../styled-components/Button.tsx",
 };
 
-const Buttons = ({ styleTool }: ButtonsProps) => {
+const Buttons = ({ styleTool }: { styleTool: StyleTool }) => {
   const [Button, setButton] = useState<ButtonComponent | null>(null);
 
   useEffect(() => {

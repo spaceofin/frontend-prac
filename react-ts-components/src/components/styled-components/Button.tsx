@@ -1,10 +1,5 @@
-import React from "react";
+import { ButtonProps } from "../types/button";
 import styled from "styled-components";
-
-type ButtonProps = {
-  variant?: "default" | "outline" | "ghost";
-  size?: "sm" | "md" | "lg";
-} & React.ComponentProps<"button">;
 
 const buttonVariants = {
   default: `
