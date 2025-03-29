@@ -3,22 +3,19 @@ import { JSX, useEffect, useState } from "react";
 
 type ButtonComponent = (props: ButtonProps) => JSX.Element;
 
-const buttonPaths = {
-  tailwindcss: "../tailwindcss/Button.tsx",
-  "css-modules": "../css-modules/Button.tsx",
-  "styled-components": "../styled-components/Button.tsx",
-};
+const buttonPaths = import.meta.glob(
+  "../{tailwindcss,css-modules,styled-components}/Button.tsx"
+) as Record<string, () => Promise<{ default: ButtonComponent }>>;
 
 const Buttons = ({ styleTool }: { styleTool: StyleTool }) => {
   const [Button, setButton] = useState<ButtonComponent | null>(null);
 
   useEffect(() => {
     const loadButton = async () => {
-      const buttonPath = buttonPaths[styleTool as keyof typeof buttonPaths];
-      if (buttonPath) {
-        const { default: buttonModule } = await import(buttonPath);
-        setButton(() => buttonModule);
-      }
+      const { default: buttonModule } = await buttonPaths[
+        `../${styleTool}/Button.tsx`
+      ]();
+      setButton(() => buttonModule);
     };
 
     loadButton();
