@@ -47,7 +47,7 @@ const StyledButton = styled.button<ButtonProps>`
   align-items: center;
   justify-content: center;
   border-radius: 0.375rem;
-  transition: all 0.3s ease;
+  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
 
   ${({ variant }) => buttonVariants[variant || "default"]}
   ${({ size }) => buttonSizes[size || "md"]}

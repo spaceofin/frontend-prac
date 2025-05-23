@@ -8,7 +8,7 @@ const Input = ({
 }: InputProps) => {
   const variants: Record<InputVariant, string> = {
     default: "border bg-gray-200 border-none",
-    outline: "border border-gray-400 border-1 border-gray-700",
+    outline: "border border-gray-400",
     underline: "border-b-2 border-gray-800",
   };
 

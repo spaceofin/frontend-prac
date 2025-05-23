@@ -1,4 +1,5 @@
-import { ButtonProps, StyleTool } from "../types/button";
+import { ButtonProps } from "../types/button";
+import { StyleTool } from "../types/common";
 import { JSX, useEffect, useState } from "react";
 
 type ButtonComponent = (props: ButtonProps) => JSX.Element;
