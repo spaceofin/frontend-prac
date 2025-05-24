@@ -7,8 +7,8 @@ const Input = ({
   ...props
 }: InputProps) => {
   const variants: Record<InputVariant, string> = {
-    default: "border bg-gray-200 border-none",
-    outline: "border border-gray-400",
+    default: "border bg-gray-200 border-none rounded-md",
+    outline: "border border-gray-400 rounded-md",
     underline: "border-b-2 border-gray-800",
   };
 
@@ -21,8 +21,8 @@ const Input = ({
   return (
     <input
       className={`transition-all ${variants[variant]} ${sizes[size]} ${
-        variant !== "underline" ? "rounded-md" : ""
-      } ${className || ""}`}
+        className || ""
+      }`}
       {...props}
     />
   );

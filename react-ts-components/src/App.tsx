@@ -1,5 +1,5 @@
 import Buttons from "./components/displays/Buttons";
-import Inputs from "./components/displays/inputs";
+import Inputs from "./components/displays/Inputs";
 
 function App() {
   return (
@@ -11,6 +11,7 @@ function App() {
       </div>
       <div className="flex gap-10">
         <Inputs styleTool="tailwindcss" />
+        <Inputs styleTool="styled-components" />
       </div>
     </div>
   );
