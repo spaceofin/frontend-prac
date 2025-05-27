@@ -14,8 +14,8 @@ const Select = ({
 
   const sizes: Record<SelectSize, string> = {
     sm: "px-1 py-1 h-8 text-sm",
-    md: "px-4 py-2 h-10 text-md",
-    lg: "px-6 py-2 h-12 text-lg font-bold",
+    md: "px-2 py-2 h-10 text-md",
+    lg: "px-4 py-2 h-12 text-lg",
   };
 
   return (
