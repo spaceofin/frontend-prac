@@ -1,7 +1,6 @@
 import Buttons from "./components/displays/Buttons";
 import Inputs from "./components/displays/Inputs";
 import Selects from "./components/displays/Selects";
-import Select from "./components/tailwindcss/Select";
 
 function App() {
   return (
@@ -18,6 +17,7 @@ function App() {
       </div>
       <div className="flex gap-10">
         <Selects styleTool="tailwindcss" />
+        <Selects styleTool="styled-components" />
       </div>
     </div>
   );
