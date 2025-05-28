@@ -18,6 +18,7 @@ function App() {
       <div className="flex gap-10">
         <Selects styleTool="tailwindcss" />
         <Selects styleTool="styled-components" />
+        <Selects styleTool="css-modules" />
       </div>
     </div>
   );
