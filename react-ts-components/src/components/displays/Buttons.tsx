@@ -5,7 +5,7 @@ import { JSX, useEffect, useState } from "react";
 type ButtonComponent = (props: ButtonProps) => JSX.Element;
 
 const buttonPaths = import.meta.glob(
-  "../{tailwindcss,css-modules,styled-components}/Button.tsx"
+  "../{tailwindcss,css-modules,styled-components,tailwindcss-cn}/Button.tsx"
 ) as Record<string, () => Promise<{ default: ButtonComponent }>>;
 
 const Buttons = ({ styleTool }: { styleTool: StyleTool }) => {

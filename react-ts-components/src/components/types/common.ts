@@ -1,1 +1,5 @@
-export type StyleTool = "tailwindcss" | "styled-components" | "css-modules";
+export type StyleTool =
+  | "tailwindcss"
+  | "styled-components"
+  | "css-modules"
+  | "tailwindcss-cn";

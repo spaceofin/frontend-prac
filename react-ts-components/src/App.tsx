@@ -9,6 +9,7 @@ function App() {
         <Buttons styleTool="tailwindcss" />
         <Buttons styleTool="styled-components" />
         <Buttons styleTool="css-modules" />
+        <Buttons styleTool="tailwindcss-cn" />
       </div>
       <div className="flex gap-10">
         <Inputs styleTool="tailwindcss" />
