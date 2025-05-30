@@ -5,7 +5,7 @@ import { SelectProps } from "../types/select";
 type SelectComponent = (props: SelectProps) => JSX.Element;
 
 const selectPaths = import.meta.glob(
-  "../{tailwindcss,css-modules,styled-components}/Select.tsx"
+  "../{tailwindcss,css-modules,styled-components,tailwindcss-cn}/Select.tsx"
 ) as Record<string, () => Promise<{ default: SelectComponent }>>;
 
 const options = [

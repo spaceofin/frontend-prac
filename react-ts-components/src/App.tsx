@@ -21,6 +21,7 @@ function App() {
         <Selects styleTool="tailwindcss" />
         <Selects styleTool="styled-components" />
         <Selects styleTool="css-modules" />
+        <Selects styleTool="tailwindcss-cn" />
       </div>
     </div>
   );
