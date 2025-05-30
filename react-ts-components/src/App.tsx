@@ -15,6 +15,7 @@ function App() {
         <Inputs styleTool="tailwindcss" />
         <Inputs styleTool="styled-components" />
         <Inputs styleTool="css-modules" />
+        <Inputs styleTool="tailwindcss-cn" />
       </div>
       <div className="flex gap-10">
         <Selects styleTool="tailwindcss" />

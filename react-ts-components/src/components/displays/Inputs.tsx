@@ -5,7 +5,7 @@ import { InputProps } from "../types/input";
 type InputComponent = (props: InputProps) => JSX.Element;
 
 const inputPaths = import.meta.glob(
-  "../{tailwindcss,css-modules,styled-components}/Input.tsx"
+  "../{tailwindcss,css-modules,styled-components,tailwindcss-cn}/Input.tsx"
 ) as Record<string, () => Promise<{ default: InputComponent }>>;
 
 const Inputs = ({ styleTool }: { styleTool: StyleTool }) => {
