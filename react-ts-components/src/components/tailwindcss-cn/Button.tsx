@@ -1,6 +1,5 @@
 import { cn } from "../../utils/cn";
 import { cva, type VariantProps } from "class-variance-authority";
-import { ButtonHTMLAttributes } from "react";
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center rounded-md transition-all",
@@ -24,9 +23,8 @@ const buttonVariants = cva(
   }
 );
 
-export interface ButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {}
+type ButtonProps = React.ComponentProps<"button"> &
+  VariantProps<typeof buttonVariants>;
 
 const Button = ({ className, variant, size, ...props }: ButtonProps) => {
   return (
