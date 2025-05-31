@@ -25,7 +25,10 @@ function App() {
         <Selects styleTool="tailwindcss-cn" />
       </div>
       <div>
-        <Alerts styleTool="tailwindcss">Alert</Alerts>
+        <div className="flex gap-10">
+          <Alerts styleTool="tailwindcss">Alert</Alerts>
+          <Alerts styleTool="tailwindcss-cn">Alert</Alerts>
+        </div>
       </div>
     </div>
   );
