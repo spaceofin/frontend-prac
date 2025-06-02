@@ -27,6 +27,7 @@ function App() {
       <div>
         <div className="flex gap-10">
           <Alerts styleTool="tailwindcss">Alert</Alerts>
+          <Alerts styleTool="styled-components">Alert</Alerts>
           <Alerts styleTool="tailwindcss-cn">Alert</Alerts>
         </div>
       </div>
